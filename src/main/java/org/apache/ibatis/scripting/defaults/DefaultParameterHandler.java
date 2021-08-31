@@ -51,12 +51,12 @@ public class DefaultParameterHandler implements ParameterHandler {
     this.typeHandlerRegistry = mappedStatement.getConfiguration().getTypeHandlerRegistry();
     this.parameterObject = parameterObject;
     this.boundSql = boundSql;
-  }
+}
 
   @Override
   public Object getParameterObject() {
     return parameterObject;
-  }
+}
 
   @Override
   public void setParameters(PreparedStatement ps) {
@@ -70,29 +70,28 @@ public class DefaultParameterHandler implements ParameterHandler {
           String propertyName = parameterMapping.getProperty();
           if (boundSql.hasAdditionalParameter(propertyName)) { // issue #448 ask first for additional params
             value = boundSql.getAdditionalParameter(propertyName);
-          } else if (parameterObject == null) {
+} else if (parameterObject == null) {
             value = null;
-          } else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+} else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
             value = parameterObject;
-          } else {
+} else {
             MetaObject metaObject = configuration.newMetaObject(parameterObject);
             value = metaObject.getValue(propertyName);
-          }
+}
           TypeHandler typeHandler = parameterMapping.getTypeHandler();
           JdbcType jdbcType = parameterMapping.getJdbcType();
           if (value == null && jdbcType == null) {
             jdbcType = configuration.getJdbcTypeForNull();
-          }
+}
           try {
             typeHandler.setParameter(ps, i + 1, value, jdbcType);
-          } catch (TypeException e) {
+} catch (TypeException e) {
             throw new TypeException("Could not set parameters for mapping: " + parameterMapping + ". Cause: " + e, e);
-          } catch (SQLException e) {
+} catch (SQLException e) {
             throw new TypeException("Could not set parameters for mapping: " + parameterMapping + ". Cause: " + e, e);
-          }
-        }
-      }
-    }
-  }
-
+}
+}
+}
+}
+}
 }

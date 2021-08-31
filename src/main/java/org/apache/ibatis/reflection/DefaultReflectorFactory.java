@@ -23,17 +23,17 @@ public class DefaultReflectorFactory implements ReflectorFactory {
   private final ConcurrentMap<Class<?>, Reflector> reflectorMap = new ConcurrentHashMap<Class<?>, Reflector>();
 
   public DefaultReflectorFactory() {
-  }
+}
 
   @Override
   public boolean isClassCacheEnabled() {
     return classCacheEnabled;
-  }
+}
 
   @Override
   public void setClassCacheEnabled(boolean classCacheEnabled) {
     this.classCacheEnabled = classCacheEnabled;
-  }
+}
 
   @Override
   public Reflector findForClass(Class<?> type) {
@@ -43,11 +43,10 @@ public class DefaultReflectorFactory implements ReflectorFactory {
       if (cached == null) {
         cached = new Reflector(type);
         reflectorMap.put(type, cached);
-      }
+}
       return cached;
-    } else {
+} else {
       return new Reflector(type);
-    }
-  }
-
+}
+}
 }

@@ -52,5 +52,4 @@ public interface TransactionFactory {
    * @since 3.1.0
    */
   Transaction newTransaction(DataSource dataSource, TransactionIsolationLevel level, boolean autoCommit);
-
 }

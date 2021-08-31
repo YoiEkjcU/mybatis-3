@@ -31,10 +31,10 @@ public class ClassLoaderWrapper {
   ClassLoaderWrapper() {
     try {
       systemClassLoader = ClassLoader.getSystemClassLoader();
-    } catch (SecurityException ignored) {
+} catch (SecurityException ignored) {
       // AccessControlException on Google App Engine   
-    }
-  }
+}
+}
   
   /*
    * Get a resource as a URL using the current class path
@@ -44,7 +44,7 @@ public class ClassLoaderWrapper {
    */
   public URL getResourceAsURL(String resource) {
     return getResourceAsURL(resource, getClassLoaders(null));
-  }
+}
 
   /*
    * Get a resource from the classpath, starting with a specific class loader
@@ -55,7 +55,7 @@ public class ClassLoaderWrapper {
    */
   public URL getResourceAsURL(String resource, ClassLoader classLoader) {
     return getResourceAsURL(resource, getClassLoaders(classLoader));
-  }
+}
 
   /*
    * Get a resource from the classpath
@@ -65,7 +65,7 @@ public class ClassLoaderWrapper {
    */
   public InputStream getResourceAsStream(String resource) {
     return getResourceAsStream(resource, getClassLoaders(null));
-  }
+}
 
   /*
    * Get a resource from the classpath, starting with a specific class loader
@@ -76,7 +76,7 @@ public class ClassLoaderWrapper {
    */
   public InputStream getResourceAsStream(String resource, ClassLoader classLoader) {
     return getResourceAsStream(resource, getClassLoaders(classLoader));
-  }
+}
 
   /*
    * Find a class on the classpath (or die trying)
@@ -87,7 +87,7 @@ public class ClassLoaderWrapper {
    */
   public Class<?> classForName(String name) throws ClassNotFoundException {
     return classForName(name, getClassLoaders(null));
-  }
+}
 
   /*
    * Find a class on the classpath, starting with a specific classloader (or die trying)
@@ -99,7 +99,7 @@ public class ClassLoaderWrapper {
    */
   public Class<?> classForName(String name, ClassLoader classLoader) throws ClassNotFoundException {
     return classForName(name, getClassLoaders(classLoader));
-  }
+}
 
   /*
    * Try to get a resource from a group of classloaders
@@ -118,15 +118,15 @@ public class ClassLoaderWrapper {
         // now, some class loaders want this leading "/", so we'll add it and try again if we didn't find the resource
         if (null == returnValue) {
           returnValue = cl.getResourceAsStream("/" + resource);
-        }
+}
 
         if (null != returnValue) {
           return returnValue;
-        }
-      }
-    }
+}
+}
+}
     return null;
-  }
+}
 
   /*
    * Get a resource as a URL using the current class path
@@ -150,22 +150,19 @@ public class ClassLoaderWrapper {
         // and try again if we didn't find the resource
         if (null == url) {
           url = cl.getResource("/" + resource);
-        }
+}
 
         // "It's always in the last place I look for it!"
         // ... because only an idiot would keep looking for it after finding it, so stop looking already.
         if (null != url) {
           return url;
-        }
-
-      }
-
-    }
+}
+}
+}
 
     // didn't find it anywhere.
     return null;
-
-  }
+}
 
   /*
    * Attempt to load a class from a group of classloaders
@@ -187,19 +184,15 @@ public class ClassLoaderWrapper {
 
           if (null != c) {
             return c;
-          }
-
-        } catch (ClassNotFoundException e) {
+}
+} catch (ClassNotFoundException e) {
           // we'll ignore this until all classloaders fail to locate the class
-        }
-
-      }
-
-    }
+}
+}
+}
 
     throw new ClassNotFoundException("Cannot find class: " + name);
-
-  }
+}
 
   ClassLoader[] getClassLoaders(ClassLoader classLoader) {
     return new ClassLoader[]{
@@ -208,6 +201,5 @@ public class ClassLoaderWrapper {
         Thread.currentThread().getContextClassLoader(),
         getClass().getClassLoader(),
         systemClassLoader};
-  }
-
+}
 }

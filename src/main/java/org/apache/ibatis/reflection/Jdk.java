@@ -33,11 +33,11 @@ public class Jdk {
     try {
       Resources.classForName("java.lang.reflect.Parameter");
       available = true;
-    } catch (ClassNotFoundException e) {
+} catch (ClassNotFoundException e) {
       // ignore
-    }
+}
     parameterExists = available;
-  }
+}
 
   public static final boolean dateAndTimeApiExists;
 
@@ -46,13 +46,13 @@ public class Jdk {
     try {
       Resources.classForName("java.time.Clock");
       available = true;
-    } catch (ClassNotFoundException e) {
+} catch (ClassNotFoundException e) {
       // ignore
-    }
+}
     dateAndTimeApiExists = available;
-  }
+}
 
   private Jdk() {
     super();
-  }
+}
 }

@@ -50,7 +50,7 @@ public abstract class AbstractEnhancedDeserializationProxy {
     this.constructorArgs = constructorArgs;
     this.reloadingPropertyLock = new Object();
     this.reloadingProperty = false;
-  }
+}
 
   public final Object invoke(Object enhanced, Method method, Object[] args) throws Throwable {
     final String methodName = method.getName();
@@ -59,13 +59,13 @@ public abstract class AbstractEnhancedDeserializationProxy {
         final Object original;
         if (constructorArgTypes.isEmpty()) {
           original = objectFactory.create(type);
-        } else {
+} else {
           original = objectFactory.create(type, constructorArgTypes, constructorArgs);
-        }
+}
 
         PropertyCopier.copyBeanProperties(type, enhanced, original);
         return this.newSerialStateHolder(original, unloadedProperties, objectFactory, constructorArgTypes, constructorArgs);
-      } else {
+} else {
         synchronized (this.reloadingPropertyLock) {
           if (!FINALIZE_METHOD.equals(methodName) && PropertyNamer.isProperty(methodName) && !reloadingProperty) {
             final String property = PropertyNamer.methodToProperty(methodName);
@@ -76,25 +76,25 @@ public abstract class AbstractEnhancedDeserializationProxy {
                 try {
                   reloadingProperty = true;
                   loadPair.load(enhanced);
-                } finally {
+} finally {
                   reloadingProperty = false;
-                }
-              } else {
+}
+} else {
                 /* I'm not sure if this case can really happen or is just in tests -
                  * we have an unread property but no loadPair to load it. */
                 throw new ExecutorException("An attempt has been made to read a not loaded lazy property '"
                         + property + "' of a disconnected object");
-              }
-            }
-          }
+}
+}
+}
 
           return enhanced;
-        }
-      }
-    } catch (Throwable t) {
+}
+}
+} catch (Throwable t) {
       throw ExceptionUtil.unwrapThrowable(t);
-    }
-  }
+}
+}
 
   protected abstract AbstractSerialStateHolder newSerialStateHolder(
           Object userBean,
@@ -102,5 +102,4 @@ public abstract class AbstractEnhancedDeserializationProxy {
           ObjectFactory objectFactory,
           List<Class<?>> constructorArgTypes,
           List<Object> constructorArgs);
-
 }

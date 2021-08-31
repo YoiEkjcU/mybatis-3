@@ -55,14 +55,14 @@ class PooledConnection implements InvocationHandler {
     this.lastUsedTimestamp = System.currentTimeMillis();
     this.valid = true;
     this.proxyConnection = (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACES, this);
-  }
+}
 
   /*
    * Invalidates the connection
    */
   public void invalidate() {
     valid = false;
-  }
+}
 
   /*
    * Method to see if the connection is usable
@@ -71,7 +71,7 @@ class PooledConnection implements InvocationHandler {
    */
   public boolean isValid() {
     return valid && realConnection != null && dataSource.pingConnection(this);
-  }
+}
 
   /*
    * Getter for the *real* connection that this wraps
@@ -80,7 +80,7 @@ class PooledConnection implements InvocationHandler {
    */
   public Connection getRealConnection() {
     return realConnection;
-  }
+}
 
   /*
    * Getter for the proxy for the connection
@@ -89,7 +89,7 @@ class PooledConnection implements InvocationHandler {
    */
   public Connection getProxyConnection() {
     return proxyConnection;
-  }
+}
 
   /*
    * Gets the hashcode of the real connection (or 0 if it is null)
@@ -98,7 +98,7 @@ class PooledConnection implements InvocationHandler {
    */
   public int getRealHashCode() {
     return realConnection == null ? 0 : realConnection.hashCode();
-  }
+}
 
   /*
    * Getter for the connection type (based on url + user + password)
@@ -107,7 +107,7 @@ class PooledConnection implements InvocationHandler {
    */
   public int getConnectionTypeCode() {
     return connectionTypeCode;
-  }
+}
 
   /*
    * Setter for the connection type
@@ -116,7 +116,7 @@ class PooledConnection implements InvocationHandler {
    */
   public void setConnectionTypeCode(int connectionTypeCode) {
     this.connectionTypeCode = connectionTypeCode;
-  }
+}
 
   /*
    * Getter for the time that the connection was created
@@ -125,7 +125,7 @@ class PooledConnection implements InvocationHandler {
    */
   public long getCreatedTimestamp() {
     return createdTimestamp;
-  }
+}
 
   /*
    * Setter for the time that the connection was created
@@ -134,7 +134,7 @@ class PooledConnection implements InvocationHandler {
    */
   public void setCreatedTimestamp(long createdTimestamp) {
     this.createdTimestamp = createdTimestamp;
-  }
+}
 
   /*
    * Getter for the time that the connection was last used
@@ -143,7 +143,7 @@ class PooledConnection implements InvocationHandler {
    */
   public long getLastUsedTimestamp() {
     return lastUsedTimestamp;
-  }
+}
 
   /*
    * Setter for the time that the connection was last used
@@ -152,7 +152,7 @@ class PooledConnection implements InvocationHandler {
    */
   public void setLastUsedTimestamp(long lastUsedTimestamp) {
     this.lastUsedTimestamp = lastUsedTimestamp;
-  }
+}
 
   /*
    * Getter for the time since this connection was last used
@@ -161,7 +161,7 @@ class PooledConnection implements InvocationHandler {
    */
   public long getTimeElapsedSinceLastUse() {
     return System.currentTimeMillis() - lastUsedTimestamp;
-  }
+}
 
   /*
    * Getter for the age of the connection
@@ -170,7 +170,7 @@ class PooledConnection implements InvocationHandler {
    */
   public long getAge() {
     return System.currentTimeMillis() - createdTimestamp;
-  }
+}
 
   /*
    * Getter for the timestamp that this connection was checked out
@@ -179,7 +179,7 @@ class PooledConnection implements InvocationHandler {
    */
   public long getCheckoutTimestamp() {
     return checkoutTimestamp;
-  }
+}
 
   /*
    * Setter for the timestamp that this connection was checked out
@@ -188,7 +188,7 @@ class PooledConnection implements InvocationHandler {
    */
   public void setCheckoutTimestamp(long timestamp) {
     this.checkoutTimestamp = timestamp;
-  }
+}
 
   /*
    * Getter for the time that this connection has been checked out
@@ -197,12 +197,12 @@ class PooledConnection implements InvocationHandler {
    */
   public long getCheckoutTime() {
     return System.currentTimeMillis() - checkoutTimestamp;
-  }
+}
 
   @Override
   public int hashCode() {
     return hashCode;
-  }
+}
 
   /*
    * Allows comparing this connection to another
@@ -214,12 +214,12 @@ class PooledConnection implements InvocationHandler {
   public boolean equals(Object obj) {
     if (obj instanceof PooledConnection) {
       return realConnection.hashCode() == ((PooledConnection) obj).realConnection.hashCode();
-    } else if (obj instanceof Connection) {
+} else if (obj instanceof Connection) {
       return hashCode == obj.hashCode();
-    } else {
+} else {
       return false;
-    }
-  }
+}
+}
 
   /*
    * Required for InvocationHandler implementation.
@@ -235,24 +235,23 @@ class PooledConnection implements InvocationHandler {
     if (CLOSE.hashCode() == methodName.hashCode() && CLOSE.equals(methodName)) {
       dataSource.pushConnection(this);
       return null;
-    } else {
+} else {
       try {
         if (!Object.class.equals(method.getDeclaringClass())) {
           // issue #579 toString() should never fail
           // throw an SQLException instead of a Runtime
           checkConnection();
-        }
+}
         return method.invoke(realConnection, args);
-      } catch (Throwable t) {
+} catch (Throwable t) {
         throw ExceptionUtil.unwrapThrowable(t);
-      }
-    }
-  }
+}
+}
+}
 
   private void checkConnection() throws SQLException {
     if (!valid) {
       throw new SQLException("Error accessing PooledConnection. Connection is invalid.");
-    }
-  }
-
+}
+}
 }

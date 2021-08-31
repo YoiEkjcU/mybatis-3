@@ -42,7 +42,7 @@ public class DefaultMapResultHandler<K, V> implements ResultHandler<V> {
     this.reflectorFactory = reflectorFactory;
     this.mappedResults = objectFactory.create(Map.class);
     this.mapKey = mapKey;
-  }
+}
 
   @Override
   public void handleResult(ResultContext<? extends V> context) {
@@ -51,9 +51,9 @@ public class DefaultMapResultHandler<K, V> implements ResultHandler<V> {
     // TODO is that assignment always true?
     final K key = (K) mo.getValue(mapKey);
     mappedResults.put(key, value);
-  }
+}
 
   public Map<K, V> getMappedResults() {
     return mappedResults;
-  }
+}
 }

@@ -42,11 +42,11 @@ public class SimpleTypeRegistry {
     SIMPLE_TYPE_SET.add(Class.class);
     SIMPLE_TYPE_SET.add(BigInteger.class);
     SIMPLE_TYPE_SET.add(BigDecimal.class);
-  }
+}
 
   private SimpleTypeRegistry() {
     // Prevent Instantiation
-  }
+}
 
   /*
    * Tells us if the class passed in is a known common type
@@ -56,6 +56,5 @@ public class SimpleTypeRegistry {
    */
   public static boolean isSimpleType(Class<?> clazz) {
     return SIMPLE_TYPE_SET.contains(clazz);
-  }
-
+}
 }

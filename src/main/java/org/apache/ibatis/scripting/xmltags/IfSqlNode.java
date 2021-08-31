@@ -27,15 +27,14 @@ public class IfSqlNode implements SqlNode {
     this.test = test;
     this.contents = contents;
     this.evaluator = new ExpressionEvaluator();
-  }
+}
 
   @Override
   public boolean apply(DynamicContext context) {
     if (evaluator.evaluateBoolean(test, context.getBindings())) {
       contents.apply(context);
       return true;
-    }
+}
     return false;
-  }
-
+}
 }

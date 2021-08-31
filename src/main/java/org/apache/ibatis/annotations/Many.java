@@ -32,5 +32,4 @@ public @interface Many {
   String select() default "";
 
   FetchType fetchType() default FetchType.DEFAULT;
-
 }

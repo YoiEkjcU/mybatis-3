@@ -36,5 +36,4 @@ public interface SqlSessionFactory {
   SqlSession openSession(ExecutorType execType, Connection connection);
 
   Configuration getConfiguration();
-
 }

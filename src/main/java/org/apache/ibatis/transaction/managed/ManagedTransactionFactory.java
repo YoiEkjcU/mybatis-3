@@ -41,14 +41,14 @@ public class ManagedTransactionFactory implements TransactionFactory {
       String closeConnectionProperty = props.getProperty("closeConnection");
       if (closeConnectionProperty != null) {
         closeConnection = Boolean.valueOf(closeConnectionProperty);
-      }
-    }
-  }
+}
+}
+}
 
   @Override
   public Transaction newTransaction(Connection conn) {
     return new ManagedTransaction(conn, closeConnection);
-  }
+}
 
   @Override
   public Transaction newTransaction(DataSource ds, TransactionIsolationLevel level, boolean autoCommit) {
@@ -56,5 +56,5 @@ public class ManagedTransactionFactory implements TransactionFactory {
     // controlled by an external manager.  It's silently ignored so that
     // code remains portable between managed and unmanaged configurations.
     return new ManagedTransaction(ds, level, closeConnection);
-  }
+}
 }

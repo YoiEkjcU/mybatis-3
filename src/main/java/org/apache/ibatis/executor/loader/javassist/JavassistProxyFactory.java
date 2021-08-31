@@ -51,24 +51,24 @@ public class JavassistProxyFactory implements org.apache.ibatis.executor.loader.
   public JavassistProxyFactory() {
     try {
       Resources.classForName("javassist.util.proxy.ProxyFactory");
-    } catch (Throwable e) {
+} catch (Throwable e) {
       throw new IllegalStateException("Cannot enable lazy loading because Javassist is not available. Add Javassist to your classpath.", e);
-    }
-  }
+}
+}
 
   @Override
   public Object createProxy(Object target, ResultLoaderMap lazyLoader, Configuration configuration, ObjectFactory objectFactory, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
     return EnhancedResultObjectProxyImpl.createProxy(target, lazyLoader, configuration, objectFactory, constructorArgTypes, constructorArgs);
-  }
+}
 
   public Object createDeserializationProxy(Object target, Map<String, ResultLoaderMap.LoadPair> unloadedProperties, ObjectFactory objectFactory, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
     return EnhancedDeserializationProxyImpl.createProxy(target, unloadedProperties, objectFactory, constructorArgTypes, constructorArgs);
-  }
+}
 
   @Override
   public void setProperties(Properties properties) {
       // Not Implemented
-  }
+}
 
   static Object crateProxy(Class<?> type, MethodHandler callback, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
 
@@ -80,24 +80,24 @@ public class JavassistProxyFactory implements org.apache.ibatis.executor.loader.
       // ObjectOutputStream will call writeReplace of objects returned by writeReplace
       if (log.isDebugEnabled()) {
         log.debug(WRITE_REPLACE_METHOD + " method was found on bean " + type + ", make sure it returns this");
-      }
-    } catch (NoSuchMethodException e) {
+}
+} catch (NoSuchMethodException e) {
       enhancer.setInterfaces(new Class[]{WriteReplaceInterface.class});
-    } catch (SecurityException e) {
+} catch (SecurityException e) {
       // nothing to do here
-    }
+}
 
     Object enhanced;
     Class<?>[] typesArray = constructorArgTypes.toArray(new Class[constructorArgTypes.size()]);
     Object[] valuesArray = constructorArgs.toArray(new Object[constructorArgs.size()]);
     try {
       enhanced = enhancer.create(typesArray, valuesArray);
-    } catch (Exception e) {
+} catch (Exception e) {
       throw new ExecutorException("Error creating lazy proxy.  Cause: " + e, e);
-    }
+}
     ((Proxy) enhanced).setHandler(callback);
     return enhanced;
-  }
+}
 
   private static class EnhancedResultObjectProxyImpl implements MethodHandler {
 
@@ -117,7 +117,7 @@ public class JavassistProxyFactory implements org.apache.ibatis.executor.loader.
       this.objectFactory = objectFactory;
       this.constructorArgTypes = constructorArgTypes;
       this.constructorArgs = constructorArgs;
-    }
+}
 
     public static Object createProxy(Object target, ResultLoaderMap lazyLoader, Configuration configuration, ObjectFactory objectFactory, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
       final Class<?> type = target.getClass();
@@ -125,7 +125,7 @@ public class JavassistProxyFactory implements org.apache.ibatis.executor.loader.
       Object enhanced = crateProxy(type, callback, constructorArgTypes, constructorArgs);
       PropertyCopier.copyBeanProperties(type, target, enhanced);
       return enhanced;
-    }
+}
 
     @Override
     public Object invoke(Object enhanced, Method method, Method methodProxy, Object[] args) throws Throwable {
@@ -136,44 +136,44 @@ public class JavassistProxyFactory implements org.apache.ibatis.executor.loader.
             Object original;
             if (constructorArgTypes.isEmpty()) {
               original = objectFactory.create(type);
-            } else {
+} else {
               original = objectFactory.create(type, constructorArgTypes, constructorArgs);
-            }
+}
             PropertyCopier.copyBeanProperties(type, enhanced, original);
             if (lazyLoader.size() > 0) {
               return new JavassistSerialStateHolder(original, lazyLoader.getProperties(), objectFactory, constructorArgTypes, constructorArgs);
-            } else {
+} else {
               return original;
-            }
-          } else {
+}
+} else {
             if (lazyLoader.size() > 0 && !FINALIZE_METHOD.equals(methodName)) {
               if (aggressive || lazyLoadTriggerMethods.contains(methodName)) {
                 lazyLoader.loadAll();
-              } else if (PropertyNamer.isSetter(methodName)) {
+} else if (PropertyNamer.isSetter(methodName)) {
                 final String property = PropertyNamer.methodToProperty(methodName);
                 lazyLoader.remove(property);
-              } else if (PropertyNamer.isGetter(methodName)) {
+} else if (PropertyNamer.isGetter(methodName)) {
                 final String property = PropertyNamer.methodToProperty(methodName);
                 if (lazyLoader.hasLoader(property)) {
                   lazyLoader.load(property);
-                }
-              }
-            }
-          }
-        }
+}
+}
+}
+}
+}
         return methodProxy.invoke(enhanced, args);
-      } catch (Throwable t) {
+} catch (Throwable t) {
         throw ExceptionUtil.unwrapThrowable(t);
-      }
-    }
-  }
+}
+}
+}
 
   private static class EnhancedDeserializationProxyImpl extends AbstractEnhancedDeserializationProxy implements MethodHandler {
 
     private EnhancedDeserializationProxyImpl(Class<?> type, Map<String, ResultLoaderMap.LoadPair> unloadedProperties, ObjectFactory objectFactory,
             List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
       super(type, unloadedProperties, objectFactory, constructorArgTypes, constructorArgs);
-    }
+}
 
     public static Object createProxy(Object target, Map<String, ResultLoaderMap.LoadPair> unloadedProperties, ObjectFactory objectFactory,
             List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
@@ -182,18 +182,18 @@ public class JavassistProxyFactory implements org.apache.ibatis.executor.loader.
       Object enhanced = crateProxy(type, callback, constructorArgTypes, constructorArgs);
       PropertyCopier.copyBeanProperties(type, target, enhanced);
       return enhanced;
-    }
+}
 
     @Override
     public Object invoke(Object enhanced, Method method, Method methodProxy, Object[] args) throws Throwable {
       final Object o = super.invoke(enhanced, method, args);
       return o instanceof AbstractSerialStateHolder ? o : methodProxy.invoke(o, args);
-    }
+}
 
     @Override
     protected AbstractSerialStateHolder newSerialStateHolder(Object userBean, Map<String, ResultLoaderMap.LoadPair> unloadedProperties, ObjectFactory objectFactory,
             List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
       return new JavassistSerialStateHolder(userBean, unloadedProperties, objectFactory, constructorArgTypes, constructorArgs);
-    }
-  }
+}
+}
 }

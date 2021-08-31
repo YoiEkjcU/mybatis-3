@@ -24,6 +24,5 @@ public class PooledDataSourceFactory extends UnpooledDataSourceFactory {
 
   public PooledDataSourceFactory() {
     this.dataSource = new PooledDataSource();
-  }
-
+}
 }

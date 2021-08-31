@@ -31,18 +31,18 @@ public class MethodInvoker implements Invoker {
 
     if (method.getParameterTypes().length == 1) {
       type = method.getParameterTypes()[0];
-    } else {
+} else {
       type = method.getReturnType();
-    }
-  }
+}
+}
 
   @Override
   public Object invoke(Object target, Object[] args) throws IllegalAccessException, InvocationTargetException {
     return method.invoke(target, args);
-  }
+}
 
   @Override
   public Class<?> getType() {
     return type;
-  }
+}
 }

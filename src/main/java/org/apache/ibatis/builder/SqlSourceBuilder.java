@@ -37,14 +37,14 @@ public class SqlSourceBuilder extends BaseBuilder {
 
   public SqlSourceBuilder(Configuration configuration) {
     super(configuration);
-  }
+}
 
   public SqlSource parse(String originalSql, Class<?> parameterType, Map<String, Object> additionalParameters) {
     ParameterMappingTokenHandler handler = new ParameterMappingTokenHandler(configuration, parameterType, additionalParameters);
     GenericTokenParser parser = new GenericTokenParser("#{", "}", handler);
     String sql = parser.parse(originalSql);
     return new StaticSqlSource(configuration, sql, handler.getParameterMappings());
-  }
+}
 
   private static class ParameterMappingTokenHandler extends BaseBuilder implements TokenHandler {
 
@@ -56,17 +56,17 @@ public class SqlSourceBuilder extends BaseBuilder {
       super(configuration);
       this.parameterType = parameterType;
       this.metaParameters = configuration.newMetaObject(additionalParameters);
-    }
+}
 
     public List<ParameterMapping> getParameterMappings() {
       return parameterMappings;
-    }
+}
 
     @Override
     public String handleToken(String content) {
       parameterMappings.add(buildParameterMapping(content));
       return "?";
-    }
+}
 
     private ParameterMapping buildParameterMapping(String content) {
       Map<String, String> propertiesMap = parseParameterMapping(content);
@@ -74,20 +74,20 @@ public class SqlSourceBuilder extends BaseBuilder {
       Class<?> propertyType;
       if (metaParameters.hasGetter(property)) { // issue #448 get type from additional params
         propertyType = metaParameters.getGetterType(property);
-      } else if (typeHandlerRegistry.hasTypeHandler(parameterType)) {
+} else if (typeHandlerRegistry.hasTypeHandler(parameterType)) {
         propertyType = parameterType;
-      } else if (JdbcType.CURSOR.name().equals(propertiesMap.get("jdbcType"))) {
+} else if (JdbcType.CURSOR.name().equals(propertiesMap.get("jdbcType"))) {
         propertyType = java.sql.ResultSet.class;
-      } else if (property == null || Map.class.isAssignableFrom(parameterType)) {
+} else if (property == null || Map.class.isAssignableFrom(parameterType)) {
         propertyType = Object.class;
-      } else {
+} else {
         MetaClass metaClass = MetaClass.forClass(parameterType, configuration.getReflectorFactory());
         if (metaClass.hasGetter(property)) {
           propertyType = metaClass.getGetterType(property);
-        } else {
+} else {
           propertyType = Object.class;
-        }
-      }
+}
+}
       ParameterMapping.Builder builder = new ParameterMapping.Builder(configuration, property, propertyType);
       Class<?> javaType = propertyType;
       String typeHandlerAlias = null;
@@ -97,41 +97,40 @@ public class SqlSourceBuilder extends BaseBuilder {
         if ("javaType".equals(name)) {
           javaType = resolveClass(value);
           builder.javaType(javaType);
-        } else if ("jdbcType".equals(name)) {
+} else if ("jdbcType".equals(name)) {
           builder.jdbcType(resolveJdbcType(value));
-        } else if ("mode".equals(name)) {
+} else if ("mode".equals(name)) {
           builder.mode(resolveParameterMode(value));
-        } else if ("numericScale".equals(name)) {
+} else if ("numericScale".equals(name)) {
           builder.numericScale(Integer.valueOf(value));
-        } else if ("resultMap".equals(name)) {
+} else if ("resultMap".equals(name)) {
           builder.resultMapId(value);
-        } else if ("typeHandler".equals(name)) {
+} else if ("typeHandler".equals(name)) {
           typeHandlerAlias = value;
-        } else if ("jdbcTypeName".equals(name)) {
+} else if ("jdbcTypeName".equals(name)) {
           builder.jdbcTypeName(value);
-        } else if ("property".equals(name)) {
+} else if ("property".equals(name)) {
           // Do Nothing
-        } else if ("expression".equals(name)) {
+} else if ("expression".equals(name)) {
           throw new BuilderException("Expression based parameters are not supported yet");
-        } else {
+} else {
           throw new BuilderException("An invalid property '" + name + "' was found in mapping #{" + content + "}.  Valid properties are " + parameterProperties);
-        }
-      }
+}
+}
       if (typeHandlerAlias != null) {
         builder.typeHandler(resolveTypeHandler(javaType, typeHandlerAlias));
-      }
+}
       return builder.build();
-    }
+}
 
     private Map<String, String> parseParameterMapping(String content) {
       try {
         return new ParameterExpression(content);
-      } catch (BuilderException ex) {
+} catch (BuilderException ex) {
         throw ex;
-      } catch (Exception ex) {
+} catch (Exception ex) {
         throw new BuilderException("Parsing error was found in mapping #{" + content + "}.  Check syntax #{property|(expression), var1=value1, var2=value2, ...} ", ex);
-      }
-    }
-  }
-
+}
+}
+}
 }

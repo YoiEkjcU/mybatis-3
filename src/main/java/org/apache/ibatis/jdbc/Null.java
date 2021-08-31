@@ -75,13 +75,13 @@ public enum Null {
   private Null(TypeHandler<?> typeHandler, JdbcType jdbcType) {
     this.typeHandler = typeHandler;
     this.jdbcType = jdbcType;
-  }
+}
 
   public TypeHandler<?> getTypeHandler() {
     return typeHandler;
-  }
+}
 
   public JdbcType getJdbcType() {
     return jdbcType;
-  }
+}
 }

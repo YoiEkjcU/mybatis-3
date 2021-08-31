@@ -47,30 +47,30 @@ public class BoundSql {
     this.parameterObject = parameterObject;
     this.additionalParameters = new HashMap<String, Object>();
     this.metaParameters = configuration.newMetaObject(additionalParameters);
-  }
+}
 
   public String getSql() {
     return sql;
-  }
+}
 
   public List<ParameterMapping> getParameterMappings() {
     return parameterMappings;
-  }
+}
 
   public Object getParameterObject() {
     return parameterObject;
-  }
+}
 
   public boolean hasAdditionalParameter(String name) {
     String paramName = new PropertyTokenizer(name).getName();
     return additionalParameters.containsKey(paramName);
-  }
+}
 
   public void setAdditionalParameter(String name, Object value) {
     metaParameters.setValue(name, value);
-  }
+}
 
   public Object getAdditionalParameter(String name) {
     return metaParameters.getValue(name);
-  }
+}
 }

@@ -34,8 +34,8 @@ public enum AutoMappingUnknownColumnBehavior {
     @Override
     public void doAction(MappedStatement mappedStatement, String columnName, String property, Class<?> propertyType) {
       // do nothing
-    }
-  },
+}
+},
 
   /**
    * Output warning log.
@@ -45,8 +45,8 @@ public enum AutoMappingUnknownColumnBehavior {
     @Override
     public void doAction(MappedStatement mappedStatement, String columnName, String property, Class<?> propertyType) {
       log.warn(buildMessage(mappedStatement, columnName, property, propertyType));
-    }
-  },
+}
+},
 
   /**
    * Fail mapping.
@@ -56,8 +56,8 @@ public enum AutoMappingUnknownColumnBehavior {
     @Override
     public void doAction(MappedStatement mappedStatement, String columnName, String property, Class<?> propertyType) {
       throw new SqlSessionException(buildMessage(mappedStatement, columnName, property, propertyType));
-    }
-  };
+}
+};
 
   /**
    * Logger
@@ -86,6 +86,5 @@ public enum AutoMappingUnknownColumnBehavior {
       .append(",").append("propertyType=").append(propertyType != null ? propertyType.getName() : null)
       .append("]")
       .toString();
-  }
-
+}
 }

@@ -30,19 +30,18 @@ public class RowBounds {
   public RowBounds() {
     this.offset = NO_ROW_OFFSET;
     this.limit = NO_ROW_LIMIT;
-  }
+}
 
   public RowBounds(int offset, int limit) {
     this.offset = offset;
     this.limit = limit;
-  }
+}
 
   public int getOffset() {
     return offset;
-  }
+}
 
   public int getLimit() {
     return limit;
-  }
-
+}
 }

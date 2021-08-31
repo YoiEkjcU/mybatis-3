@@ -32,7 +32,7 @@ public class BlobTypeHandler extends BaseTypeHandler<byte[]> {
       throws SQLException {
     ByteArrayInputStream bis = new ByteArrayInputStream(parameter);
     ps.setBinaryStream(i, bis, parameter.length);
-  }
+}
 
   @Override
   public byte[] getNullableResult(ResultSet rs, String columnName)
@@ -41,9 +41,9 @@ public class BlobTypeHandler extends BaseTypeHandler<byte[]> {
     byte[] returnValue = null;
     if (null != blob) {
       returnValue = blob.getBytes(1, (int) blob.length());
-    }
+}
     return returnValue;
-  }
+}
 
   @Override
   public byte[] getNullableResult(ResultSet rs, int columnIndex)
@@ -52,9 +52,9 @@ public class BlobTypeHandler extends BaseTypeHandler<byte[]> {
     byte[] returnValue = null;
     if (null != blob) {
       returnValue = blob.getBytes(1, (int) blob.length());
-    }
+}
     return returnValue;
-  }
+}
 
   @Override
   public byte[] getNullableResult(CallableStatement cs, int columnIndex)
@@ -63,7 +63,7 @@ public class BlobTypeHandler extends BaseTypeHandler<byte[]> {
     byte[] returnValue = null;
     if (null != blob) {
       returnValue = blob.getBytes(1, (int) blob.length());
-    }
+}
     return returnValue;
-  }
+}
 }

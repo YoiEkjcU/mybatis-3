@@ -35,18 +35,18 @@ public class PrimitiveTypes {
     add(long.class, Long.class);
     add(short.class, Short.class);
     add(void.class, Void.class);
-  }
+}
 
   private void add(final Class<?> primitiveType, final Class<?> wrapperType) {
     primitiveToWrappers.put(primitiveType, wrapperType);
     wrappersToPrimitives.put(wrapperType, primitiveType);
-  }
+}
 
   public Class<?> getWrapper(final Class<?> primitiveType) {
     return primitiveToWrappers.get(primitiveType);
-  }
+}
 
   public Class<?> getPrimitive(final Class<?> wrapperType) {
     return wrappersToPrimitives.get(wrapperType);
-  }
+}
 }

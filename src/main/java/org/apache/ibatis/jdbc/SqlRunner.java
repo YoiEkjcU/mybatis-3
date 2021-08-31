@@ -46,11 +46,11 @@ public class SqlRunner {
   public SqlRunner(Connection connection) {
     this.connection = connection;
     this.typeHandlerRegistry = new TypeHandlerRegistry();
-  }
+}
 
   public void setUseGeneratedKeySupport(boolean useGeneratedKeySupport) {
     this.useGeneratedKeySupport = useGeneratedKeySupport;
-  }
+}
 
   /*
    * Executes a SELECT statement that returns one row.
@@ -64,9 +64,9 @@ public class SqlRunner {
     List<Map<String, Object>> results = selectAll(sql, args);
     if (results.size() != 1) {
       throw new SQLException("Statement returned " + results.size() + " results where exactly one (1) was expected.");
-    }
+}
     return results.get(0);
-  }
+}
 
   /*
    * Executes a SELECT statement that returns multiple rows.
@@ -82,14 +82,14 @@ public class SqlRunner {
       setParameters(ps, args);
       ResultSet rs = ps.executeQuery();
       return getResults(rs);
-    } finally {
+} finally {
       try {
         ps.close();
-      } catch (SQLException e) {
+} catch (SQLException e) {
         //ignore
-      }
-    }
-  }
+}
+}
+}
 
   /*
    * Executes an INSERT statement.
@@ -103,9 +103,9 @@ public class SqlRunner {
     PreparedStatement ps;
     if (useGeneratedKeySupport) {
       ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-    } else {
+} else {
       ps = connection.prepareStatement(sql);
-    }
+}
 
     try {
       setParameters(ps, args);
@@ -120,22 +120,22 @@ public class SqlRunner {
             if (genkey != null) {
               try {
                 return Integer.parseInt(genkey.toString());
-              } catch (NumberFormatException e) {
+} catch (NumberFormatException e) {
                 //ignore, no numeric key support
-              }
-            }
-          }
-        }
-      }
+}
+}
+}
+}
+}
       return NO_GENERATED_KEY;
-    } finally {
+} finally {
       try {
         ps.close();
-      } catch (SQLException e) {
+} catch (SQLException e) {
         //ignore
-      }
-    }
-  }
+}
+}
+}
 
   /*
    * Executes an UPDATE statement.
@@ -150,14 +150,14 @@ public class SqlRunner {
     try {
       setParameters(ps, args);
       return ps.executeUpdate();
-    } finally {
+} finally {
       try {
         ps.close();
-      } catch (SQLException e) {
+} catch (SQLException e) {
         //ignore
-      }
-    }
-  }
+}
+}
+}
 
   /*
    * Executes a DELETE statement.
@@ -169,7 +169,7 @@ public class SqlRunner {
    */
   public int delete(String sql, Object... args) throws SQLException {
     return update(sql, args);
-  }
+}
 
   /*
    * Executes any string as a JDBC Statement.
@@ -182,39 +182,39 @@ public class SqlRunner {
     Statement stmt = connection.createStatement();
     try {
       stmt.execute(sql);
-    } finally {
+} finally {
       try {
         stmt.close();
-      } catch (SQLException e) {
+} catch (SQLException e) {
         //ignore
-      }
-    }
-  }
+}
+}
+}
 
   public void closeConnection() {
     try {
       connection.close();
-    } catch (SQLException e) {
+} catch (SQLException e) {
       //ignore
-    }
-  }
+}
+}
 
   private void setParameters(PreparedStatement ps, Object... args) throws SQLException {
     for (int i = 0, n = args.length; i < n; i++) {
       if (args[i] == null) {
         throw new SQLException("SqlRunner requires an instance of Null to represent typed null values for JDBC compatibility");
-      } else if (args[i] instanceof Null) {
+} else if (args[i] instanceof Null) {
         ((Null) args[i]).getTypeHandler().setParameter(ps, i + 1, null, ((Null) args[i]).getJdbcType());
-      } else {
+} else {
         TypeHandler typeHandler = typeHandlerRegistry.getTypeHandler(args[i].getClass());
         if (typeHandler == null) {
           throw new SQLException("SqlRunner could not find a TypeHandler instance for " + args[i].getClass());
-        } else {
+} else {
           typeHandler.setParameter(ps, i + 1, args[i], null);
-        }
-      }
-    }
-  }
+}
+}
+}
+}
 
   private List<Map<String, Object>> getResults(ResultSet rs) throws SQLException {
     try {
@@ -229,31 +229,30 @@ public class SqlRunner {
           TypeHandler<?> typeHandler = typeHandlerRegistry.getTypeHandler(type);
           if (typeHandler == null) {
             typeHandler = typeHandlerRegistry.getTypeHandler(Object.class);
-          }
+}
           typeHandlers.add(typeHandler);
-        } catch (Exception e) {
+} catch (Exception e) {
           typeHandlers.add(typeHandlerRegistry.getTypeHandler(Object.class));
-        }
-      }
+}
+}
       while (rs.next()) {
         Map<String, Object> row = new HashMap<String, Object>();
         for (int i = 0, n = columns.size(); i < n; i++) {
           String name = columns.get(i);
           TypeHandler<?> handler = typeHandlers.get(i);
           row.put(name.toUpperCase(Locale.ENGLISH), handler.getResult(rs, name));
-        }
+}
         list.add(row);
-      }
+}
       return list;
-    } finally {
+} finally {
       if (rs != null) {
         try {
             rs.close();
-        } catch (Exception e) {
+} catch (Exception e) {
           // ignore
-        }
-      }
-    }
-  }
-
+}
+}
+}
+}
 }

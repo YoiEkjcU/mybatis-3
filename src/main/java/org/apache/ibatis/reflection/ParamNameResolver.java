@@ -60,48 +60,48 @@ public class ParamNameResolver {
       if (isSpecialParameter(paramTypes[paramIndex])) {
         // skip special parameters
         continue;
-      }
+}
       String name = null;
       for (Annotation annotation : paramAnnotations[paramIndex]) {
         if (annotation instanceof Param) {
           hasParamAnnotation = true;
           name = ((Param) annotation).value();
           break;
-        }
-      }
+}
+}
       if (name == null) {
         // @Param was not specified.
         if (config.isUseActualParamName()) {
           name = getActualParamName(method, paramIndex);
-        }
+}
         if (name == null) {
           // use the parameter index as the name ("0", "1", ...)
           // gcode issue #71
           name = String.valueOf(map.size());
-        }
-      }
+}
+}
       map.put(paramIndex, name);
-    }
+}
     names = Collections.unmodifiableSortedMap(map);
-  }
+}
 
   private String getActualParamName(Method method, int paramIndex) {
     if (Jdk.parameterExists) {
       return ParamNameUtil.getParamNames(method).get(paramIndex);
-    }
+}
     return null;
-  }
+}
 
   private static boolean isSpecialParameter(Class<?> clazz) {
     return RowBounds.class.isAssignableFrom(clazz) || ResultHandler.class.isAssignableFrom(clazz);
-  }
+}
 
   /**
    * Returns parameter names referenced by SQL providers.
    */
   public String[] getNames() {
     return names.values().toArray(new String[0]);
-  }
+}
 
   /**
    * <p>
@@ -115,9 +115,9 @@ public class ParamNameResolver {
     final int paramCount = names.size();
     if (args == null || paramCount == 0) {
       return null;
-    } else if (!hasParamAnnotation && paramCount == 1) {
+} else if (!hasParamAnnotation && paramCount == 1) {
       return args[names.firstKey()];
-    } else {
+} else {
       final Map<String, Object> param = new ParamMap<Object>();
       int i = 0;
       for (Map.Entry<Integer, String> entry : names.entrySet()) {
@@ -127,10 +127,10 @@ public class ParamNameResolver {
         // ensure not to overwrite parameter named with @Param
         if (!names.containsValue(genericParamName)) {
           param.put(genericParamName, args[entry.getKey()]);
-        }
+}
         i++;
-      }
+}
       return param;
-    }
-  }
+}
+}
 }

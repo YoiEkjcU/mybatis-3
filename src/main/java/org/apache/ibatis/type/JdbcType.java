@@ -73,15 +73,14 @@ public enum JdbcType {
   static {
     for (JdbcType type : JdbcType.values()) {
       codeLookup.put(type.TYPE_CODE, type);
-    }
-  }
+}
+}
 
   JdbcType(int code) {
     this.TYPE_CODE = code;
-  }
+}
 
   public static JdbcType forCode(int code)  {
     return codeLookup.get(code);
-  }
-
+}
 }

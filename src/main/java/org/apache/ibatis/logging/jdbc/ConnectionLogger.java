@@ -39,7 +39,7 @@ public final class ConnectionLogger extends BaseJdbcLogger implements Invocation
   private ConnectionLogger(Connection conn, Log statementLog, int queryStack) {
     super(statementLog, queryStack);
     this.connection = conn;
-  }
+}
 
   @Override
   public Object invoke(Object proxy, Method method, Object[] params)
@@ -47,32 +47,32 @@ public final class ConnectionLogger extends BaseJdbcLogger implements Invocation
     try {
       if (Object.class.equals(method.getDeclaringClass())) {
         return method.invoke(this, params);
-      }    
+}    
       if ("prepareStatement".equals(method.getName())) {
         if (isDebugEnabled()) {
           debug(" Preparing: " + removeBreakingWhitespace((String) params[0]), true);
-        }        
+}        
         PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
         stmt = PreparedStatementLogger.newInstance(stmt, statementLog, queryStack);
         return stmt;
-      } else if ("prepareCall".equals(method.getName())) {
+} else if ("prepareCall".equals(method.getName())) {
         if (isDebugEnabled()) {
           debug(" Preparing: " + removeBreakingWhitespace((String) params[0]), true);
-        }        
+}        
         PreparedStatement stmt = (PreparedStatement) method.invoke(connection, params);
         stmt = PreparedStatementLogger.newInstance(stmt, statementLog, queryStack);
         return stmt;
-      } else if ("createStatement".equals(method.getName())) {
+} else if ("createStatement".equals(method.getName())) {
         Statement stmt = (Statement) method.invoke(connection, params);
         stmt = StatementLogger.newInstance(stmt, statementLog, queryStack);
         return stmt;
-      } else {
+} else {
         return method.invoke(connection, params);
-      }
-    } catch (Throwable t) {
+}
+} catch (Throwable t) {
       throw ExceptionUtil.unwrapThrowable(t);
-    }
-  }
+}
+}
 
   /*
    * Creates a logging version of a connection
@@ -84,7 +84,7 @@ public final class ConnectionLogger extends BaseJdbcLogger implements Invocation
     InvocationHandler handler = new ConnectionLogger(conn, statementLog, queryStack);
     ClassLoader cl = Connection.class.getClassLoader();
     return (Connection) Proxy.newProxyInstance(cl, new Class[]{Connection.class}, handler);
-  }
+}
 
   /*
    * return the wrapped connection
@@ -93,6 +93,5 @@ public final class ConnectionLogger extends BaseJdbcLogger implements Invocation
    */
   public Connection getConnection() {
     return connection;
-  }
-
+}
 }

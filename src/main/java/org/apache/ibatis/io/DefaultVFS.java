@@ -48,7 +48,7 @@ public class DefaultVFS extends VFS {
   @Override
   public boolean isValid() {
     return true;
-  }
+}
 
   @Override
   public List<String> list(URL url, String path) throws IOException {
@@ -63,9 +63,9 @@ public class DefaultVFS extends VFS {
         is = jarUrl.openStream();
         if (log.isDebugEnabled()) {
           log.debug("Listing " + url);
-        }
+}
         resources = listResources(new JarInputStream(is), path);
-      }
+}
       else {
         List<String> children = new ArrayList<String>();
         try {
@@ -76,15 +76,15 @@ public class DefaultVFS extends VFS {
             JarInputStream jarInput = new JarInputStream(is);
             if (log.isDebugEnabled()) {
               log.debug("Listing " + url);
-            }
+}
             for (JarEntry entry; (entry = jarInput.getNextJarEntry()) != null;) {
               if (log.isDebugEnabled()) {
                 log.debug("Jar entry: " + entry.getName());
-              }
+}
               children.add(entry.getName());
-            }
+}
             jarInput.close();
-          }
+}
           else {
             /*
              * Some servlet containers allow reading from directory resources like a
@@ -100,22 +100,22 @@ public class DefaultVFS extends VFS {
             for (String line; (line = reader.readLine()) != null;) {
               if (log.isDebugEnabled()) {
                 log.debug("Reader entry: " + line);
-              }
+}
               lines.add(line);
               if (getResources(path + "/" + line).isEmpty()) {
                 lines.clear();
                 break;
-              }
-            }
+}
+}
 
             if (!lines.isEmpty()) {
               if (log.isDebugEnabled()) {
                 log.debug("Listing " + url);
-              }
+}
               children.addAll(lines);
-            }
-          }
-        } catch (FileNotFoundException e) {
+}
+}
+} catch (FileNotFoundException e) {
           /*
            * For file URLs the openStream() call might fail, depending on the servlet
            * container, because directories can't be opened for reading. If that happens,
@@ -125,25 +125,25 @@ public class DefaultVFS extends VFS {
             File file = new File(url.getFile());
             if (log.isDebugEnabled()) {
                 log.debug("Listing directory " + file.getAbsolutePath());
-            }
+}
             if (file.isDirectory()) {
               if (log.isDebugEnabled()) {
                   log.debug("Listing " + url);
-              }
+}
               children = Arrays.asList(file.list());
-            }
-          }
+}
+}
           else {
             // No idea where the exception came from so rethrow it
             throw e;
-          }
-        }
+}
+}
 
         // The URL prefix to use when recursively listing child resources
         String prefix = url.toExternalForm();
         if (!prefix.endsWith("/")) {
           prefix = prefix + "/";
-        }
+}
 
         // Iterate over immediate children, adding files and recursing into directories
         for (String child : children) {
@@ -151,20 +151,20 @@ public class DefaultVFS extends VFS {
           resources.add(resourcePath);
           URL childUrl = new URL(prefix + child);
           resources.addAll(list(childUrl, resourcePath));
-        }
-      }
+}
+}
 
       return resources;
-    } finally {
+} finally {
       if (is != null) {
         try {
           is.close();
-        } catch (Exception e) {
+} catch (Exception e) {
           // Ignore
-        }
-      }
-    }
-  }
+}
+}
+}
+}
 
   /**
    * List the names of the entries in the given {@link JarInputStream} that begin with the
@@ -179,10 +179,10 @@ public class DefaultVFS extends VFS {
     // Include the leading and trailing slash when matching names
     if (!path.startsWith("/")) {
       path = "/" + path;
-    }
+}
     if (!path.endsWith("/")) {
       path = path + "/";
-    }
+}
 
     // Iterate over the entries and collect those that begin with the requested path
     List<String> resources = new ArrayList<String>();
@@ -192,20 +192,20 @@ public class DefaultVFS extends VFS {
         String name = entry.getName();
         if (!name.startsWith("/")) {
           name = "/" + name;
-        }
+}
 
         // Check file name
         if (name.startsWith(path)) {
           if (log.isDebugEnabled()) {
             log.debug("Found resource: " + name);
-          }
+}
           // Trim leading slash
           resources.add(name.substring(1));
-        }
-      }
-    }
+}
+}
+}
     return resources;
-  }
+}
 
   /**
    * Attempts to deconstruct the given URL to find a JAR file containing the resource referenced
@@ -220,7 +220,7 @@ public class DefaultVFS extends VFS {
   protected URL findJarForResource(URL url) throws MalformedURLException {
     if (log.isDebugEnabled()) {
       log.debug("Find JAR URL: " + url);
-    }
+}
 
     // If the file part of the URL is itself a URL, then that URL probably points to the JAR
     try {
@@ -228,11 +228,11 @@ public class DefaultVFS extends VFS {
         url = new URL(url.getFile());
         if (log.isDebugEnabled()) {
           log.debug("Inner URL: " + url);
-        }
-      }
-    } catch (MalformedURLException e) {
+}
+}
+} catch (MalformedURLException e) {
       // This will happen at some point and serves as a break in the loop
-    }
+}
 
     // Look for the .jar extension and chop off everything after that
     StringBuilder jarUrl = new StringBuilder(url.toExternalForm());
@@ -241,26 +241,26 @@ public class DefaultVFS extends VFS {
       jarUrl.setLength(index + 4);
       if (log.isDebugEnabled()) {
         log.debug("Extracted JAR URL: " + jarUrl);
-      }
-    }
+}
+}
     else {
       if (log.isDebugEnabled()) {
         log.debug("Not a JAR: " + jarUrl);
-      }
+}
       return null;
-    }
+}
 
     // Try to open and test it
     try {
       URL testUrl = new URL(jarUrl.toString());
       if (isJar(testUrl)) {
         return testUrl;
-      }
+}
       else {
         // WebLogic fix: check if the URL's file exists in the filesystem.
         if (log.isDebugEnabled()) {
           log.debug("Not a JAR: " + jarUrl);
-        }
+}
         jarUrl.replace(0, jarUrl.length(), testUrl.getFile());
         File file = new File(jarUrl.toString());
 
@@ -268,30 +268,30 @@ public class DefaultVFS extends VFS {
         if (!file.exists()) {
           try {
             file = new File(URLEncoder.encode(jarUrl.toString(), "UTF-8"));
-          } catch (UnsupportedEncodingException e) {
+} catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Unsupported encoding?  UTF-8?  That's unpossible.");
-          }
-        }
+}
+}
 
         if (file.exists()) {
           if (log.isDebugEnabled()) {
             log.debug("Trying real file: " + file.getAbsolutePath());
-          }
+}
           testUrl = file.toURI().toURL();
           if (isJar(testUrl)) {
             return testUrl;
-          }
-        }
-      }
-    } catch (MalformedURLException e) {
+}
+}
+}
+} catch (MalformedURLException e) {
       log.warn("Invalid JAR URL: " + jarUrl);
-    }
+}
 
     if (log.isDebugEnabled()) {
       log.debug("Not a JAR: " + jarUrl);
-    }
+}
     return null;
-  }
+}
 
   /**
    * Converts a Java package name to a path that can be looked up with a call to
@@ -301,7 +301,7 @@ public class DefaultVFS extends VFS {
    */
   protected String getPackagePath(String packageName) {
     return packageName == null ? null : packageName.replace('.', '/');
-  }
+}
 
   /**
    * Returns true if the resource located at the given URL is a JAR file.
@@ -310,7 +310,7 @@ public class DefaultVFS extends VFS {
    */
   protected boolean isJar(URL url) {
     return isJar(url, new byte[JAR_MAGIC.length]);
-  }
+}
 
   /**
    * Returns true if the resource located at the given URL is a JAR file.
@@ -328,21 +328,21 @@ public class DefaultVFS extends VFS {
       if (Arrays.equals(buffer, JAR_MAGIC)) {
         if (log.isDebugEnabled()) {
           log.debug("Found JAR: " + url);
-        }
+}
         return true;
-      }
-    } catch (Exception e) {
+}
+} catch (Exception e) {
       // Failure to read the stream means this is not a JAR
-    } finally {
+} finally {
       if (is != null) {
         try {
           is.close();
-        } catch (Exception e) {
+} catch (Exception e) {
           // Ignore
-        }
-      }
-    }
+}
+}
+}
 
     return false;
-  }
+}
 }

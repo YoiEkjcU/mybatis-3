@@ -41,10 +41,9 @@ public class ResultMapResolver {
     this.discriminator = discriminator;
     this.resultMappings = resultMappings;
     this.autoMapping = autoMapping;
-  }
+}
 
   public ResultMap resolve() {
     return assistant.addResultMap(this.id, this.type, this.extend, this.discriminator, this.resultMappings, this.autoMapping);
-  }
-
+}
 }

@@ -41,7 +41,7 @@ public class CallableStatementHandler extends BaseStatementHandler {
 
   public CallableStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
     super(executor, mappedStatement, parameter, rowBounds, resultHandler, boundSql);
-  }
+}
 
   @Override
   public int update(Statement statement) throws SQLException {
@@ -53,13 +53,13 @@ public class CallableStatementHandler extends BaseStatementHandler {
     keyGenerator.processAfter(executor, mappedStatement, cs, parameterObject);
     resultSetHandler.handleOutputParameters(cs);
     return rows;
-  }
+}
 
   @Override
   public void batch(Statement statement) throws SQLException {
     CallableStatement cs = (CallableStatement) statement;
     cs.addBatch();
-  }
+}
 
   @Override
   public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
@@ -68,7 +68,7 @@ public class CallableStatementHandler extends BaseStatementHandler {
     List<E> resultList = resultSetHandler.<E>handleResultSets(cs);
     resultSetHandler.handleOutputParameters(cs);
     return resultList;
-  }
+}
 
   @Override
   public <E> Cursor<E> queryCursor(Statement statement) throws SQLException {
@@ -77,23 +77,23 @@ public class CallableStatementHandler extends BaseStatementHandler {
     Cursor<E> resultList = resultSetHandler.<E>handleCursorResultSets(cs);
     resultSetHandler.handleOutputParameters(cs);
     return resultList;
-  }
+}
 
   @Override
   protected Statement instantiateStatement(Connection connection) throws SQLException {
     String sql = boundSql.getSql();
     if (mappedStatement.getResultSetType() != null) {
       return connection.prepareCall(sql, mappedStatement.getResultSetType().getValue(), ResultSet.CONCUR_READ_ONLY);
-    } else {
+} else {
       return connection.prepareCall(sql);
-    }
-  }
+}
+}
 
   @Override
   public void parameterize(Statement statement) throws SQLException {
     registerOutputParameters((CallableStatement) statement);
     parameterHandler.setParameters((CallableStatement) statement);
-  }
+}
 
   private void registerOutputParameters(CallableStatement cs) throws SQLException {
     List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
@@ -102,19 +102,18 @@ public class CallableStatementHandler extends BaseStatementHandler {
       if (parameterMapping.getMode() == ParameterMode.OUT || parameterMapping.getMode() == ParameterMode.INOUT) {
         if (null == parameterMapping.getJdbcType()) {
           throw new ExecutorException("The JDBC Type must be specified for output parameter.  Parameter: " + parameterMapping.getProperty());
-        } else {
+} else {
           if (parameterMapping.getNumericScale() != null && (parameterMapping.getJdbcType() == JdbcType.NUMERIC || parameterMapping.getJdbcType() == JdbcType.DECIMAL)) {
             cs.registerOutParameter(i + 1, parameterMapping.getJdbcType().TYPE_CODE, parameterMapping.getNumericScale());
-          } else {
+} else {
             if (parameterMapping.getJdbcTypeName() == null) {
               cs.registerOutParameter(i + 1, parameterMapping.getJdbcType().TYPE_CODE);
-            } else {
+} else {
               cs.registerOutParameter(i + 1, parameterMapping.getJdbcType().TYPE_CODE, parameterMapping.getJdbcTypeName());
-            }
-          }
-        }
-      }
-    }
-  }
-
+}
+}
+}
+}
+}
+}
 }

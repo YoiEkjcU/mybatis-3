@@ -49,7 +49,7 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
   private Object[] constructorArgs;
 
   public AbstractSerialStateHolder() {
-  }
+}
 
   public AbstractSerialStateHolder(
           final Object userBean,
@@ -62,7 +62,7 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
     this.objectFactory = objectFactory;
     this.constructorArgTypes = constructorArgTypes.toArray(new Class<?>[constructorArgTypes.size()]);
     this.constructorArgs = constructorArgs.toArray(new Object[constructorArgs.size()]);
-  }
+}
 
   @Override
   public final void writeExternal(final ObjectOutput out) throws IOException {
@@ -73,7 +73,7 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
       os = new ObjectOutputStream(baos);
       firstRound = true;
       stream.set(os);
-    }
+}
 
     os.writeObject(this.userBean);
     os.writeObject(this.unloadedProperties);
@@ -86,25 +86,25 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
 
     if (firstRound) {
       stream.remove();
-    }
-  }
+}
+}
 
   @Override
   public final void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
     final Object data = in.readObject();
     if (data.getClass().isArray()) {
       this.userBeanBytes = (byte[]) data;
-    } else {
+} else {
       this.userBean = data;
-    }
-  }
+}
+}
 
   @SuppressWarnings("unchecked")
   protected final Object readResolve() throws ObjectStreamException {
     /* Second run */
     if (this.userBean != null && this.userBeanBytes.length == 0) {
       return this.userBean;
-    }
+}
 
     /* First run */
     try {
@@ -114,18 +114,18 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
       this.objectFactory = (ObjectFactory) in.readObject();
       this.constructorArgTypes = (Class<?>[]) in.readObject();
       this.constructorArgs = (Object[]) in.readObject();
-    } catch (final IOException ex) {
+} catch (final IOException ex) {
       throw (ObjectStreamException) new StreamCorruptedException().initCause(ex);
-    } catch (final ClassNotFoundException ex) {
+} catch (final ClassNotFoundException ex) {
       throw (ObjectStreamException) new InvalidClassException(ex.getLocalizedMessage()).initCause(ex);
-    }
+}
 
     final Map<String, ResultLoaderMap.LoadPair> arrayProps = new HashMap<String, ResultLoaderMap.LoadPair>(this.unloadedProperties);
     final List<Class<?>> arrayTypes = Arrays.asList(this.constructorArgTypes);
     final List<Object> arrayValues = Arrays.asList(this.constructorArgs);
 
     return this.createDeserializationProxy(userBean, arrayProps, objectFactory, arrayTypes, arrayValues);
-  }
+}
 
   protected abstract Object createDeserializationProxy(Object target, Map<String, ResultLoaderMap.LoadPair> unloadedProperties, ObjectFactory objectFactory,
           List<Class<?>> constructorArgTypes, List<Object> constructorArgs);

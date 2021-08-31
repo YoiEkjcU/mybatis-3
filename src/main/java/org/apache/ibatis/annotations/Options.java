@@ -42,7 +42,7 @@ public @interface Options {
     TRUE,
     /** Does not flush cache regardless of the statement type. */
     FALSE
-  }
+}
 
   boolean useCache() default true;
 

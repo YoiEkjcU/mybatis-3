@@ -31,5 +31,4 @@ public interface InitializingObject {
    * @throws Exception in the event of misconfiguration (such as failure to set an essential property) or if initialization fails
    */
   void initialize() throws Exception;
-
 }

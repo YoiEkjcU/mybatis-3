@@ -42,27 +42,27 @@ public class JBoss6VFS extends VFS {
 
     VirtualFile(Object virtualFile) {
       this.virtualFile = virtualFile;
-    }
+}
 
     String getPathNameRelativeTo(VirtualFile parent) {
       try {
         return invoke(getPathNameRelativeTo, virtualFile, parent.virtualFile);
-      } catch (IOException e) {
+} catch (IOException e) {
         // This exception is not thrown by the called method
         log.error("This should not be possible. VirtualFile.getPathNameRelativeTo() threw IOException.");
         return null;
-      }
-    }
+}
+}
 
     List<VirtualFile> getChildren() throws IOException {
       List<?> objects = invoke(getChildrenRecursively, virtualFile);
       List<VirtualFile> children = new ArrayList<VirtualFile>(objects.size());
       for (Object object : objects) {
         children.add(new VirtualFile(object));
-      }
+}
       return children;
-    }
-  }
+}
+}
 
   /** A class that mimics a tiny subset of the JBoss VFS class. */
   static class VFS {
@@ -71,13 +71,13 @@ public class JBoss6VFS extends VFS {
 
     private VFS() {
       // Prevent Instantiation
-    }
+}
 
     static VirtualFile getChild(URL url) throws IOException {
       Object o = invoke(getChild, VFS, url);
       return o == null ? null : new VirtualFile(o);
-    }
-  }
+}
+}
 
   /** Flag that indicates if this VFS is valid for the current environment. */
   private static Boolean valid;
@@ -103,8 +103,8 @@ public class JBoss6VFS extends VFS {
       checkReturnType(VFS.getChild, VirtualFile.VirtualFile);
       checkReturnType(VirtualFile.getChildrenRecursively, List.class);
       checkReturnType(VirtualFile.getPathNameRelativeTo, String.class);
-    }
-  }
+}
+}
 
   /**
    * Verifies that the provided object reference is null. If it is null, then this VFS is marked
@@ -115,9 +115,9 @@ public class JBoss6VFS extends VFS {
   protected static <T> T checkNotNull(T object) {
     if (object == null) {
       setInvalid();
-    }
+}
     return object;
-  }
+}
 
   /**
    * Verifies that the return type of a method is what it is expected to be. If it is not, then
@@ -133,25 +133,25 @@ public class JBoss6VFS extends VFS {
           + "(..) should return " + expected.getName() + " but returns "
           + method.getReturnType().getName() + " instead.");
       setInvalid();
-    }
-  }
+}
+}
 
   /** Mark this {@link VFS} as invalid for the current environment. */
   protected static void setInvalid() {
     if (JBoss6VFS.valid == Boolean.TRUE) {
       log.debug("JBoss 6 VFS API is not available in this environment.");
       JBoss6VFS.valid = Boolean.FALSE;
-    }
-  }
+}
+}
 
   static {
     initialize();
-  }
+}
 
   @Override
   public boolean isValid() {
     return valid;
-  }
+}
 
   @Override
   public List<String> list(URL url, String path) throws IOException {
@@ -159,18 +159,18 @@ public class JBoss6VFS extends VFS {
     directory = VFS.getChild(url);
     if (directory == null) {
       return Collections.emptyList();
-    }
+}
 
     if (!path.endsWith("/")) {
       path += "/";
-    }
+}
 
     List<VirtualFile> children = directory.getChildren();
     List<String> names = new ArrayList<String>(children.size());
     for (VirtualFile vf : children) {
       names.add(path + vf.getPathNameRelativeTo(directory));
-    }
+}
 
     return names;
-  }
+}
 }

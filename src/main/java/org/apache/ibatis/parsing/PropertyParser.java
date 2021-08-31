@@ -48,13 +48,13 @@ public class PropertyParser {
 
   private PropertyParser() {
     // Prevent Instantiation
-  }
+}
 
   public static String parse(String string, Properties variables) {
     VariableTokenHandler handler = new VariableTokenHandler(variables);
     GenericTokenParser parser = new GenericTokenParser("${", "}", handler);
     return parser.parse(string);
-  }
+}
 
   private static class VariableTokenHandler implements TokenHandler {
     private final Properties variables;
@@ -65,11 +65,11 @@ public class PropertyParser {
       this.variables = variables;
       this.enableDefaultValue = Boolean.parseBoolean(getPropertyValue(KEY_ENABLE_DEFAULT_VALUE, ENABLE_DEFAULT_VALUE));
       this.defaultValueSeparator = getPropertyValue(KEY_DEFAULT_VALUE_SEPARATOR, DEFAULT_VALUE_SEPARATOR);
-    }
+}
 
     private String getPropertyValue(String key, String defaultValue) {
       return (variables == null) ? defaultValue : variables.getProperty(key, defaultValue);
-    }
+}
 
     @Override
     public String handleToken(String content) {
@@ -81,17 +81,16 @@ public class PropertyParser {
           if (separatorIndex >= 0) {
             key = content.substring(0, separatorIndex);
             defaultValue = content.substring(separatorIndex + defaultValueSeparator.length());
-          }
+}
           if (defaultValue != null) {
             return variables.getProperty(key, defaultValue);
-          }
-        }
+}
+}
         if (variables.containsKey(key)) {
           return variables.getProperty(key);
-        }
-      }
+}
+}
       return "${" + content + "}";
-    }
-  }
-
+}
+}
 }

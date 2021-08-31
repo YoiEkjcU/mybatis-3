@@ -38,7 +38,7 @@ public class TrimSqlNode implements SqlNode {
 
   public TrimSqlNode(Configuration configuration, SqlNode contents, String prefix, String prefixesToOverride, String suffix, String suffixesToOverride) {
     this(configuration, contents, prefix, parseOverrides(prefixesToOverride), suffix, parseOverrides(suffixesToOverride));
-  }
+}
 
   protected TrimSqlNode(Configuration configuration, SqlNode contents, String prefix, List<String> prefixesToOverride, String suffix, List<String> suffixesToOverride) {
     this.contents = contents;
@@ -47,7 +47,7 @@ public class TrimSqlNode implements SqlNode {
     this.suffix = suffix;
     this.suffixesToOverride = suffixesToOverride;
     this.configuration = configuration;
-  }
+}
 
   @Override
   public boolean apply(DynamicContext context) {
@@ -55,7 +55,7 @@ public class TrimSqlNode implements SqlNode {
     boolean result = contents.apply(filteredDynamicContext);
     filteredDynamicContext.applyAll();
     return result;
-  }
+}
 
   private static List<String> parseOverrides(String overrides) {
     if (overrides != null) {
@@ -63,11 +63,11 @@ public class TrimSqlNode implements SqlNode {
       final List<String> list = new ArrayList<String>(parser.countTokens());
       while (parser.hasMoreTokens()) {
         list.add(parser.nextToken().toUpperCase(Locale.ENGLISH));
-      }
+}
       return list;
-    }
+}
     return Collections.emptyList();
-  }
+}
 
   private class FilteredDynamicContext extends DynamicContext {
     private DynamicContext delegate;
@@ -81,7 +81,7 @@ public class TrimSqlNode implements SqlNode {
       this.prefixApplied = false;
       this.suffixApplied = false;
       this.sqlBuffer = new StringBuilder();
-    }
+}
 
     public void applyAll() {
       sqlBuffer = new StringBuilder(sqlBuffer.toString().trim());
@@ -89,34 +89,34 @@ public class TrimSqlNode implements SqlNode {
       if (trimmedUppercaseSql.length() > 0) {
         applyPrefix(sqlBuffer, trimmedUppercaseSql);
         applySuffix(sqlBuffer, trimmedUppercaseSql);
-      }
+}
       delegate.appendSql(sqlBuffer.toString());
-    }
+}
 
     @Override
     public Map<String, Object> getBindings() {
       return delegate.getBindings();
-    }
+}
 
     @Override
     public void bind(String name, Object value) {
       delegate.bind(name, value);
-    }
+}
 
     @Override
     public int getUniqueNumber() {
       return delegate.getUniqueNumber();
-    }
+}
 
     @Override
     public void appendSql(String sql) {
       sqlBuffer.append(sql);
-    }
+}
 
     @Override
     public String getSql() {
       return delegate.getSql();
-    }
+}
 
     private void applyPrefix(StringBuilder sql, String trimmedUppercaseSql) {
       if (!prefixApplied) {
@@ -126,15 +126,15 @@ public class TrimSqlNode implements SqlNode {
             if (trimmedUppercaseSql.startsWith(toRemove)) {
               sql.delete(0, toRemove.trim().length());
               break;
-            }
-          }
-        }
+}
+}
+}
         if (prefix != null) {
           sql.insert(0, " ");
           sql.insert(0, prefix);
-        }
-      }
-    }
+}
+}
+}
 
     private void applySuffix(StringBuilder sql, String trimmedUppercaseSql) {
       if (!suffixApplied) {
@@ -146,16 +146,14 @@ public class TrimSqlNode implements SqlNode {
               int end = sql.length();
               sql.delete(start, end);
               break;
-            }
-          }
-        }
+}
+}
+}
         if (suffix != null) {
           sql.append(" ");
           sql.append(suffix);
-        }
-      }
-    }
-
-  }
-
+}
+}
+}
+}
 }

@@ -32,5 +32,4 @@ public interface TypeHandler<T> {
   T getResult(ResultSet rs, int columnIndex) throws SQLException;
 
   T getResult(CallableStatement cs, int columnIndex) throws SQLException;
-
 }

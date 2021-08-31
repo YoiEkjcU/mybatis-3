@@ -47,19 +47,19 @@ public class VendorDatabaseIdProvider implements DatabaseIdProvider {
   public String getDatabaseId(DataSource dataSource) {
     if (dataSource == null) {
       throw new NullPointerException("dataSource cannot be null");
-    }
+}
     try {
       return getDatabaseName(dataSource);
-    } catch (Exception e) {
+} catch (Exception e) {
       log.error("Could not get a databaseId from dataSource", e);
-    }
+}
     return null;
-  }
+}
 
   @Override
   public void setProperties(Properties p) {
     this.properties = p;
-  }
+}
 
   private String getDatabaseName(DataSource dataSource) throws SQLException {
     String productName = getDatabaseProductName(dataSource);
@@ -67,13 +67,13 @@ public class VendorDatabaseIdProvider implements DatabaseIdProvider {
       for (Map.Entry<Object, Object> property : properties.entrySet()) {
         if (productName.contains((String) property.getKey())) {
           return (String) property.getValue();
-        }
-      }
+}
+}
       // no match, return null
       return null;
-    }
+}
     return productName;
-  }
+}
 
   private String getDatabaseProductName(DataSource dataSource) throws SQLException {
     Connection con = null;
@@ -81,15 +81,15 @@ public class VendorDatabaseIdProvider implements DatabaseIdProvider {
       con = dataSource.getConnection();
       DatabaseMetaData metaData = con.getMetaData();
       return metaData.getDatabaseProductName();
-    } finally {
+} finally {
       if (con != null) {
         try {
           con.close();
-        } catch (SQLException e) {
+} catch (SQLException e) {
           // ignored
-        }
-      }
-    }
-  }
+}
+}
+}
+}
   
 }

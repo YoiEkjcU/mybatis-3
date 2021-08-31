@@ -23,12 +23,11 @@ public class StaticTextSqlNode implements SqlNode {
 
   public StaticTextSqlNode(String text) {
     this.text = text;
-  }
+}
 
   @Override
   public boolean apply(DynamicContext context) {
     context.appendSql(text);
     return true;
-  }
-
+}
 }

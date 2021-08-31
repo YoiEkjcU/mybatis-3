@@ -59,29 +59,29 @@ public class ResultSetWrapper {
       columnNames.add(configuration.isUseColumnLabel() ? metaData.getColumnLabel(i) : metaData.getColumnName(i));
       jdbcTypes.add(JdbcType.forCode(metaData.getColumnType(i)));
       classNames.add(metaData.getColumnClassName(i));
-    }
-  }
+}
+}
 
   public ResultSet getResultSet() {
     return resultSet;
-  }
+}
 
   public List<String> getColumnNames() {
     return this.columnNames;
-  }
+}
 
   public List<String> getClassNames() {
     return Collections.unmodifiableList(classNames);
-  }
+}
 
   public JdbcType getJdbcType(String columnName) {
     for (int i = 0 ; i < columnNames.size(); i++) {
       if (columnNames.get(i).equalsIgnoreCase(columnName)) {
         return jdbcTypes.get(i);
-      }
-    }
+}
+}
     return null;
-  }
+}
 
   /**
    * Gets the type handler to use when reading the result set.
@@ -98,9 +98,9 @@ public class ResultSetWrapper {
     if (columnHandlers == null) {
       columnHandlers = new HashMap<Class<?>, TypeHandler<?>>();
       typeHandlerMap.put(columnName, columnHandlers);
-    } else {
+} else {
       handler = columnHandlers.get(propertyType);
-    }
+}
     if (handler == null) {
       JdbcType jdbcType = getJdbcType(columnName);
       handler = typeHandlerRegistry.getTypeHandler(propertyType, jdbcType);
@@ -111,31 +111,31 @@ public class ResultSetWrapper {
         final Class<?> javaType = resolveClass(classNames.get(index));
         if (javaType != null && jdbcType != null) {
           handler = typeHandlerRegistry.getTypeHandler(javaType, jdbcType);
-        } else if (javaType != null) {
+} else if (javaType != null) {
           handler = typeHandlerRegistry.getTypeHandler(javaType);
-        } else if (jdbcType != null) {
+} else if (jdbcType != null) {
           handler = typeHandlerRegistry.getTypeHandler(jdbcType);
-        }
-      }
+}
+}
       if (handler == null || handler instanceof UnknownTypeHandler) {
         handler = new ObjectTypeHandler();
-      }
+}
       columnHandlers.put(propertyType, handler);
-    }
+}
     return handler;
-  }
+}
 
   private Class<?> resolveClass(String className) {
     try {
       // #699 className could be null
       if (className != null) {
         return Resources.classForName(className);
-      }
-    } catch (ClassNotFoundException e) {
+}
+} catch (ClassNotFoundException e) {
       // ignore
-    }
+}
     return null;
-  }
+}
 
   private void loadMappedAndUnmappedColumnNames(ResultMap resultMap, String columnPrefix) throws SQLException {
     List<String> mappedColumnNames = new ArrayList<String>();
@@ -146,45 +146,45 @@ public class ResultSetWrapper {
       final String upperColumnName = columnName.toUpperCase(Locale.ENGLISH);
       if (mappedColumns.contains(upperColumnName)) {
         mappedColumnNames.add(upperColumnName);
-      } else {
+} else {
         unmappedColumnNames.add(columnName);
-      }
-    }
+}
+}
     mappedColumnNamesMap.put(getMapKey(resultMap, columnPrefix), mappedColumnNames);
     unMappedColumnNamesMap.put(getMapKey(resultMap, columnPrefix), unmappedColumnNames);
-  }
+}
 
   public List<String> getMappedColumnNames(ResultMap resultMap, String columnPrefix) throws SQLException {
     List<String> mappedColumnNames = mappedColumnNamesMap.get(getMapKey(resultMap, columnPrefix));
     if (mappedColumnNames == null) {
       loadMappedAndUnmappedColumnNames(resultMap, columnPrefix);
       mappedColumnNames = mappedColumnNamesMap.get(getMapKey(resultMap, columnPrefix));
-    }
+}
     return mappedColumnNames;
-  }
+}
 
   public List<String> getUnmappedColumnNames(ResultMap resultMap, String columnPrefix) throws SQLException {
     List<String> unMappedColumnNames = unMappedColumnNamesMap.get(getMapKey(resultMap, columnPrefix));
     if (unMappedColumnNames == null) {
       loadMappedAndUnmappedColumnNames(resultMap, columnPrefix);
       unMappedColumnNames = unMappedColumnNamesMap.get(getMapKey(resultMap, columnPrefix));
-    }
+}
     return unMappedColumnNames;
-  }
+}
 
   private String getMapKey(ResultMap resultMap, String columnPrefix) {
     return resultMap.getId() + ":" + columnPrefix;
-  }
+}
 
   private Set<String> prependPrefixes(Set<String> columnNames, String prefix) {
     if (columnNames == null || columnNames.isEmpty() || prefix == null || prefix.length() == 0) {
       return columnNames;
-    }
+}
     final Set<String> prefixed = new HashSet<String>();
     for (String columnName : columnNames) {
       prefixed.add(prefix + columnName);
-    }
+}
     return prefixed;
-  }
+}
   
 }

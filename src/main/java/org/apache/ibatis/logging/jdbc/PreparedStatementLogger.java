@@ -39,48 +39,48 @@ public final class PreparedStatementLogger extends BaseJdbcLogger implements Inv
   private PreparedStatementLogger(PreparedStatement stmt, Log statementLog, int queryStack) {
     super(statementLog, queryStack);
     this.statement = stmt;
-  }
+}
 
   @Override
   public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
     try {
       if (Object.class.equals(method.getDeclaringClass())) {
         return method.invoke(this, params);
-      }          
+}          
       if (EXECUTE_METHODS.contains(method.getName())) {
         if (isDebugEnabled()) {
           debug("Parameters: " + getParameterValueString(), true);
-        }
+}
         clearColumnInfo();
         if ("executeQuery".equals(method.getName())) {
           ResultSet rs = (ResultSet) method.invoke(statement, params);
           return rs == null ? null : ResultSetLogger.newInstance(rs, statementLog, queryStack);
-        } else {
+} else {
           return method.invoke(statement, params);
-        }
-      } else if (SET_METHODS.contains(method.getName())) {
+}
+} else if (SET_METHODS.contains(method.getName())) {
         if ("setNull".equals(method.getName())) {
           setColumn(params[0], null);
-        } else {
+} else {
           setColumn(params[0], params[1]);
-        }
+}
         return method.invoke(statement, params);
-      } else if ("getResultSet".equals(method.getName())) {
+} else if ("getResultSet".equals(method.getName())) {
         ResultSet rs = (ResultSet) method.invoke(statement, params);
         return rs == null ? null : ResultSetLogger.newInstance(rs, statementLog, queryStack);
-      } else if ("getUpdateCount".equals(method.getName())) {
+} else if ("getUpdateCount".equals(method.getName())) {
         int updateCount = (Integer) method.invoke(statement, params);
         if (updateCount != -1) {
           debug("   Updates: " + updateCount, false);
-        }
+}
         return updateCount;
-      } else {
+} else {
         return method.invoke(statement, params);
-      }
-    } catch (Throwable t) {
+}
+} catch (Throwable t) {
       throw ExceptionUtil.unwrapThrowable(t);
-    }
-  }
+}
+}
 
   /*
    * Creates a logging version of a PreparedStatement
@@ -93,7 +93,7 @@ public final class PreparedStatementLogger extends BaseJdbcLogger implements Inv
     InvocationHandler handler = new PreparedStatementLogger(stmt, statementLog, queryStack);
     ClassLoader cl = PreparedStatement.class.getClassLoader();
     return (PreparedStatement) Proxy.newProxyInstance(cl, new Class[]{PreparedStatement.class, CallableStatement.class}, handler);
-  }
+}
 
   /*
    * Return the wrapped prepared statement
@@ -102,6 +102,5 @@ public final class PreparedStatementLogger extends BaseJdbcLogger implements Inv
    */
   public PreparedStatement getPreparedStatement() {
     return statement;
-  }
-
+}
 }

@@ -30,7 +30,7 @@ import java.util.concurrent.locks.ReadWriteLock;
  * public MyCache(final String id) {
  *  if (id == null) {
  *    throw new IllegalArgumentException("Cache instances require an ID");
- *  }
+ *}
  *  this.id = id;
  *  initialize();
  * }
@@ -94,5 +94,4 @@ public interface Cache {
    * @return A ReadWriteLock 
    */
   ReadWriteLock getReadWriteLock();
-
 }

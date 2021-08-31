@@ -58,5 +58,4 @@ public interface LanguageDriver {
    * @return 
    */
   SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterType);
-
 }

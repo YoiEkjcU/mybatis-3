@@ -41,7 +41,7 @@ public class BatchExecutorException extends ExecutorException {
     this.batchUpdateException = cause;
     this.successfulBatchResults = successfulBatchResults;
     this.batchResult = batchResult;
-  }
+}
 
   /*
    * Returns the BatchUpdateException that caused the nested executor
@@ -53,7 +53,7 @@ public class BatchExecutorException extends ExecutorException {
    */
   public BatchUpdateException getBatchUpdateException() {
     return batchUpdateException;
-  }
+}
 
   /*
    * Returns a list of BatchResult objects.  There will be one entry
@@ -65,7 +65,7 @@ public class BatchExecutorException extends ExecutorException {
    */
   public List<BatchResult> getSuccessfulBatchResults() {
     return successfulBatchResults;
-  }
+}
 
   /*
    * Returns the SQL statement that caused the failure
@@ -75,7 +75,7 @@ public class BatchExecutorException extends ExecutorException {
    */
   public String getFailingSqlStatement() {
     return batchResult.getSql();
-  }
+}
 
   /*
    * Returns the statement id of the statement that caused the failure
@@ -84,5 +84,5 @@ public class BatchExecutorException extends ExecutorException {
    */
   public String getFailingStatementId() {
     return batchResult.getMappedStatement().getId();
-  }
+}
 }

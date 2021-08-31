@@ -35,7 +35,7 @@ public interface SysUserMapper {
 //            @Result(column = "user_type", property = "userType"), //
 //            @Result(column = "out_date", property = "outDate"), //
 //            @Result(column = "validate_code", property = "validateCode") //
-//    })
+//})
 //    SysUser getById(int id);
 
     class SysUserMapperSelectProvider {
@@ -47,6 +47,6 @@ public interface SysUserMapper {
                     .FROM("sys_user")//
                     .WHERE("user_id = #{id}").toString();
             return sql;
-        }
-    }
+}
+}
 }

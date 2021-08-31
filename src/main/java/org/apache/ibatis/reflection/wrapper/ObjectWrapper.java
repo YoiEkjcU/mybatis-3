@@ -51,5 +51,4 @@ public interface ObjectWrapper {
   void add(Object element);
   
   <E> void addAll(List<E> element);
-
 }

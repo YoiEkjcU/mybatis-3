@@ -29,6 +29,5 @@ public class SetSqlNode extends TrimSqlNode {
 
   public SetSqlNode(Configuration configuration,SqlNode contents) {
     super(configuration, contents, "SET", null, null, suffixList);
-  }
-
+}
 }

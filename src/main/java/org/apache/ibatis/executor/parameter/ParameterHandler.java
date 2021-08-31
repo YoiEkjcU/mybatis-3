@@ -29,5 +29,4 @@ public interface ParameterHandler {
 
   void setParameters(PreparedStatement ps)
       throws SQLException;
-
 }

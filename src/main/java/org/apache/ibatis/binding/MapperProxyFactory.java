@@ -32,24 +32,23 @@ public class MapperProxyFactory<T> {
 
   public MapperProxyFactory(Class<T> mapperInterface) {
     this.mapperInterface = mapperInterface;
-  }
+}
 
   public Class<T> getMapperInterface() {
     return mapperInterface;
-  }
+}
 
   public Map<Method, MapperMethod> getMethodCache() {
     return methodCache;
-  }
+}
 
   @SuppressWarnings("unchecked")
   protected T newInstance(MapperProxy<T> mapperProxy) {
     return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
-  }
+}
 
   public T newInstance(SqlSession sqlSession) {
     final MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);
     return newInstance(mapperProxy);
-  }
-
+}
 }

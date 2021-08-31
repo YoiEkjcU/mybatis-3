@@ -33,7 +33,7 @@ public class DynamicSqlSource implements SqlSource {
   public DynamicSqlSource(Configuration configuration, SqlNode rootSqlNode) {
     this.configuration = configuration;
     this.rootSqlNode = rootSqlNode;
-  }
+}
 
   @Override
   public BoundSql getBoundSql(Object parameterObject) {
@@ -45,8 +45,7 @@ public class DynamicSqlSource implements SqlSource {
     BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
     for (Map.Entry<String, Object> entry : context.getBindings().entrySet()) {
       boundSql.setAdditionalParameter(entry.getKey(), entry.getValue());
-    }
+}
     return boundSql;
-  }
-
+}
 }

@@ -32,60 +32,60 @@ public class ErrorContext {
   private Throwable cause;
 
   private ErrorContext() {
-  }
+}
 
   public static ErrorContext instance() {
     ErrorContext context = LOCAL.get();
     if (context == null) {
       context = new ErrorContext();
       LOCAL.set(context);
-    }
+}
     return context;
-  }
+}
 
   public ErrorContext store() {
     stored = this;
     LOCAL.set(new ErrorContext());
     return LOCAL.get();
-  }
+}
 
   public ErrorContext recall() {
     if (stored != null) {
       LOCAL.set(stored);
       stored = null;
-    }
+}
     return LOCAL.get();
-  }
+}
 
   public ErrorContext resource(String resource) {
     this.resource = resource;
     return this;
-  }
+}
 
   public ErrorContext activity(String activity) {
     this.activity = activity;
     return this;
-  }
+}
 
   public ErrorContext object(String object) {
     this.object = object;
     return this;
-  }
+}
 
   public ErrorContext message(String message) {
     this.message = message;
     return this;
-  }
+}
 
   public ErrorContext sql(String sql) {
     this.sql = sql;
     return this;
-  }
+}
 
   public ErrorContext cause(Throwable cause) {
     this.cause = cause;
     return this;
-  }
+}
 
   public ErrorContext reset() {
     resource = null;
@@ -96,7 +96,7 @@ public class ErrorContext {
     cause = null;
     LOCAL.remove();
     return this;
-  }
+}
 
   @Override
   public String toString() {
@@ -107,44 +107,43 @@ public class ErrorContext {
       description.append(LINE_SEPARATOR);
       description.append("### ");
       description.append(this.message);
-    }
+}
 
     // resource
     if (resource != null) {
       description.append(LINE_SEPARATOR);
       description.append("### The error may exist in ");
       description.append(resource);
-    }
+}
 
     // object
     if (object != null) {
       description.append(LINE_SEPARATOR);
       description.append("### The error may involve ");
       description.append(object);
-    }
+}
 
     // activity
     if (activity != null) {
       description.append(LINE_SEPARATOR);
       description.append("### The error occurred while ");
       description.append(activity);
-    }
+}
 
     // activity
     if (sql != null) {
       description.append(LINE_SEPARATOR);
       description.append("### SQL: ");
       description.append(sql.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ').trim());
-    }
+}
 
     // cause
     if (cause != null) {
       description.append(LINE_SEPARATOR);
       description.append("### Cause: ");
       description.append(cause.toString());
-    }
+}
 
     return description.toString();
-  }
-
+}
 }

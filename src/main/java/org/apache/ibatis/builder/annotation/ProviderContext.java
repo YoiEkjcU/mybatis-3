@@ -37,7 +37,7 @@ public final class ProviderContext {
   ProviderContext(Class<?> mapperType, Method mapperMethod) {
     this.mapperType = mapperType;
     this.mapperMethod = mapperMethod;
-  }
+}
 
   /**
    * Get a mapper interface type that specified provider.
@@ -46,7 +46,7 @@ public final class ProviderContext {
    */
   public Class<?> getMapperType() {
     return mapperType;
-  }
+}
 
   /**
    * Get a mapper method that specified provider.
@@ -55,6 +55,5 @@ public final class ProviderContext {
    */
   public Method getMapperMethod() {
     return mapperMethod;
-  }
-
+}
 }

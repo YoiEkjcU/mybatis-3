@@ -32,5 +32,4 @@ public interface ResultSetHandler {
   <E> Cursor<E> handleCursorResultSets(Statement stmt) throws SQLException;
 
   void handleOutputParameters(CallableStatement cs) throws SQLException;
-
 }

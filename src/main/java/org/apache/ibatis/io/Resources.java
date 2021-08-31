@@ -41,7 +41,7 @@ public class Resources {
   private static Charset charset;
 
   Resources() {
-  }
+}
 
   /*
    * Returns the default classloader (may be null).
@@ -50,7 +50,7 @@ public class Resources {
    */
   public static ClassLoader getDefaultClassLoader() {
     return classLoaderWrapper.defaultClassLoader;
-  }
+}
 
   /*
    * Sets the default classloader
@@ -59,7 +59,7 @@ public class Resources {
    */
   public static void setDefaultClassLoader(ClassLoader defaultClassLoader) {
     classLoaderWrapper.defaultClassLoader = defaultClassLoader;
-  }
+}
 
   /*
    * Returns the URL of the resource on the classpath
@@ -71,7 +71,7 @@ public class Resources {
   public static URL getResourceURL(String resource) throws IOException {
       // issue #625
       return getResourceURL(null, resource);
-  }
+}
 
   /*
    * Returns the URL of the resource on the classpath
@@ -85,9 +85,9 @@ public class Resources {
     URL url = classLoaderWrapper.getResourceAsURL(resource, loader);
     if (url == null) {
       throw new IOException("Could not find resource " + resource);
-    }
+}
     return url;
-  }
+}
 
   /*
    * Returns a resource on the classpath as a Stream object
@@ -98,7 +98,7 @@ public class Resources {
    */
   public static InputStream getResourceAsStream(String resource) throws IOException {
     return getResourceAsStream(null, resource);
-  }
+}
 
   /*
    * Returns a resource on the classpath as a Stream object
@@ -112,9 +112,9 @@ public class Resources {
     InputStream in = classLoaderWrapper.getResourceAsStream(resource, loader);
     if (in == null) {
       throw new IOException("Could not find resource " + resource);
-    }
+}
     return in;
-  }
+}
 
   /*
    * Returns a resource on the classpath as a Properties object
@@ -129,7 +129,7 @@ public class Resources {
     props.load(in);
     in.close();
     return props;
-  }
+}
 
   /*
    * Returns a resource on the classpath as a Properties object
@@ -145,7 +145,7 @@ public class Resources {
     props.load(in);
     in.close();
     return props;
-  }
+}
 
   /*
    * Returns a resource on the classpath as a Reader object
@@ -158,11 +158,11 @@ public class Resources {
     Reader reader;
     if (charset == null) {
       reader = new InputStreamReader(getResourceAsStream(resource));
-    } else {
+} else {
       reader = new InputStreamReader(getResourceAsStream(resource), charset);
-    }
+}
     return reader;
-  }
+}
 
   /*
    * Returns a resource on the classpath as a Reader object
@@ -176,11 +176,11 @@ public class Resources {
     Reader reader;
     if (charset == null) {
       reader = new InputStreamReader(getResourceAsStream(loader, resource));
-    } else {
+} else {
       reader = new InputStreamReader(getResourceAsStream(loader, resource), charset);
-    }
+}
     return reader;
-  }
+}
 
   /*
    * Returns a resource on the classpath as a File object
@@ -191,7 +191,7 @@ public class Resources {
    */
   public static File getResourceAsFile(String resource) throws IOException {
     return new File(getResourceURL(resource).getFile());
-  }
+}
 
   /*
    * Returns a resource on the classpath as a File object
@@ -203,7 +203,7 @@ public class Resources {
    */
   public static File getResourceAsFile(ClassLoader loader, String resource) throws IOException {
     return new File(getResourceURL(loader, resource).getFile());
-  }
+}
 
   /*
    * Gets a URL as an input stream
@@ -216,7 +216,7 @@ public class Resources {
     URL url = new URL(urlString);
     URLConnection conn = url.openConnection();
     return conn.getInputStream();
-  }
+}
 
   /*
    * Gets a URL as a Reader
@@ -229,11 +229,11 @@ public class Resources {
     Reader reader;
     if (charset == null) {
       reader = new InputStreamReader(getUrlAsStream(urlString));
-    } else {
+} else {
       reader = new InputStreamReader(getUrlAsStream(urlString), charset);
-    }
+}
     return reader;
-  }
+}
 
   /*
    * Gets a URL as a Properties object
@@ -248,7 +248,7 @@ public class Resources {
     props.load(in);
     in.close();
     return props;
-  }
+}
 
   /*
    * Loads a class
@@ -259,14 +259,13 @@ public class Resources {
    */
   public static Class<?> classForName(String className) throws ClassNotFoundException {
     return classLoaderWrapper.classForName(className);
-  }
+}
 
   public static Charset getCharset() {
     return charset;
-  }
+}
 
   public static void setCharset(Charset charset) {
     Resources.charset = charset;
-  }
-
+}
 }

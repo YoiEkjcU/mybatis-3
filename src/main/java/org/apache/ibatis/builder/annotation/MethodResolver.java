@@ -27,10 +27,9 @@ public class MethodResolver {
   public MethodResolver(MapperAnnotationBuilder annotationBuilder, Method method) {
     this.annotationBuilder = annotationBuilder;
     this.method = method;
-  }
+}
 
   public void resolve() {
     annotationBuilder.parseStatement(method);
-  }
-
+}
 }

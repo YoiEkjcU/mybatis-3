@@ -158,12 +158,12 @@ public final class TypeHandlerRegistry {
       this.register(Year.class, YearTypeHandler.class);
       this.register(YearMonth.class, YearMonthTypeHandler.class);
       this.register(JapaneseDate.class, JapaneseDateTypeHandler.class);
-    }
+}
 
     // issue #273
     register(Character.class, new CharacterTypeHandler());
     register(char.class, new CharacterTypeHandler());
-  }
+}
 
   /**
    * Set a default {@link TypeHandler} class for {@link Enum}.
@@ -173,74 +173,74 @@ public final class TypeHandlerRegistry {
    */
   public void setDefaultEnumTypeHandler(Class<? extends TypeHandler> typeHandler) {
     this.defaultEnumTypeHandler = typeHandler;
-  }
+}
 
   public boolean hasTypeHandler(Class<?> javaType) {
     return hasTypeHandler(javaType, null);
-  }
+}
 
   public boolean hasTypeHandler(TypeReference<?> javaTypeReference) {
     return hasTypeHandler(javaTypeReference, null);
-  }
+}
 
   public boolean hasTypeHandler(Class<?> javaType, JdbcType jdbcType) {
     return javaType != null && getTypeHandler((Type) javaType, jdbcType) != null;
-  }
+}
 
   public boolean hasTypeHandler(TypeReference<?> javaTypeReference, JdbcType jdbcType) {
     return javaTypeReference != null && getTypeHandler(javaTypeReference, jdbcType) != null;
-  }
+}
 
   public TypeHandler<?> getMappingTypeHandler(Class<? extends TypeHandler<?>> handlerType) {
     return ALL_TYPE_HANDLERS_MAP.get(handlerType);
-  }
+}
 
   public <T> TypeHandler<T> getTypeHandler(Class<T> type) {
     return getTypeHandler((Type) type, null);
-  }
+}
 
   public <T> TypeHandler<T> getTypeHandler(TypeReference<T> javaTypeReference) {
     return getTypeHandler(javaTypeReference, null);
-  }
+}
 
   public TypeHandler<?> getTypeHandler(JdbcType jdbcType) {
     return JDBC_TYPE_HANDLER_MAP.get(jdbcType);
-  }
+}
 
   public <T> TypeHandler<T> getTypeHandler(Class<T> type, JdbcType jdbcType) {
     return getTypeHandler((Type) type, jdbcType);
-  }
+}
 
   public <T> TypeHandler<T> getTypeHandler(TypeReference<T> javaTypeReference, JdbcType jdbcType) {
     return getTypeHandler(javaTypeReference.getRawType(), jdbcType);
-  }
+}
 
   @SuppressWarnings("unchecked")
   private <T> TypeHandler<T> getTypeHandler(Type type, JdbcType jdbcType) {
     if (ParamMap.class.equals(type)) {
       return null;
-    }
+}
     Map<JdbcType, TypeHandler<?>> jdbcHandlerMap = getJdbcHandlerMap(type);
     TypeHandler<?> handler = null;
     if (jdbcHandlerMap != null) {
       handler = jdbcHandlerMap.get(jdbcType);
       if (handler == null) {
         handler = jdbcHandlerMap.get(null);
-      }
+}
       if (handler == null) {
         // #591
         handler = pickSoleHandler(jdbcHandlerMap);
-      }
-    }
+}
+}
     // type drives generics here
     return (TypeHandler<T>) handler;
-  }
+}
 
   private Map<JdbcType, TypeHandler<?>> getJdbcHandlerMap(Type type) {
     Map<JdbcType, TypeHandler<?>> jdbcHandlerMap = TYPE_HANDLER_MAP.get(type);
     if (NULL_TYPE_HANDLER_MAP.equals(jdbcHandlerMap)) {
       return null;
-    }
+}
     if (jdbcHandlerMap == null && type instanceof Class) {
       Class<?> clazz = (Class<?>) type;
       if (clazz.isEnum()) {
@@ -248,67 +248,67 @@ public final class TypeHandlerRegistry {
         if (jdbcHandlerMap == null) {
           register(clazz, getInstance(clazz, defaultEnumTypeHandler));
           return TYPE_HANDLER_MAP.get(clazz);
-        }
-      } else {
+}
+} else {
         jdbcHandlerMap = getJdbcHandlerMapForSuperclass(clazz);
-      }
-    }
+}
+}
     TYPE_HANDLER_MAP.put(type, jdbcHandlerMap == null ? NULL_TYPE_HANDLER_MAP : jdbcHandlerMap);
     return jdbcHandlerMap;
-  }
+}
 
   private Map<JdbcType, TypeHandler<?>> getJdbcHandlerMapForEnumInterfaces(Class<?> clazz, Class<?> enumClazz) {
     for (Class<?> iface : clazz.getInterfaces()) {
       Map<JdbcType, TypeHandler<?>> jdbcHandlerMap = TYPE_HANDLER_MAP.get(iface);
       if (jdbcHandlerMap == null) {
         jdbcHandlerMap = getJdbcHandlerMapForEnumInterfaces(iface, enumClazz);
-      }
+}
       if (jdbcHandlerMap != null) {
         // Found a type handler regsiterd to a super interface
         HashMap<JdbcType, TypeHandler<?>> newMap = new HashMap<JdbcType, TypeHandler<?>>();
         for (Entry<JdbcType, TypeHandler<?>> entry : jdbcHandlerMap.entrySet()) {
           // Create a type handler instance with enum type as a constructor arg
           newMap.put(entry.getKey(), getInstance(enumClazz, entry.getValue().getClass()));
-        }
+}
         return newMap;
-      }
-    }
+}
+}
     return null;
-  }
+}
 
   private Map<JdbcType, TypeHandler<?>> getJdbcHandlerMapForSuperclass(Class<?> clazz) {
     Class<?> superclass =  clazz.getSuperclass();
     if (superclass == null || Object.class.equals(superclass)) {
       return null;
-    }
+}
     Map<JdbcType, TypeHandler<?>> jdbcHandlerMap = TYPE_HANDLER_MAP.get(superclass);
     if (jdbcHandlerMap != null) {
       return jdbcHandlerMap;
-    } else {
+} else {
       return getJdbcHandlerMapForSuperclass(superclass);
-    }
-  }
+}
+}
 
   private TypeHandler<?> pickSoleHandler(Map<JdbcType, TypeHandler<?>> jdbcHandlerMap) {
     TypeHandler<?> soleHandler = null;
     for (TypeHandler<?> handler : jdbcHandlerMap.values()) {
       if (soleHandler == null) {
         soleHandler = handler;
-      } else if (!handler.getClass().equals(soleHandler.getClass())) {
+} else if (!handler.getClass().equals(soleHandler.getClass())) {
         // More than one type handlers registered.
         return null;
-      }
-    }
+}
+}
     return soleHandler;
-  }
+}
 
   public TypeHandler<Object> getUnknownTypeHandler() {
     return UNKNOWN_TYPE_HANDLER;
-  }
+}
 
   public void register(JdbcType jdbcType, TypeHandler<?> handler) {
     JDBC_TYPE_HANDLER_MAP.put(jdbcType, handler);
-  }
+}
 
   //
   // REGISTER INSTANCE
@@ -324,52 +324,52 @@ public final class TypeHandlerRegistry {
       for (Class<?> handledType : mappedTypes.value()) {
         register(handledType, typeHandler);
         mappedTypeFound = true;
-      }
-    }
+}
+}
     // @since 3.1.0 - try to auto-discover the mapped type
     if (!mappedTypeFound && typeHandler instanceof TypeReference) {
       try {
         TypeReference<T> typeReference = (TypeReference<T>) typeHandler;
         register(typeReference.getRawType(), typeHandler);
         mappedTypeFound = true;
-      } catch (Throwable t) {
+} catch (Throwable t) {
         // maybe users define the TypeReference with a different type and are not assignable, so just ignore it
-      }
-    }
+}
+}
     if (!mappedTypeFound) {
       register((Class<T>) null, typeHandler);
-    }
-  }
+}
+}
 
   // java type + handler
 
   public <T> void register(Class<T> javaType, TypeHandler<? extends T> typeHandler) {
     register((Type) javaType, typeHandler);
-  }
+}
 
   private <T> void register(Type javaType, TypeHandler<? extends T> typeHandler) {
     MappedJdbcTypes mappedJdbcTypes = typeHandler.getClass().getAnnotation(MappedJdbcTypes.class);
     if (mappedJdbcTypes != null) {
       for (JdbcType handledJdbcType : mappedJdbcTypes.value()) {
         register(javaType, handledJdbcType, typeHandler);
-      }
+}
       if (mappedJdbcTypes.includeNullJdbcType()) {
         register(javaType, null, typeHandler);
-      }
-    } else {
+}
+} else {
       register(javaType, null, typeHandler);
-    }
-  }
+}
+}
 
   public <T> void register(TypeReference<T> javaTypeReference, TypeHandler<? extends T> handler) {
     register(javaTypeReference.getRawType(), handler);
-  }
+}
 
   // java type + jdbc type + handler
 
   public <T> void register(Class<T> type, JdbcType jdbcType, TypeHandler<? extends T> handler) {
     register((Type) type, jdbcType, handler);
-  }
+}
 
   private void register(Type javaType, JdbcType jdbcType, TypeHandler<?> handler) {
     if (javaType != null) {
@@ -377,11 +377,11 @@ public final class TypeHandlerRegistry {
       if (map == null || map == NULL_TYPE_HANDLER_MAP) {
         map = new HashMap<JdbcType, TypeHandler<?>>();
         TYPE_HANDLER_MAP.put(javaType, map);
-      }
+}
       map.put(jdbcType, handler);
-    }
+}
     ALL_TYPE_HANDLERS_MAP.put(handler.getClass(), handler);
-  }
+}
 
   //
   // REGISTER CLASS
@@ -396,28 +396,28 @@ public final class TypeHandlerRegistry {
       for (Class<?> javaTypeClass : mappedTypes.value()) {
         register(javaTypeClass, typeHandlerClass);
         mappedTypeFound = true;
-      }
-    }
+}
+}
     if (!mappedTypeFound) {
       register(getInstance(null, typeHandlerClass));
-    }
-  }
+}
+}
 
   // java type + handler type
 
   public void register(String javaTypeClassName, String typeHandlerClassName) throws ClassNotFoundException {
     register(Resources.classForName(javaTypeClassName), Resources.classForName(typeHandlerClassName));
-  }
+}
 
   public void register(Class<?> javaTypeClass, Class<?> typeHandlerClass) {
     register(javaTypeClass, getInstance(javaTypeClass, typeHandlerClass));
-  }
+}
 
   // java type + jdbc type + handler type
 
   public void register(Class<?> javaTypeClass, JdbcType jdbcType, Class<?> typeHandlerClass) {
     register(javaTypeClass, jdbcType, getInstance(javaTypeClass, typeHandlerClass));
-  }
+}
 
   // Construct a handler (used also from Builders)
 
@@ -427,19 +427,19 @@ public final class TypeHandlerRegistry {
       try {
         Constructor<?> c = typeHandlerClass.getConstructor(Class.class);
         return (TypeHandler<T>) c.newInstance(javaTypeClass);
-      } catch (NoSuchMethodException ignored) {
+} catch (NoSuchMethodException ignored) {
         // ignored
-      } catch (Exception e) {
+} catch (Exception e) {
         throw new TypeException("Failed invoking constructor for handler " + typeHandlerClass, e);
-      }
-    }
+}
+}
     try {
       Constructor<?> c = typeHandlerClass.getConstructor();
       return (TypeHandler<T>) c.newInstance();
-    } catch (Exception e) {
+} catch (Exception e) {
       throw new TypeException("Unable to find a usable constructor for " + typeHandlerClass, e);
-    }
-  }
+}
+}
 
   // scan
 
@@ -451,9 +451,9 @@ public final class TypeHandlerRegistry {
       //Ignore inner classes and interfaces (including package-info.java) and abstract classes
       if (!type.isAnonymousClass() && !type.isInterface() && !Modifier.isAbstract(type.getModifiers())) {
         register(type);
-      }
-    }
-  }
+}
+}
+}
   
   // get information
   
@@ -462,6 +462,6 @@ public final class TypeHandlerRegistry {
    */
   public Collection<TypeHandler<?>> getTypeHandlers() {
     return Collections.unmodifiableCollection(ALL_TYPE_HANDLERS_MAP.values());
-  }
+}
   
 }

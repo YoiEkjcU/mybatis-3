@@ -23,18 +23,17 @@ public class IncompleteElementException extends BuilderException {
 
   public IncompleteElementException() {
     super();
-  }
+}
 
   public IncompleteElementException(String message, Throwable cause) {
     super(message, cause);
-  }
+}
 
   public IncompleteElementException(String message) {
     super(message);
-  }
+}
 
   public IncompleteElementException(Throwable cause) {
     super(cause);
-  }
-
+}
 }

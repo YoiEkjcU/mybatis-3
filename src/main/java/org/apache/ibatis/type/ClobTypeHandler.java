@@ -32,7 +32,7 @@ public class ClobTypeHandler extends BaseTypeHandler<String> {
       throws SQLException {
     StringReader reader = new StringReader(parameter);
     ps.setCharacterStream(i, reader, parameter.length());
-  }
+}
 
   @Override
   public String getNullableResult(ResultSet rs, String columnName)
@@ -42,9 +42,9 @@ public class ClobTypeHandler extends BaseTypeHandler<String> {
     if (clob != null) {
       int size = (int) clob.length();
       value = clob.getSubString(1, size);
-    }
+}
     return value;
-  }
+}
 
   @Override
   public String getNullableResult(ResultSet rs, int columnIndex)
@@ -54,9 +54,9 @@ public class ClobTypeHandler extends BaseTypeHandler<String> {
     if (clob != null) {
       int size = (int) clob.length();
       value = clob.getSubString(1, size);
-    }
+}
     return value;
-  }
+}
 
   @Override
   public String getNullableResult(CallableStatement cs, int columnIndex)
@@ -66,7 +66,7 @@ public class ClobTypeHandler extends BaseTypeHandler<String> {
     if (clob != null) {
       int size = (int) clob.length();
       value = clob.getSubString(1, size);
-    }
+}
     return value;
-  }
+}
 }

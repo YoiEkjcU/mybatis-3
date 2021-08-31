@@ -72,7 +72,7 @@ public class ResolverUtil<T> {
      * is to be included in the results, false otherwise.
      */
     boolean matches(Class<?> type);
-  }
+}
 
   /**
    * A Test that checks to see if each class is assignable to the provided class. Note
@@ -84,19 +84,19 @@ public class ResolverUtil<T> {
     /** Constructs an IsA test using the supplied Class as the parent class/interface. */
     public IsA(Class<?> parentType) {
       this.parent = parentType;
-    }
+}
 
     /** Returns true if type is assignable to the parent type supplied in the constructor. */
     @Override
     public boolean matches(Class<?> type) {
       return type != null && parent.isAssignableFrom(type);
-    }
+}
 
     @Override
     public String toString() {
       return "is assignable to " + parent.getSimpleName();
-    }
-  }
+}
+}
 
   /**
    * A Test that checks to see if each class is annotated with a specific annotation. If it
@@ -108,19 +108,19 @@ public class ResolverUtil<T> {
     /** Constructs an AnnotatedWith test for the specified annotation type. */
     public AnnotatedWith(Class<? extends Annotation> annotation) {
       this.annotation = annotation;
-    }
+}
 
     /** Returns true if the type is annotated with the class provided to the constructor. */
     @Override
     public boolean matches(Class<?> type) {
       return type != null && type.isAnnotationPresent(annotation);
-    }
+}
 
     @Override
     public String toString() {
       return "annotated with @" + annotation.getSimpleName();
-    }
-  }
+}
+}
 
   /** The set of matches being accumulated. */
   private Set<Class<? extends T>> matches = new HashSet<Class<? extends T>>();
@@ -139,7 +139,7 @@ public class ResolverUtil<T> {
    */
   public Set<Class<? extends T>> getClasses() {
     return matches;
-  }
+}
 
   /**
    * Returns the classloader that will be used for scanning for classes. If no explicit
@@ -149,7 +149,7 @@ public class ResolverUtil<T> {
    */
   public ClassLoader getClassLoader() {
     return classloader == null ? Thread.currentThread().getContextClassLoader() : classloader;
-  }
+}
 
   /**
    * Sets an explicit ClassLoader that should be used when scanning for classes. If none
@@ -159,7 +159,7 @@ public class ResolverUtil<T> {
    */
   public void setClassLoader(ClassLoader classloader) {
     this.classloader = classloader;
-  }
+}
 
   /**
    * Attempts to discover classes that are assignable to the type provided. In the case
@@ -173,15 +173,15 @@ public class ResolverUtil<T> {
   public ResolverUtil<T> findImplementations(Class<?> parent, String... packageNames) {
     if (packageNames == null) {
       return this;
-    }
+}
 
     Test test = new IsA(parent);
     for (String pkg : packageNames) {
       find(test, pkg);
-    }
+}
 
     return this;
-  }
+}
 
   /**
    * Attempts to discover classes that are annotated with the annotation. Accumulated
@@ -193,15 +193,15 @@ public class ResolverUtil<T> {
   public ResolverUtil<T> findAnnotated(Class<? extends Annotation> annotation, String... packageNames) {
     if (packageNames == null) {
       return this;
-    }
+}
 
     Test test = new AnnotatedWith(annotation);
     for (String pkg : packageNames) {
       find(test, pkg);
-    }
+}
 
     return this;
-  }
+}
 
   /**
    * Scans for classes starting at the package provided and descending into subpackages.
@@ -221,14 +221,14 @@ public class ResolverUtil<T> {
       for (String child : children) {
         if (child.endsWith(".class")) {
           addIfMatching(test, child);
-        }
-      }
-    } catch (IOException ioe) {
+}
+}
+} catch (IOException ioe) {
       log.error("Could not read package: " + packageName, ioe);
-    }
+}
 
     return this;
-  }
+}
 
   /**
    * Converts a Java package name to a path that can be looked up with a call to
@@ -238,7 +238,7 @@ public class ResolverUtil<T> {
    */
   protected String getPackagePath(String packageName) {
     return packageName == null ? null : packageName.replace('.', '/');
-  }
+}
 
   /**
    * Add the class designated by the fully qualified class name provided to the set of
@@ -254,15 +254,15 @@ public class ResolverUtil<T> {
       ClassLoader loader = getClassLoader();
       if (log.isDebugEnabled()) {
         log.debug("Checking to see if class " + externalName + " matches criteria [" + test + "]");
-      }
+}
 
       Class<?> type = loader.loadClass(externalName);
       if (test.matches(type)) {
         matches.add((Class<T>) type);
-      }
-    } catch (Throwable t) {
+}
+} catch (Throwable t) {
       log.warn("Could not examine class '" + fqn + "'" + " due to a " +
           t.getClass().getName() + " with message: " + t.getMessage());
-    }
-  }
+}
+}
 }

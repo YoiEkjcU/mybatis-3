@@ -29,6 +29,5 @@ public class WhereSqlNode extends TrimSqlNode {
 
   public WhereSqlNode(Configuration configuration, SqlNode contents) {
     super(configuration, contents, "WHERE", prefixList, null, null);
-  }
-
+}
 }

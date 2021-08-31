@@ -31,20 +31,19 @@ public class DefaultResultHandler implements ResultHandler<Object> {
 
   public DefaultResultHandler() {
     list = new ArrayList<Object>();
-  }
+}
 
   @SuppressWarnings("unchecked")
   public DefaultResultHandler(ObjectFactory objectFactory) {
     list = objectFactory.create(List.class);
-  }
+}
 
   @Override
   public void handleResult(ResultContext<? extends Object> context) {
     list.add(context.getResultObject());
-  }
+}
 
   public List<Object> getResultList() {
     return list;
-  }
-
+}
 }

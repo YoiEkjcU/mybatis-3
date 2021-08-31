@@ -62,24 +62,24 @@ public abstract class VFS {
             if (log.isDebugEnabled()) {
               log.debug("VFS implementation " + impl.getName() +
                   " is not valid in this environment.");
-            }
-          }
-        } catch (InstantiationException e) {
+}
+}
+} catch (InstantiationException e) {
           log.error("Failed to instantiate " + impl, e);
           return null;
-        } catch (IllegalAccessException e) {
+} catch (IllegalAccessException e) {
           log.error("Failed to instantiate " + impl, e);
           return null;
-        }
-      }
+}
+}
 
       if (log.isDebugEnabled()) {
         log.debug("Using VFS adapter " + vfs.getClass().getName());
-      }
+}
 
       return vfs;
-    }
-  }
+}
+}
 
   /**
    * Get the singleton {@link VFS} instance. If no {@link VFS} implementation can be found for the
@@ -87,7 +87,7 @@ public abstract class VFS {
    */
   public static VFS getInstance() {
     return VFSHolder.INSTANCE;
-  }
+}
 
   /**
    * Adds the specified class to the list of {@link VFS} implementations. Classes added in this
@@ -98,21 +98,21 @@ public abstract class VFS {
   public static void addImplClass(Class<? extends VFS> clazz) {
     if (clazz != null) {
       USER_IMPLEMENTATIONS.add(clazz);
-    }
-  }
+}
+}
 
   /** Get a class by name. If the class is not found then return null. */
   protected static Class<?> getClass(String className) {
     try {
       return Thread.currentThread().getContextClassLoader().loadClass(className);
 //      return ReflectUtil.findClass(className);
-    } catch (ClassNotFoundException e) {
+} catch (ClassNotFoundException e) {
       if (log.isDebugEnabled()) {
         log.debug("Class not found: " + className);
-      }
+}
       return null;
-    }
-  }
+}
+}
 
   /**
    * Get a method by name and parameter types. If the method is not found then return null.
@@ -124,17 +124,17 @@ public abstract class VFS {
   protected static Method getMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
     if (clazz == null) {
       return null;
-    }
+}
     try {
       return clazz.getMethod(methodName, parameterTypes);
-    } catch (SecurityException e) {
+} catch (SecurityException e) {
       log.error("Security exception looking for method " + clazz.getName() + "." + methodName + ".  Cause: " + e);
       return null;
-    } catch (NoSuchMethodException e) {
+} catch (NoSuchMethodException e) {
       log.error("Method not found " + clazz.getName() + "." + methodName + "." + methodName + ".  Cause: " + e);
       return null;
-    }
-  }
+}
+}
 
   /**
    * Invoke a method on an object and return whatever it returns.
@@ -151,18 +151,18 @@ public abstract class VFS {
       throws IOException, RuntimeException {
     try {
       return (T) method.invoke(object, parameters);
-    } catch (IllegalArgumentException e) {
+} catch (IllegalArgumentException e) {
       throw new RuntimeException(e);
-    } catch (IllegalAccessException e) {
+} catch (IllegalAccessException e) {
       throw new RuntimeException(e);
-    } catch (InvocationTargetException e) {
+} catch (InvocationTargetException e) {
       if (e.getTargetException() instanceof IOException) {
         throw (IOException) e.getTargetException();
-      } else {
+} else {
         throw new RuntimeException(e);
-      }
-    }
-  }
+}
+}
+}
 
   /**
    * Get a list of {@link URL}s from the context classloader for all the resources found at the
@@ -174,7 +174,7 @@ public abstract class VFS {
    */
   protected static List<URL> getResources(String path) throws IOException {
     return Collections.list(Thread.currentThread().getContextClassLoader().getResources(path));
-  }
+}
 
   /** Return true if the {@link VFS} implementation is valid for the current environment. */
   public abstract boolean isValid();
@@ -203,7 +203,7 @@ public abstract class VFS {
     List<String> names = new ArrayList<String>();
     for (URL url : getResources(path)) {
       names.addAll(list(url, path));
-    }
+}
     return names;
-  }
+}
 }

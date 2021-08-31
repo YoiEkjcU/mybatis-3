@@ -31,7 +31,7 @@ public class TimeOnlyTypeHandler extends BaseTypeHandler<Date> {
   public void setNonNullParameter(PreparedStatement ps, int i, Date parameter, JdbcType jdbcType)
       throws SQLException {
     ps.setTime(i, new Time(parameter.getTime()));
-  }
+}
 
   @Override
   public Date getNullableResult(ResultSet rs, String columnName)
@@ -39,9 +39,9 @@ public class TimeOnlyTypeHandler extends BaseTypeHandler<Date> {
     Time sqlTime = rs.getTime(columnName);
     if (sqlTime != null) {
       return new Date(sqlTime.getTime());
-    }
+}
     return null;
-  }
+}
 
   @Override
   public Date getNullableResult(ResultSet rs, int columnIndex)
@@ -49,9 +49,9 @@ public class TimeOnlyTypeHandler extends BaseTypeHandler<Date> {
     Time sqlTime = rs.getTime(columnIndex);
     if (sqlTime != null) {
       return new Date(sqlTime.getTime());
-    }
+}
     return null;
-  }
+}
 
   @Override
   public Date getNullableResult(CallableStatement cs, int columnIndex)
@@ -59,7 +59,7 @@ public class TimeOnlyTypeHandler extends BaseTypeHandler<Date> {
     Time sqlTime = cs.getTime(columnIndex);
     if (sqlTime != null) {
       return new Date(sqlTime.getTime());
-    }
+}
     return null;
-  }
+}
 }

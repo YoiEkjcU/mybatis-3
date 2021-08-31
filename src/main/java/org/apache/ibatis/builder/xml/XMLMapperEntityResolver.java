@@ -56,15 +56,15 @@ public class XMLMapperEntityResolver implements EntityResolver {
         String lowerCaseSystemId = systemId.toLowerCase(Locale.ENGLISH);
         if (lowerCaseSystemId.contains(MYBATIS_CONFIG_SYSTEM) || lowerCaseSystemId.contains(IBATIS_CONFIG_SYSTEM)) {
           return getInputSource(MYBATIS_CONFIG_DTD, publicId, systemId);
-        } else if (lowerCaseSystemId.contains(MYBATIS_MAPPER_SYSTEM) || lowerCaseSystemId.contains(IBATIS_MAPPER_SYSTEM)) {
+} else if (lowerCaseSystemId.contains(MYBATIS_MAPPER_SYSTEM) || lowerCaseSystemId.contains(IBATIS_MAPPER_SYSTEM)) {
           return getInputSource(MYBATIS_MAPPER_DTD, publicId, systemId);
-        }
-      }
+}
+}
       return null;
-    } catch (Exception e) {
+} catch (Exception e) {
       throw new SAXException(e.toString());
-    }
-  }
+}
+}
 
   private InputSource getInputSource(String path, String publicId, String systemId) {
     InputSource source = null;
@@ -74,11 +74,10 @@ public class XMLMapperEntityResolver implements EntityResolver {
         source = new InputSource(in);
         source.setPublicId(publicId);
         source.setSystemId(systemId);        
-      } catch (IOException e) {
+} catch (IOException e) {
         // ignore, null is ok
-      }
-    }
+}
+}
     return source;
-  }
-
+}
 }

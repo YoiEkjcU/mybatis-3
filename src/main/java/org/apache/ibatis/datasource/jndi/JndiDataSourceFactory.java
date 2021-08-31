@@ -44,27 +44,26 @@ public class JndiDataSourceFactory implements DataSourceFactory {
       Properties env = getEnvProperties(properties);
       if (env == null) {
         initCtx = new InitialContext();
-      } else {
+} else {
         initCtx = new InitialContext(env);
-      }
+}
 
       if (properties.containsKey(INITIAL_CONTEXT)
           && properties.containsKey(DATA_SOURCE)) {
         Context ctx = (Context) initCtx.lookup(properties.getProperty(INITIAL_CONTEXT));
         dataSource = (DataSource) ctx.lookup(properties.getProperty(DATA_SOURCE));
-      } else if (properties.containsKey(DATA_SOURCE)) {
+} else if (properties.containsKey(DATA_SOURCE)) {
         dataSource = (DataSource) initCtx.lookup(properties.getProperty(DATA_SOURCE));
-      }
-
-    } catch (NamingException e) {
+}
+} catch (NamingException e) {
       throw new DataSourceException("There was an error configuring JndiDataSourceTransactionPool. Cause: " + e, e);
-    }
-  }
+}
+}
 
   @Override
   public DataSource getDataSource() {
     return dataSource;
-  }
+}
 
   private static Properties getEnvProperties(Properties allProps) {
     final String PREFIX = ENV_PREFIX;
@@ -75,11 +74,10 @@ public class JndiDataSourceFactory implements DataSourceFactory {
       if (key.startsWith(PREFIX)) {
         if (contextProperties == null) {
           contextProperties = new Properties();
-        }
+}
         contextProperties.put(key.substring(PREFIX.length()), value);
-      }
-    }
+}
+}
     return contextProperties;
-  }
-
+}
 }

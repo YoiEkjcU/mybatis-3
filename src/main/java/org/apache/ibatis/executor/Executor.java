@@ -63,5 +63,4 @@ public interface Executor {
   boolean isClosed();
 
   void setExecutorWrapper(Executor executor);
-
 }

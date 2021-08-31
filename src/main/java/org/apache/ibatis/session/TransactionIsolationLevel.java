@@ -31,9 +31,9 @@ public enum TransactionIsolationLevel {
 
   private TransactionIsolationLevel(int level) {
     this.level = level;
-  }
+}
 
   public int getLevel() {
     return level;
-  }
+}
 }

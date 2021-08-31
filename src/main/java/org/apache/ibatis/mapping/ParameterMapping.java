@@ -40,7 +40,7 @@ public class ParameterMapping {
   private String expression;
 
   private ParameterMapping() {
-  }
+}
 
   public static class Builder {
     private ParameterMapping parameterMapping = new ParameterMapping();
@@ -50,60 +50,60 @@ public class ParameterMapping {
       parameterMapping.property = property;
       parameterMapping.typeHandler = typeHandler;
       parameterMapping.mode = ParameterMode.IN;
-    }
+}
 
     public Builder(Configuration configuration, String property, Class<?> javaType) {
       parameterMapping.configuration = configuration;
       parameterMapping.property = property;
       parameterMapping.javaType = javaType;
       parameterMapping.mode = ParameterMode.IN;
-    }
+}
 
     public Builder mode(ParameterMode mode) {
       parameterMapping.mode = mode;
       return this;
-    }
+}
 
     public Builder javaType(Class<?> javaType) {
       parameterMapping.javaType = javaType;
       return this;
-    }
+}
 
     public Builder jdbcType(JdbcType jdbcType) {
       parameterMapping.jdbcType = jdbcType;
       return this;
-    }
+}
 
     public Builder numericScale(Integer numericScale) {
       parameterMapping.numericScale = numericScale;
       return this;
-    }
+}
 
     public Builder resultMapId(String resultMapId) {
       parameterMapping.resultMapId = resultMapId;
       return this;
-    }
+}
 
     public Builder typeHandler(TypeHandler<?> typeHandler) {
       parameterMapping.typeHandler = typeHandler;
       return this;
-    }
+}
 
     public Builder jdbcTypeName(String jdbcTypeName) {
       parameterMapping.jdbcTypeName = jdbcTypeName;
       return this;
-    }
+}
 
     public Builder expression(String expression) {
       parameterMapping.expression = expression;
       return this;
-    }
+}
 
     public ParameterMapping build() {
       resolveTypeHandler();
       validate();
       return parameterMapping;
-    }
+}
 
     private void validate() {
       if (ResultSet.class.equals(parameterMapping.javaType)) {
@@ -111,29 +111,28 @@ public class ParameterMapping {
           throw new IllegalStateException("Missing resultmap in property '"  
               + parameterMapping.property + "'.  " 
               + "Parameters of type java.sql.ResultSet require a resultmap.");
-        }            
-      } else {
+}            
+} else {
         if (parameterMapping.typeHandler == null) { 
           throw new IllegalStateException("Type handler was null on parameter mapping for property '"
             + parameterMapping.property + "'. It was either not specified and/or could not be found for the javaType ("
             + parameterMapping.javaType.getName() + ") : jdbcType (" + parameterMapping.jdbcType + ") combination.");
-        }
-      }
-    }
+}
+}
+}
 
     private void resolveTypeHandler() {
       if (parameterMapping.typeHandler == null && parameterMapping.javaType != null) {
         Configuration configuration = parameterMapping.configuration;
         TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
         parameterMapping.typeHandler = typeHandlerRegistry.getTypeHandler(parameterMapping.javaType, parameterMapping.jdbcType);
-      }
-    }
-
-  }
+}
+}
+}
 
   public String getProperty() {
     return property;
-  }
+}
 
   /**
    * Used for handling output of callable statements
@@ -141,7 +140,7 @@ public class ParameterMapping {
    */
   public ParameterMode getMode() {
     return mode;
-  }
+}
 
   /**
    * Used for handling output of callable statements
@@ -149,7 +148,7 @@ public class ParameterMapping {
    */
   public Class<?> getJavaType() {
     return javaType;
-  }
+}
 
   /**
    * Used in the UnknownTypeHandler in case there is no handler for the property type
@@ -157,7 +156,7 @@ public class ParameterMapping {
    */
   public JdbcType getJdbcType() {
     return jdbcType;
-  }
+}
 
   /**
    * Used for handling output of callable statements
@@ -165,7 +164,7 @@ public class ParameterMapping {
    */
   public Integer getNumericScale() {
     return numericScale;
-  }
+}
 
   /**
    * Used when setting parameters to the PreparedStatement
@@ -173,7 +172,7 @@ public class ParameterMapping {
    */
   public TypeHandler<?> getTypeHandler() {
     return typeHandler;
-  }
+}
 
   /**
    * Used for handling output of callable statements
@@ -181,7 +180,7 @@ public class ParameterMapping {
    */
   public String getResultMapId() {
     return resultMapId;
-  }
+}
 
   /**
    * Used for handling output of callable statements
@@ -189,7 +188,7 @@ public class ParameterMapping {
    */
   public String getJdbcTypeName() {
     return jdbcTypeName;
-  }
+}
 
   /**
    * Not used
@@ -197,7 +196,7 @@ public class ParameterMapping {
    */
   public String getExpression() {
     return expression;
-  }
+}
 
   @Override
   public String toString() {
@@ -214,5 +213,5 @@ public class ParameterMapping {
     sb.append(", expression='").append(expression).append('\'');
     sb.append('}');
     return sb.toString();
-  }
+}
 }

@@ -60,27 +60,27 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   public XMLConfigBuilder(Reader reader) {
     this(reader, null, null);
-  }
+}
 
   public XMLConfigBuilder(Reader reader, String environment) {
     this(reader, environment, null);
-  }
+}
 
   public XMLConfigBuilder(Reader reader, String environment, Properties props) {
     this(new XPathParser(reader, true, props, new XMLMapperEntityResolver()), environment, props);
-  }
+}
 
   public XMLConfigBuilder(InputStream inputStream) {
     this(inputStream, null, null);
-  }
+}
 
   public XMLConfigBuilder(InputStream inputStream, String environment) {
     this(inputStream, environment, null);
-  }
+}
 
   public XMLConfigBuilder(InputStream inputStream, String environment, Properties props) {
     this(new XPathParser(inputStream, true, props, new XMLMapperEntityResolver()), environment, props);
-  }
+}
 
   private XMLConfigBuilder(XPathParser parser, String environment, Properties props) {
     super(new Configuration());
@@ -89,16 +89,16 @@ public class XMLConfigBuilder extends BaseBuilder {
     this.parsed = false;
     this.environment = environment;
     this.parser = parser;
-  }
+}
 
   public Configuration parse() {
     if (parsed) {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
-    }
+}
     parsed = true;
     parseConfiguration(parser.evalNode("/configuration"));
     return configuration;
-  }
+}
 
   private void parseConfiguration(XNode root) {
     try {
@@ -117,25 +117,25 @@ public class XMLConfigBuilder extends BaseBuilder {
       databaseIdProviderElement(root.evalNode("databaseIdProvider"));
       typeHandlerElement(root.evalNode("typeHandlers"));
       mapperElement(root.evalNode("mappers"));
-    } catch (Exception e) {
+} catch (Exception e) {
       throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
-    }
-  }
+}
+}
 
   private Properties settingsAsProperties(XNode context) {
     if (context == null) {
       return new Properties();
-    }
+}
     Properties props = context.getChildrenAsProperties();
     // Check that all settings are known to the configuration class
     MetaClass metaConfig = MetaClass.forClass(Configuration.class, localReflectorFactory);
     for (Object key : props.keySet()) {
       if (!metaConfig.hasSetter(String.valueOf(key))) {
         throw new BuilderException("The setting " + key + " is not known.  Make sure you spelled it correctly (case sensitive).");
-      }
-    }
+}
+}
     return props;
-  }
+}
 
   private void loadCustomVfs(Properties props) throws ClassNotFoundException {
     String value = props.getProperty("vfsImpl");
@@ -146,10 +146,10 @@ public class XMLConfigBuilder extends BaseBuilder {
           @SuppressWarnings("unchecked")
           Class<? extends VFS> vfsImpl = (Class<? extends VFS>)Resources.classForName(clazz);
           configuration.setVfsImpl(vfsImpl);
-        }
-      }
-    }
-  }
+}
+}
+}
+}
 
   private void typeAliasesElement(XNode parent) {
     if (parent != null) {
@@ -157,23 +157,23 @@ public class XMLConfigBuilder extends BaseBuilder {
         if ("package".equals(child.getName())) {
           String typeAliasPackage = child.getStringAttribute("name");
           configuration.getTypeAliasRegistry().registerAliases(typeAliasPackage);
-        } else {
+} else {
           String alias = child.getStringAttribute("alias");
           String type = child.getStringAttribute("type");
           try {
             Class<?> clazz = Resources.classForName(type);
             if (alias == null) {
               typeAliasRegistry.registerAlias(clazz);
-            } else {
+} else {
               typeAliasRegistry.registerAlias(alias, clazz);
-            }
-          } catch (ClassNotFoundException e) {
+}
+} catch (ClassNotFoundException e) {
             throw new BuilderException("Error registering typeAlias for '" + alias + "'. Cause: " + e, e);
-          }
-        }
-      }
-    }
-  }
+}
+}
+}
+}
+}
 
   private void pluginElement(XNode parent) throws Exception {
     if (parent != null) {
@@ -183,9 +183,9 @@ public class XMLConfigBuilder extends BaseBuilder {
         Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).newInstance();
         interceptorInstance.setProperties(properties);
         configuration.addInterceptor(interceptorInstance);
-      }
-    }
-  }
+}
+}
+}
 
   private void objectFactoryElement(XNode context) throws Exception {
     if (context != null) {
@@ -194,24 +194,24 @@ public class XMLConfigBuilder extends BaseBuilder {
       ObjectFactory factory = (ObjectFactory) resolveClass(type).newInstance();
       factory.setProperties(properties);
       configuration.setObjectFactory(factory);
-    }
-  }
+}
+}
 
   private void objectWrapperFactoryElement(XNode context) throws Exception {
     if (context != null) {
       String type = context.getStringAttribute("type");
       ObjectWrapperFactory factory = (ObjectWrapperFactory) resolveClass(type).newInstance();
       configuration.setObjectWrapperFactory(factory);
-    }
-  }
+}
+}
 
   private void reflectorFactoryElement(XNode context) throws Exception {
     if (context != null) {
        String type = context.getStringAttribute("type");
        ReflectorFactory factory = (ReflectorFactory) resolveClass(type).newInstance();
        configuration.setReflectorFactory(factory);
-    }
-  }
+}
+}
 
   private void propertiesElement(XNode context) throws Exception {
     if (context != null) {
@@ -220,20 +220,20 @@ public class XMLConfigBuilder extends BaseBuilder {
       String url = context.getStringAttribute("url");
       if (resource != null && url != null) {
         throw new BuilderException("The properties element cannot specify both a URL and a resource based property file reference.  Please specify one or the other.");
-      }
+}
       if (resource != null) {
         defaults.putAll(Resources.getResourceAsProperties(resource));
-      } else if (url != null) {
+} else if (url != null) {
         defaults.putAll(Resources.getUrlAsProperties(url));
-      }
+}
       Properties vars = configuration.getVariables();
       if (vars != null) {
         defaults.putAll(vars);
-      }
+}
       parser.setVariables(defaults);
       configuration.setVariables(defaults);
-    }
-  }
+}
+}
 
   private void settingsElement(Properties props) throws Exception {
     configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
@@ -266,13 +266,13 @@ public class XMLConfigBuilder extends BaseBuilder {
     Class<? extends Log> logImpl = (Class<? extends Log>)resolveClass(props.getProperty("logImpl"));
     configuration.setLogImpl(logImpl);
     configuration.setConfigurationFactory(resolveClass(props.getProperty("configurationFactory")));
-  }
+}
 
   private void environmentsElement(XNode context) throws Exception {
     if (context != null) {
       if (environment == null) {
         environment = context.getStringAttribute("default");
-      }
+}
       for (XNode child : context.getChildren()) {
         String id = child.getStringAttribute("id");
         if (isSpecifiedEnvironment(id)) {
@@ -283,10 +283,10 @@ public class XMLConfigBuilder extends BaseBuilder {
               .transactionFactory(txFactory)
               .dataSource(dataSource);
           configuration.setEnvironment(environmentBuilder.build());
-        }
-      }
-    }
-  }
+}
+}
+}
+}
 
   private void databaseIdProviderElement(XNode context) throws Exception {
     DatabaseIdProvider databaseIdProvider = null;
@@ -295,17 +295,17 @@ public class XMLConfigBuilder extends BaseBuilder {
       // awful patch to keep backward compatibility
       if ("VENDOR".equals(type)) {
           type = "DB_VENDOR";
-      }
+}
       Properties properties = context.getChildrenAsProperties();
       databaseIdProvider = (DatabaseIdProvider) resolveClass(type).newInstance();
       databaseIdProvider.setProperties(properties);
-    }
+}
     Environment environment = configuration.getEnvironment();
     if (environment != null && databaseIdProvider != null) {
       String databaseId = databaseIdProvider.getDatabaseId(environment.getDataSource());
       configuration.setDatabaseId(databaseId);
-    }
-  }
+}
+}
 
   private TransactionFactory transactionManagerElement(XNode context) throws Exception {
     if (context != null) {
@@ -314,9 +314,9 @@ public class XMLConfigBuilder extends BaseBuilder {
       TransactionFactory factory = (TransactionFactory) resolveClass(type).newInstance();
       factory.setProperties(props);
       return factory;
-    }
+}
     throw new BuilderException("Environment declaration requires a TransactionFactory.");
-  }
+}
 
   private DataSourceFactory dataSourceElement(XNode context) throws Exception {
     if (context != null) {
@@ -325,9 +325,9 @@ public class XMLConfigBuilder extends BaseBuilder {
       DataSourceFactory factory = (DataSourceFactory) resolveClass(type).newInstance();
       factory.setProperties(props);
       return factory;
-    }
+}
     throw new BuilderException("Environment declaration requires a DataSourceFactory.");
-  }
+}
 
   private void typeHandlerElement(XNode parent) throws Exception {
     if (parent != null) {
@@ -335,7 +335,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         if ("package".equals(child.getName())) {
           String typeHandlerPackage = child.getStringAttribute("name");
           typeHandlerRegistry.register(typeHandlerPackage);
-        } else {
+} else {
           String javaTypeName = child.getStringAttribute("javaType");
           String jdbcTypeName = child.getStringAttribute("jdbcType");
           String handlerTypeName = child.getStringAttribute("handler");
@@ -345,16 +345,16 @@ public class XMLConfigBuilder extends BaseBuilder {
           if (javaTypeClass != null) {
             if (jdbcType == null) {
               typeHandlerRegistry.register(javaTypeClass, typeHandlerClass);
-            } else {
+} else {
               typeHandlerRegistry.register(javaTypeClass, jdbcType, typeHandlerClass);
-            }
-          } else {
+}
+} else {
             typeHandlerRegistry.register(typeHandlerClass);
-          }
-        }
-      }
-    }
-  }
+}
+}
+}
+}
+}
 
   private void mapperElement(XNode parent) throws Exception {
     if (parent != null) {
@@ -362,7 +362,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         if ("package".equals(child.getName())) {
           String mapperPackage = child.getStringAttribute("name");
           configuration.addMappers(mapperPackage);
-        } else {
+} else {
           String resource = child.getStringAttribute("resource");
           String url = child.getStringAttribute("url");
           String mapperClass = child.getStringAttribute("class");
@@ -371,31 +371,30 @@ public class XMLConfigBuilder extends BaseBuilder {
             InputStream inputStream = Resources.getResourceAsStream(resource);
             XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
             mapperParser.parse();
-          } else if (resource == null && url != null && mapperClass == null) {
+} else if (resource == null && url != null && mapperClass == null) {
             ErrorContext.instance().resource(url);
             InputStream inputStream = Resources.getUrlAsStream(url);
             XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url, configuration.getSqlFragments());
             mapperParser.parse();
-          } else if (resource == null && url == null && mapperClass != null) {
+} else if (resource == null && url == null && mapperClass != null) {
             Class<?> mapperInterface = Resources.classForName(mapperClass);
             configuration.addMapper(mapperInterface);
-          } else {
+} else {
             throw new BuilderException("A mapper element may only specify a url, resource or class, but not more than one.");
-          }
-        }
-      }
-    }
-  }
+}
+}
+}
+}
+}
 
   private boolean isSpecifiedEnvironment(String id) {
     if (environment == null) {
       throw new BuilderException("No environment specified.");
-    } else if (id == null) {
+} else if (id == null) {
       throw new BuilderException("Environment requires an id attribute.");
-    } else if (environment.equals(id)) {
+} else if (environment.equals(id)) {
       return true;
-    }
+}
     return false;
-  }
-
+}
 }

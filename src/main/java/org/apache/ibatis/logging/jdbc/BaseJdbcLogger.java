@@ -55,10 +55,10 @@ public abstract class BaseJdbcLogger {
     this.statementLog = log;
     if (queryStack == 0) {
       this.queryStack = 1;
-    } else {
+} else {
       this.queryStack = queryStack;
-    }
-  }
+}
+}
 
   static {
     SET_METHODS.add("setString");
@@ -90,51 +90,51 @@ public abstract class BaseJdbcLogger {
     EXECUTE_METHODS.add("executeUpdate");
     EXECUTE_METHODS.add("executeQuery");
     EXECUTE_METHODS.add("addBatch");
-  }
+}
 
   protected void setColumn(Object key, Object value) {
     columnMap.put(key, value);
     columnNames.add(key);
     columnValues.add(value);
-  }
+}
 
   protected Object getColumn(Object key) {
     return columnMap.get(key);
-  }
+}
 
   protected String getParameterValueString() {
     List<Object> typeList = new ArrayList<Object>(columnValues.size());
     for (Object value : columnValues) {
       if (value == null) {
         typeList.add("null");
-      } else {
+} else {
         typeList.add(objectValueString(value) + "(" + value.getClass().getSimpleName() + ")");
-      }
-    }
+}
+}
     final String parameters = typeList.toString();
     return parameters.substring(1, parameters.length() - 1);
-  }
+}
 
   protected String objectValueString(Object value) {
     if (value instanceof Array) {
       try {
         return ArrayUtil.toString(((Array) value).getArray());
-      } catch (SQLException e) {
+} catch (SQLException e) {
         return value.toString();
-      }
-    }
+}
+}
     return value.toString();
-  }
+}
 
   protected String getColumnString() {
     return columnNames.toString();
-  }
+}
 
   protected void clearColumnInfo() {
     columnMap.clear();
     columnNames.clear();
     columnValues.clear();
-  }
+}
 
   protected String removeBreakingWhitespace(String original) {
     StringTokenizer whitespaceStripper = new StringTokenizer(original);
@@ -142,29 +142,29 @@ public abstract class BaseJdbcLogger {
     while (whitespaceStripper.hasMoreTokens()) {
       builder.append(whitespaceStripper.nextToken());
       builder.append(" ");
-    }
+}
     return builder.toString();
-  }
+}
 
   protected boolean isDebugEnabled() {
     return statementLog.isDebugEnabled();
-  }
+}
 
   protected boolean isTraceEnabled() {
     return statementLog.isTraceEnabled();
-  }
+}
 
   protected void debug(String text, boolean input) {
     if (statementLog.isDebugEnabled()) {
       statementLog.debug(prefix(input) + text);
-    }
-  }
+}
+}
 
   protected void trace(String text, boolean input) {
     if (statementLog.isTraceEnabled()) {
       statementLog.trace(prefix(input) + text);
-    }
-  }
+}
+}
 
   private String prefix(boolean isInput) {
     char[] buffer = new char[queryStack * 2 + 2];
@@ -172,10 +172,9 @@ public abstract class BaseJdbcLogger {
     buffer[queryStack * 2 + 1] = ' ';
     if (isInput) {
       buffer[queryStack * 2] = '>';
-    } else {
+} else {
       buffer[0] = '<';
-    }
+}
     return new String(buffer);
-  }
-
+}
 }
