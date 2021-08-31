@@ -95,7 +95,7 @@ public class ProviderSqlSource implements SqlSource {
             } else if (bindParameterCount == 1 && (parameterObject == null || providerMethodParameterTypes[(providerContextIndex == null || providerContextIndex == 1) ? 0 : 1].isAssignableFrom(parameterObject.getClass()))) {
                 sql = invokeProviderMethod(extractProviderMethodArguments(parameterObject));
             } else if (parameterObject instanceof Map) {
-                Map<String, Object> params = (Map<String, Object>) parameterObject;
+                Map<?, ?> params = Map.class.cast(parameterObject);
                 sql = invokeProviderMethod(extractProviderMethodArguments(params, providerMethodArgumentNames));
             } else {
                 throw new BuilderException("Error invoking SqlProvider method (" + providerType.getName() + "." + providerMethod.getName() + "). Cannot invoke a method that holds "
@@ -121,7 +121,7 @@ public class ProviderSqlSource implements SqlSource {
         }
     }
 
-    private Object[] extractProviderMethodArguments(Map<String, Object> params, String[] argumentNames) {
+    private Object[] extractProviderMethodArguments(Map<?, ?> params, String[] argumentNames) {
         Object[] args = new Object[argumentNames.length];
         for (int i = 0; i < args.length; i++) {
             if (providerContextIndex != null && providerContextIndex == i) {

@@ -194,17 +194,17 @@ public class SqlSessionManager implements SqlSessionFactory, SqlSession {
     }
 
     @Override
-    public void select(String statement, ResultHandler handler) {
+    public void select(String statement, ResultHandler<?> handler) {
         sqlSessionProxy.select(statement, handler);
     }
 
     @Override
-    public void select(String statement, Object parameter, ResultHandler handler) {
+    public void select(String statement, Object parameter, ResultHandler<?> handler) {
         sqlSessionProxy.select(statement, parameter, handler);
     }
 
     @Override
-    public void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler) {
+    public void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler<?> handler) {
         sqlSessionProxy.select(statement, parameter, rowBounds, handler);
     }
 

@@ -43,6 +43,7 @@ public class DefaultParameterHandler implements ParameterHandler {
         return parameterObject;
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void setParameters(PreparedStatement ps) {
         ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());

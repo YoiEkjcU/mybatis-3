@@ -54,7 +54,7 @@ public class ForEachSqlNode implements SqlNode {
             int uniqueNumber = context.getUniqueNumber();
             // Issue #709
             if (o instanceof Map.Entry) {
-                Map.Entry<Object, Object> mapEntry = (Map.Entry<Object, Object>) o;
+                Map.Entry<?, ?> mapEntry = Map.Entry.class.cast(o);
                 applyIndex(context, mapEntry.getKey(), uniqueNumber);
                 applyItem(context, mapEntry.getValue(), uniqueNumber);
             } else {

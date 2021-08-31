@@ -450,7 +450,7 @@ public class Configuration {
      * @param typeHandler a type handler class for {@link Enum}
      * @since 3.4.5
      */
-    public void setDefaultEnumTypeHandler(Class<? extends TypeHandler> typeHandler) {
+    public void setDefaultEnumTypeHandler(Class<?> typeHandler) {
         if (typeHandler != null) {
             getTypeHandlerRegistry().setDefaultEnumTypeHandler(typeHandler);
         }
@@ -529,13 +529,13 @@ public class Configuration {
         return parameterHandler;
     }
 
-    public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds, ParameterHandler parameterHandler, ResultHandler resultHandler, BoundSql boundSql) {
+    public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds, ParameterHandler parameterHandler, ResultHandler<?> resultHandler, BoundSql boundSql) {
         ResultSetHandler resultSetHandler = new DefaultResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);
         resultSetHandler = (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);
         return resultSetHandler;
     }
 
-    public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+    public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameterObject, RowBounds rowBounds, ResultHandler<?> resultHandler, BoundSql boundSql) {
         StatementHandler statementHandler = new RoutingStatementHandler(executor, mappedStatement, parameterObject, rowBounds, resultHandler, boundSql);
         statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);
         return statementHandler;
@@ -823,7 +823,7 @@ public class Configuration {
 
     protected static class StrictMap<V> extends HashMap<String, V> {
 
-        private static final long serialVersionUID = -4950446264854982944L;
+        private static final long serialVersionUID = 1L;
         private final String name;
 
         public StrictMap(String name, int initialCapacity, float loadFactor) {
@@ -846,6 +846,7 @@ public class Configuration {
             this.name = name;
         }
 
+        @SuppressWarnings("unchecked")
         public V put(String key, V value) {
             if (containsKey(key)) {
                 throw new IllegalArgumentException(name + " already contains value for " + key);

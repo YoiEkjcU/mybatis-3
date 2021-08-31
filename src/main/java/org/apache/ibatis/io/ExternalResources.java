@@ -1,12 +1,11 @@
 package org.apache.ibatis.io;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.file.StandardOpenOption;
 import java.util.Properties;
 
 import org.apache.ibatis.logging.Log;
@@ -29,25 +28,9 @@ public class ExternalResources {
             destFile.createNewFile();
         }
 
-        FileChannel source = null;
-        FileChannel destination = null;
-        try {
-            source = new FileInputStream(sourceFile).getChannel();
-            destination = new FileOutputStream(destFile).getChannel();
+        try (FileChannel source = FileChannel.open(sourceFile.toPath(), StandardOpenOption.READ); //
+                FileChannel destination = FileChannel.open(destFile.toPath(), StandardOpenOption.WRITE)) {
             destination.transferFrom(source, 0, source.size());
-        } finally {
-            closeQuietly(source);
-            closeQuietly(destination);
-        }
-    }
-
-    private static void closeQuietly(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (IOException e) {
-                // do nothing, close quietly
-            }
         }
     }
 

@@ -86,6 +86,7 @@ public class DynamicContext {
 
     static class ContextAccessor implements PropertyAccessor {
 
+        @SuppressWarnings("rawtypes")
         @Override
         public Object getProperty(Map context, Object target, Object name) throws OgnlException {
             Map map = (Map) target;
@@ -103,6 +104,7 @@ public class DynamicContext {
             return null;
         }
 
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         @Override
         public void setProperty(Map context, Object target, Object name, Object value) throws OgnlException {
             Map<Object, Object> map = (Map<Object, Object>) target;

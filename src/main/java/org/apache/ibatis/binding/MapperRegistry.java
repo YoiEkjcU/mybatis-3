@@ -26,12 +26,12 @@ public class MapperRegistry {
     }
 
     public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
-        final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
+        MapperProxyFactory<?> mapperProxyFactory = knownMappers.get(type);
         if (mapperProxyFactory == null) {
             throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
         }
         try {
-            return mapperProxyFactory.newInstance(sqlSession);
+            return type.cast(mapperProxyFactory.newInstance(sqlSession));
         } catch (Exception e) {
             throw new BindingException("Error getting mapper instance. Cause: " + e, e);
         }
@@ -88,5 +88,4 @@ public class MapperRegistry {
     public void addMappers(String packageName) {
         addMappers(packageName, Object.class);
     }
-
 }

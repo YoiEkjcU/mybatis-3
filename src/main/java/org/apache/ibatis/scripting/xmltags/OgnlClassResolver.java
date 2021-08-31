@@ -18,6 +18,7 @@ public class OgnlClassResolver implements ClassResolver {
 
     private final Map<String, Class<?>> classes = new HashMap<String, Class<?>>(101);
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Class classForName(String className, Map context) throws ClassNotFoundException {
         Class<?> result = null;

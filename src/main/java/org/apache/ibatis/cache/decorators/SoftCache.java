@@ -50,7 +50,7 @@ public class SoftCache implements Cache {
     @Override
     public Object getObject(Object key) {
         Object result = null;
-        SoftReference<Object> softReference = (SoftReference<Object>) delegate.getObject(key);
+        SoftReference<?> softReference = SoftReference.class.cast(delegate.getObject(key));
         if (softReference != null) {
             result = softReference.get();
             if (result == null) {

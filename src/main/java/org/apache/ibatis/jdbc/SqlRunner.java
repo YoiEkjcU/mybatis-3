@@ -199,6 +199,7 @@ public class SqlRunner {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private void setParameters(PreparedStatement ps, Object... args) throws SQLException {
         for (int i = 0, n = args.length; i < n; i++) {
             if (args[i] == null) {

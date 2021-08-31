@@ -137,7 +137,7 @@ public interface SqlSession extends Closeable {
      * @param parameter A parameter object to pass to the statement.
      * @param handler   ResultHandler that will handle each retrieved row
      */
-    void select(String statement, Object parameter, ResultHandler handler);
+    void select(String statement, Object parameter, ResultHandler<?> handler);
 
     /**
      * Retrieve a single row mapped from the statement using a {@code ResultHandler}.
@@ -145,7 +145,7 @@ public interface SqlSession extends Closeable {
      * @param statement Unique identifier matching the statement to use.
      * @param handler   ResultHandler that will handle each retrieved row
      */
-    void select(String statement, ResultHandler handler);
+    void select(String statement, ResultHandler<?> handler);
 
     /**
      * Retrieve a single row mapped from the statement key and parameter using a {@code ResultHandler} and {@code RowBounds}
@@ -154,7 +154,7 @@ public interface SqlSession extends Closeable {
      * @param rowBounds RowBound instance to limit the query results
      * @param handler   ResultHandler that will handle each retrieved row
      */
-    void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler);
+    void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler<?> handler);
 
     /**
      * Execute an insert statement.

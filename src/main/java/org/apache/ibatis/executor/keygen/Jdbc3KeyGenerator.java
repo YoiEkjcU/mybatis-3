@@ -43,7 +43,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
         processBatch(ms, stmt, getParameters(parameter));
     }
 
-    public void processBatch(MappedStatement ms, Statement stmt, Collection<Object> parameters) {
+    public void processBatch(MappedStatement ms, Statement stmt, Collection<?> parameters) {
         ResultSet rs = null;
         try {
             rs = stmt.getGeneratedKeys();
@@ -78,6 +78,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
         }
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private Collection<Object> getParameters(Object parameter) {
         Collection<Object> parameters = null;
         if (parameter instanceof Collection) {

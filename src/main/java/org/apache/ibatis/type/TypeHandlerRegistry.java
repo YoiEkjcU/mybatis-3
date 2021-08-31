@@ -46,7 +46,7 @@ public final class TypeHandlerRegistry {
 
     private static final Map<JdbcType, TypeHandler<?>> NULL_TYPE_HANDLER_MAP = Collections.emptyMap();
 
-    private Class<? extends TypeHandler> defaultEnumTypeHandler = EnumTypeHandler.class;
+    private Class<?> defaultEnumTypeHandler = EnumTypeHandler.class;
 
     public TypeHandlerRegistry() {
         register(Boolean.class, new BooleanTypeHandler());
@@ -156,7 +156,7 @@ public final class TypeHandlerRegistry {
      * @param typeHandler a type handler class for {@link Enum}
      * @since 3.4.5
      */
-    public void setDefaultEnumTypeHandler(Class<? extends TypeHandler> typeHandler) {
+    public void setDefaultEnumTypeHandler(Class<?> typeHandler) {
         this.defaultEnumTypeHandler = typeHandler;
     }
 

@@ -137,17 +137,17 @@ public class DefaultSqlSession implements SqlSession {
     }
 
     @Override
-    public void select(String statement, Object parameter, ResultHandler handler) {
+    public void select(String statement, Object parameter, ResultHandler<?> handler) {
         select(statement, parameter, RowBounds.DEFAULT, handler);
     }
 
     @Override
-    public void select(String statement, ResultHandler handler) {
+    public void select(String statement, ResultHandler<?> handler) {
         select(statement, null, RowBounds.DEFAULT, handler);
     }
 
     @Override
-    public void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler) {
+    public void select(String statement, Object parameter, RowBounds rowBounds, ResultHandler<?> handler) {
         try {
             MappedStatement ms = configuration.getMappedStatement(statement);
             executor.query(ms, wrapCollection(parameter), rowBounds, handler);

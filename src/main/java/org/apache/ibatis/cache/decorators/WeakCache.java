@@ -50,7 +50,7 @@ public class WeakCache implements Cache {
     @Override
     public Object getObject(Object key) {
         Object result = null;
-        WeakReference<Object> weakReference = (WeakReference<Object>) delegate.getObject(key);
+        WeakReference<?> weakReference = WeakReference.class.cast(delegate.getObject(key));
         if (weakReference != null) {
             result = weakReference.get();
             if (result == null) {

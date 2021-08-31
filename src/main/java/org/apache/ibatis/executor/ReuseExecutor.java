@@ -38,7 +38,7 @@ public class ReuseExecutor extends BaseExecutor {
     }
 
     @Override
-    public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+    public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler<?> resultHandler, BoundSql boundSql) throws SQLException {
         Configuration configuration = ms.getConfiguration();
         StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
         Statement stmt = prepareStatement(handler, ms.getStatementLog());

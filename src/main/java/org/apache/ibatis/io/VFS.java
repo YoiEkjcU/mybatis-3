@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,9 +19,6 @@ import org.apache.ibatis.logging.LogFactory;
 public abstract class VFS {
     private static final Log log = LogFactory.getLog(VFS.class);
 
-    /** The built-in implementations. */
-    public static final Class<?>[] IMPLEMENTATIONS = { JBoss6VFS.class, DefaultVFS.class };
-
     /** The list to which implementations are added by {@link #addImplClass(Class)}. */
     public static final List<Class<? extends VFS>> USER_IMPLEMENTATIONS = new ArrayList<Class<? extends VFS>>();
 
@@ -34,7 +30,8 @@ public abstract class VFS {
             // Try the user implementations first, then the built-ins
             List<Class<? extends VFS>> impls = new ArrayList<Class<? extends VFS>>();
             impls.addAll(USER_IMPLEMENTATIONS);
-            impls.addAll(Arrays.asList((Class<? extends VFS>[]) IMPLEMENTATIONS));
+            impls.add(JBoss6VFS.class);
+            impls.add(DefaultVFS.class);
 
             // Try each implementation class until a valid one is found
             VFS vfs = null;
@@ -127,6 +124,7 @@ public abstract class VFS {
      * @throws IOException      If I/O errors occur
      * @throws RuntimeException If anything else goes wrong
      */
+    @SuppressWarnings("unchecked")
     protected static <T> T invoke(Method method, Object object, Object... parameters) throws IOException, RuntimeException {
         try {
             return (T) method.invoke(object, parameters);

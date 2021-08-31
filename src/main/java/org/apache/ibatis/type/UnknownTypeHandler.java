@@ -23,6 +23,7 @@ public class UnknownTypeHandler extends BaseTypeHandler<Object> {
         this.typeHandlerRegistry = typeHandlerRegistry;
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Object parameter, JdbcType jdbcType) throws SQLException {
         TypeHandler handler = resolveTypeHandler(parameter, jdbcType);

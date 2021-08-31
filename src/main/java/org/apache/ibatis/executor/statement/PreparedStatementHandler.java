@@ -21,7 +21,7 @@ import org.apache.ibatis.session.RowBounds;
  */
 public class PreparedStatementHandler extends BaseStatementHandler {
 
-    public PreparedStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+    public PreparedStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter, RowBounds rowBounds, ResultHandler<?> resultHandler, BoundSql boundSql) {
         super(executor, mappedStatement, parameter, rowBounds, resultHandler, boundSql);
     }
 
@@ -43,7 +43,7 @@ public class PreparedStatementHandler extends BaseStatementHandler {
     }
 
     @Override
-    public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
+    public <E> List<E> query(Statement statement, ResultHandler<?> resultHandler) throws SQLException {
         PreparedStatement ps = (PreparedStatement) statement;
         ps.execute();
         return resultSetHandler.<E>handleResultSets(ps);

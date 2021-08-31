@@ -151,6 +151,7 @@ public class MapperMethod {
         return collection;
     }
 
+    @SuppressWarnings("unchecked")
     private <E> Object convertToArray(List<E> list) {
         Class<?> arrayComponentType = method.getReturnType().getComponentType();
         Object array = Array.newInstance(arrayComponentType, list.size());
@@ -288,8 +289,8 @@ public class MapperMethod {
             return resultHandlerIndex != null;
         }
 
-        public ResultHandler extractResultHandler(Object[] args) {
-            return hasResultHandler() ? (ResultHandler) args[resultHandlerIndex] : null;
+        public ResultHandler<?> extractResultHandler(Object[] args) {
+            return hasResultHandler() ? (ResultHandler<?>) args[resultHandlerIndex] : null;
         }
 
         public String getMapKey() {

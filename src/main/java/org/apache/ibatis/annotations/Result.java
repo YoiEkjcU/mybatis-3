@@ -26,7 +26,7 @@ public @interface Result {
 
     JdbcType jdbcType() default JdbcType.UNDEFINED;
 
-    Class<? extends TypeHandler> typeHandler() default UnknownTypeHandler.class;
+    Class<? extends TypeHandler<?>> typeHandler() default UnknownTypeHandler.class;
 
     One one() default @One;
 

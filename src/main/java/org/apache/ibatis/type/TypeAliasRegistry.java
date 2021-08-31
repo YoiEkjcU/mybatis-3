@@ -86,6 +86,7 @@ public class TypeAliasRegistry {
     }
 
     // throws class cast exception as well if types cannot be assigned
+    @SuppressWarnings("unchecked")
     public <T> Class<T> resolveAlias(String string) {
         try {
             if (string == null) {

@@ -21,7 +21,7 @@ public class RoutingStatementHandler implements StatementHandler {
 
     private final StatementHandler delegate;
 
-    public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+    public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler<?> resultHandler, BoundSql boundSql) {
 
         switch (ms.getStatementType()) {
         case STATEMENT:
@@ -59,7 +59,7 @@ public class RoutingStatementHandler implements StatementHandler {
     }
 
     @Override
-    public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
+    public <E> List<E> query(Statement statement, ResultHandler<?> resultHandler) throws SQLException {
         return delegate.<E>query(statement, resultHandler);
     }
 
