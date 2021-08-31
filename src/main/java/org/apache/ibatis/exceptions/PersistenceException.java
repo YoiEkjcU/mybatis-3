@@ -3,7 +3,6 @@ package org.apache.ibatis.exceptions;
 /**
  * @author Clinton Begin
  */
-@SuppressWarnings("deprecation")
 public class PersistenceException extends IbatisException {
 
     private static final long serialVersionUID = -7537395265357977271L;

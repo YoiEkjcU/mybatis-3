@@ -846,7 +846,6 @@ public class Configuration {
             this.name = name;
         }
 
-        @SuppressWarnings("unchecked")
         public V put(String key, V value) {
             if (containsKey(key)) {
                 throw new IllegalArgumentException(name + " already contains value for " + key);

@@ -81,7 +81,6 @@ public class CachingExecutor implements Executor {
             flushCacheIfRequired(ms);
             if (ms.isUseCache() && resultHandler == null) {
                 ensureNoOutParams(ms, boundSql);
-                @SuppressWarnings("unchecked")
                 List<E> list = (List<E>) tcm.getObject(cache, key);
                 if (list == null) {
                     list = delegate.<E>query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);

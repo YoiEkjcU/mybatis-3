@@ -18,7 +18,6 @@ public class DefaultResultHandler implements ResultHandler<Object> {
         list = new ArrayList<Object>();
     }
 
-    @SuppressWarnings("unchecked")
     public DefaultResultHandler(ObjectFactory objectFactory) {
         list = objectFactory.create(List.class);
     }

@@ -21,9 +21,9 @@ public class Application {
                 SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
                 SysUser user = sysUserMapper.getById(1);
                 System.out.println(user);
-}
-} catch (IOException e) {
+            }
+        } catch (IOException e) {
             e.printStackTrace();
-}
-}
+        }
+    }
 }

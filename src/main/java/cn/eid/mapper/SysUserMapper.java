@@ -47,6 +47,6 @@ public interface SysUserMapper {
                     .FROM("sys_user")//
                     .WHERE("user_id = #{id}").toString();
             return sql;
-}
-}
+        }
+    }
 }

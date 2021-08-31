@@ -27,7 +27,6 @@ public class DefaultObjectFactory implements ObjectFactory, Serializable {
         return create(type, null, null);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T> T create(Class<T> type, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
         Class<?> classToCreate = resolveInterface(type);

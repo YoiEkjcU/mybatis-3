@@ -30,7 +30,6 @@ public abstract class VFS {
     private static class VFSHolder {
         static final VFS INSTANCE = createVFS();
 
-        @SuppressWarnings("unchecked")
         static VFS createVFS() {
             // Try the user implementations first, then the built-ins
             List<Class<? extends VFS>> impls = new ArrayList<Class<? extends VFS>>();
@@ -128,7 +127,6 @@ public abstract class VFS {
      * @throws IOException      If I/O errors occur
      * @throws RuntimeException If anything else goes wrong
      */
-    @SuppressWarnings("unchecked")
     protected static <T> T invoke(Method method, Object object, Object... parameters) throws IOException, RuntimeException {
         try {
             return (T) method.invoke(object, parameters);

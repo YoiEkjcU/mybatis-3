@@ -85,7 +85,6 @@ public class TypeAliasRegistry {
         registerAlias("ResultSet", ResultSet.class);
     }
 
-    @SuppressWarnings("unchecked")
     // throws class cast exception as well if types cannot be assigned
     public <T> Class<T> resolveAlias(String string) {
         try {

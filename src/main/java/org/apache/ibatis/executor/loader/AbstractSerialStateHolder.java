@@ -79,7 +79,6 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final Object readResolve() throws ObjectStreamException {
         /* Second run */
         if (this.userBean != null && this.userBeanBytes.length == 0) {

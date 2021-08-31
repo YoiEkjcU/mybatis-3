@@ -295,7 +295,6 @@ public class DefaultResultSetHandler implements ResultSetHandler {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private List<Object> collapseSingleResultList(List<Object> multipleResults) {
         return multipleResults.size() == 1 ? (List<Object>) multipleResults.get(0) : multipleResults;
     }
@@ -345,7 +344,6 @@ public class DefaultResultSetHandler implements ResultSetHandler {
         }
     }
 
-    @SuppressWarnings("unchecked" /* because ResultHandler<?> is always ResultHandler<Object> */)
     private void callResultHandler(ResultHandler<?> resultHandler, DefaultResultContext<Object> resultContext, Object rowValue) {
         resultContext.nextResultObject(rowValue);
         ((ResultHandler<Object>) resultHandler).handleResult(resultContext);

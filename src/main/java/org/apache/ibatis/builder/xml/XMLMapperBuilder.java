@@ -212,7 +212,6 @@ public class XMLMapperBuilder extends BaseBuilder {
                 ParameterMode modeEnum = resolveParameterMode(mode);
                 Class<?> javaTypeClass = resolveClass(javaType);
                 JdbcType jdbcTypeEnum = resolveJdbcType(jdbcType);
-                @SuppressWarnings("unchecked")
                 Class<? extends TypeHandler<?>> typeHandlerClass = (Class<? extends TypeHandler<?>>) resolveClass(typeHandler);
                 ParameterMapping parameterMapping = builderAssistant.buildParameterMapping(parameterClass, property, javaTypeClass, jdbcTypeEnum, resultMap, modeEnum, typeHandlerClass, numericScale);
                 parameterMappings.add(parameterMapping);
@@ -286,7 +285,6 @@ public class XMLMapperBuilder extends BaseBuilder {
         String jdbcType = context.getStringAttribute("jdbcType");
         String typeHandler = context.getStringAttribute("typeHandler");
         Class<?> javaTypeClass = resolveClass(javaType);
-        @SuppressWarnings("unchecked")
         Class<? extends TypeHandler<?>> typeHandlerClass = (Class<? extends TypeHandler<?>>) resolveClass(typeHandler);
         JdbcType jdbcTypeEnum = resolveJdbcType(jdbcType);
         Map<String, String> discriminatorMap = new HashMap<String, String>();
@@ -355,7 +353,6 @@ public class XMLMapperBuilder extends BaseBuilder {
         String foreignColumn = context.getStringAttribute("foreignColumn");
         boolean lazy = "lazy".equals(context.getStringAttribute("fetchType", configuration.isLazyLoadingEnabled() ? "lazy" : "eager"));
         Class<?> javaTypeClass = resolveClass(javaType);
-        @SuppressWarnings("unchecked")
         Class<? extends TypeHandler<?>> typeHandlerClass = (Class<? extends TypeHandler<?>>) resolveClass(typeHandler);
         JdbcType jdbcTypeEnum = resolveJdbcType(jdbcType);
         return builderAssistant.buildResultMapping(resultType, property, column, javaTypeClass, jdbcTypeEnum, nestedSelect, nestedResultMap, notNullColumn, columnPrefix, typeHandlerClass, flags, resultSet, foreignColumn, lazy);

@@ -50,7 +50,6 @@ public class WeakCache implements Cache {
     @Override
     public Object getObject(Object key) {
         Object result = null;
-        @SuppressWarnings("unchecked") // assumed delegate cache is totally managed by this cache
         WeakReference<Object> weakReference = (WeakReference<Object>) delegate.getObject(key);
         if (weakReference != null) {
             result = weakReference.get();

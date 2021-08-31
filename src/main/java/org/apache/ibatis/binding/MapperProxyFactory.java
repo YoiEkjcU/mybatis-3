@@ -27,7 +27,6 @@ public class MapperProxyFactory<T> {
         return methodCache;
     }
 
-    @SuppressWarnings("unchecked")
     protected T newInstance(MapperProxy<T> mapperProxy) {
         return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
     }

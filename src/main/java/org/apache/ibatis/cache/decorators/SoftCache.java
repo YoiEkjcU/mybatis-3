@@ -50,7 +50,6 @@ public class SoftCache implements Cache {
     @Override
     public Object getObject(Object key) {
         Object result = null;
-        @SuppressWarnings("unchecked") // assumed delegate cache is totally managed by this cache
         SoftReference<Object> softReference = (SoftReference<Object>) delegate.getObject(key);
         if (softReference != null) {
             result = softReference.get();
