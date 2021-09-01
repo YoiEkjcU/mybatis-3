@@ -16,42 +16,12 @@ public final class LogFactory {
     private static Constructor<? extends Log> logConstructor;
 
     static {
-        tryImplementation(new Runnable() {
-            @Override
-            public void run() {
-                useSlf4jLogging();
-            }
-        });
-        tryImplementation(new Runnable() {
-            @Override
-            public void run() {
-                useCommonsLogging();
-            }
-        });
-        tryImplementation(new Runnable() {
-            @Override
-            public void run() {
-                useLog4J2Logging();
-            }
-        });
-        tryImplementation(new Runnable() {
-            @Override
-            public void run() {
-                useLog4JLogging();
-            }
-        });
-        tryImplementation(new Runnable() {
-            @Override
-            public void run() {
-                useJdkLogging();
-            }
-        });
-        tryImplementation(new Runnable() {
-            @Override
-            public void run() {
-                useNoLogging();
-            }
-        });
+        tryImplementation(LogFactory::useSlf4jLogging);
+//      tryImplementation(LogFactory::useCommonsLogging);
+        tryImplementation(LogFactory::useLog4J2Logging);
+//      tryImplementation(LogFactory::useLog4JLogging);
+        tryImplementation(LogFactory::useJdkLogging);
+        tryImplementation(LogFactory::useNoLogging);
     }
 
     private LogFactory() {
@@ -78,13 +48,13 @@ public final class LogFactory {
         setImplementation(org.apache.ibatis.logging.slf4j.Slf4jImpl.class);
     }
 
-    public static synchronized void useCommonsLogging() {
-        setImplementation(org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.class);
-    }
-
-    public static synchronized void useLog4JLogging() {
-        setImplementation(org.apache.ibatis.logging.log4j.Log4jImpl.class);
-    }
+//  public static synchronized void useCommonsLogging() {
+//      setImplementation(org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.class);
+//  }
+//
+//  public static synchronized void useLog4JLogging() {
+//      setImplementation(org.apache.ibatis.logging.log4j.Log4jImpl.class);
+//  }
 
     public static synchronized void useLog4J2Logging() {
         setImplementation(org.apache.ibatis.logging.log4j2.Log4j2Impl.class);

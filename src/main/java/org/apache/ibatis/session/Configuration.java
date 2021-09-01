@@ -41,9 +41,7 @@ import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
-import org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl;
 import org.apache.ibatis.logging.jdk14.Jdk14LoggingImpl;
-import org.apache.ibatis.logging.log4j.Log4jImpl;
 import org.apache.ibatis.logging.log4j2.Log4j2Impl;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
@@ -173,8 +171,8 @@ public class Configuration {
         typeAliasRegistry.registerAlias("RAW", RawLanguageDriver.class);
 
         typeAliasRegistry.registerAlias("SLF4J", Slf4jImpl.class);
-        typeAliasRegistry.registerAlias("COMMONS_LOGGING", JakartaCommonsLoggingImpl.class);
-        typeAliasRegistry.registerAlias("LOG4J", Log4jImpl.class);
+//      typeAliasRegistry.registerAlias("COMMONS_LOGGING", JakartaCommonsLoggingImpl.class);
+//      typeAliasRegistry.registerAlias("LOG4J", Log4jImpl.class);
         typeAliasRegistry.registerAlias("LOG4J2", Log4j2Impl.class);
         typeAliasRegistry.registerAlias("JDK_LOGGING", Jdk14LoggingImpl.class);
         typeAliasRegistry.registerAlias("STDOUT_LOGGING", StdOutImpl.class);
