@@ -7,7 +7,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
  */
 public class ReflectionException extends PersistenceException {
 
-    private static final long serialVersionUID = 7642570221267566591L;
+    private static final long serialVersionUID = 1L;
 
     public ReflectionException() {
         super();

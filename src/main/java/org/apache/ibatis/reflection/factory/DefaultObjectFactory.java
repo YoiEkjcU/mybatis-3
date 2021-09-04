@@ -20,7 +20,7 @@ import org.apache.ibatis.reflection.ReflectionException;
  */
 public class DefaultObjectFactory implements ObjectFactory, Serializable {
 
-    private static final long serialVersionUID = -8855120656740914948L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public <T> T create(Class<T> type) {

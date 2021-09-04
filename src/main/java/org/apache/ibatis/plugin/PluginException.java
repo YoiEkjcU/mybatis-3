@@ -7,7 +7,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
  */
 public class PluginException extends PersistenceException {
 
-    private static final long serialVersionUID = 8548771664564998595L;
+    private static final long serialVersionUID = 1L;
 
     public PluginException() {
         super();

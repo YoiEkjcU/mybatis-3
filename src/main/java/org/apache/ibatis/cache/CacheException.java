@@ -7,7 +7,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
  */
 public class CacheException extends PersistenceException {
 
-    private static final long serialVersionUID = -193202262468464650L;
+    private static final long serialVersionUID = 1L;
 
     public CacheException() {
         super();

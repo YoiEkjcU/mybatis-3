@@ -179,7 +179,7 @@ public class MapperMethod {
 
     public static class ParamMap<V> extends HashMap<String, V> {
 
-        private static final long serialVersionUID = -2212268410512043556L;
+        private static final long serialVersionUID = 1L;
 
         @Override
         public V get(Object key) {

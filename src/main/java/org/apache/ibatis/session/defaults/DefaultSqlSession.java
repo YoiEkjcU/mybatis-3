@@ -318,7 +318,7 @@ public class DefaultSqlSession implements SqlSession {
 
     public static class StrictMap<V> extends HashMap<String, V> {
 
-        private static final long serialVersionUID = -5741767162221585340L;
+        private static final long serialVersionUID = 1L;
 
         @Override
         public V get(Object key) {

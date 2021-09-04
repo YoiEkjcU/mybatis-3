@@ -6,7 +6,7 @@ package org.apache.ibatis.exceptions;
 @Deprecated
 public class IbatisException extends RuntimeException {
 
-    private static final long serialVersionUID = 3880206998166270511L;
+    private static final long serialVersionUID = 1L;
 
     public IbatisException() {
         super();

@@ -5,7 +5,7 @@ package org.apache.ibatis.exceptions;
  */
 public class TooManyResultsException extends PersistenceException {
 
-    private static final long serialVersionUID = 8935197089745865786L;
+    private static final long serialVersionUID = 1L;
 
     public TooManyResultsException() {
         super();

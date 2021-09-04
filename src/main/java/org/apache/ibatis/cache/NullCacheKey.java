@@ -5,7 +5,7 @@ package org.apache.ibatis.cache;
  */
 public final class NullCacheKey extends CacheKey {
 
-    private static final long serialVersionUID = 3704229911977019465L;
+    private static final long serialVersionUID = 1L;
 
     public NullCacheKey() {
         super();

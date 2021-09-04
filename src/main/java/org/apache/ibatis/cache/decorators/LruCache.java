@@ -34,7 +34,8 @@ public class LruCache implements Cache {
 
     public void setSize(final int size) {
         keyMap = new LinkedHashMap<Object, Object>(size, .75F, true) {
-            private static final long serialVersionUID = 4267176411845948333L;
+
+            private static final long serialVersionUID = 1L;
 
             @Override
             protected boolean removeEldestEntry(Map.Entry<Object, Object> eldest) {

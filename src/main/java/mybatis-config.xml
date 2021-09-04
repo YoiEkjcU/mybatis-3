@@ -8,7 +8,7 @@
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://192.168.30.128:3306/guns_advanced" />
+                <property name="url" value="jdbc:mysql://localhost:3306/guns_advanced" />
                 <property name="username" value="root" />
                 <property name="password" value="jitadmin" />
             </dataSource>

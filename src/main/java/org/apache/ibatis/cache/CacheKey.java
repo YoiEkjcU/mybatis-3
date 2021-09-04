@@ -11,7 +11,7 @@ import org.apache.ibatis.reflection.ArrayUtil;
  */
 public class CacheKey implements Cloneable, Serializable {
 
-    private static final long serialVersionUID = 1146682552656046210L;
+    private static final long serialVersionUID = 1L;
 
     public static final CacheKey NULL_CACHE_KEY = new NullCacheKey();
 

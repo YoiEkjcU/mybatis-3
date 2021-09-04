@@ -90,7 +90,8 @@ public class ResultLoaderMap {
      */
     public static class LoadPair implements Serializable {
 
-        private static final long serialVersionUID = 20130412;
+        private static final long serialVersionUID = 1L;
+
         /**
          * Name of factory method which returns database connection.
          */

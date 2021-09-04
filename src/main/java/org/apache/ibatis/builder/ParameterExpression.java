@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 public class ParameterExpression extends HashMap<String, String> {
 
-    private static final long serialVersionUID = -2417552199605158680L;
+    private static final long serialVersionUID = 1L;
 
     public ParameterExpression(String expression) {
         parse(expression);

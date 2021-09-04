@@ -12,7 +12,7 @@ import org.apache.ibatis.reflection.factory.ObjectFactory;
  */
 class JavassistSerialStateHolder extends AbstractSerialStateHolder {
 
-    private static final long serialVersionUID = 8940388717901644661L;
+    private static final long serialVersionUID = 1L;
 
     public JavassistSerialStateHolder() {
     }
