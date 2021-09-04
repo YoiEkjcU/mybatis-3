@@ -200,6 +200,7 @@ public final class TypeHandlerRegistry {
         return getTypeHandler(javaTypeReference.getRawType(), jdbcType);
     }
 
+    @SuppressWarnings("unchecked")
     private <T> TypeHandler<T> getTypeHandler(Type type, JdbcType jdbcType) {
         if (ParamMap.class.equals(type)) {
             return null;
@@ -300,6 +301,7 @@ public final class TypeHandlerRegistry {
 
     // Only handler
 
+    @SuppressWarnings("unchecked")
     public <T> void register(TypeHandler<T> typeHandler) {
         boolean mappedTypeFound = false;
         MappedTypes mappedTypes = typeHandler.getClass().getAnnotation(MappedTypes.class);
@@ -404,6 +406,7 @@ public final class TypeHandlerRegistry {
 
     // Construct a handler (used also from Builders)
 
+    @SuppressWarnings("unchecked")
     public <T> TypeHandler<T> getInstance(Class<?> javaTypeClass, Class<?> typeHandlerClass) {
         if (javaTypeClass != null) {
             try {

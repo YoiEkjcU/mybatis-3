@@ -121,6 +121,7 @@ public abstract class BaseExecutor implements Executor {
         return query(ms, parameter, rowBounds, resultHandler, key, boundSql);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler<?> resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
         ErrorContext.instance().resource(ms.getResource()).activity("executing a query").object(ms.getId());
@@ -352,6 +353,7 @@ public abstract class BaseExecutor implements Executor {
             return localCache.getObject(key) != null && localCache.getObject(key) != EXECUTION_PLACEHOLDER;
         }
 
+        @SuppressWarnings("unchecked")
         public void load() {
             // we suppose we get back a List
             List<Object> list = (List<Object>) localCache.getObject(key);

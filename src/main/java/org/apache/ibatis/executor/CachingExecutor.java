@@ -74,6 +74,7 @@ public class CachingExecutor implements Executor {
         return delegate.queryCursor(ms, parameter, rowBounds);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler<?> resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
         Cache cache = ms.getCache();
