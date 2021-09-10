@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import cn.eid.entity.SysUser;
-import cn.eid.mapper.SysUserMapper;
+import cn.eid.entity.SysDept;
+import cn.eid.mapper.SysDeptMapper;
 
 public class Application {
 
@@ -18,8 +18,8 @@ public class Application {
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
             try (SqlSession sqlSession = sqlSessionFactory.openSession();) {
-                SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
-                SysUser user = sysUserMapper.getById(1);
+                SysDeptMapper sysDeptMapper = sqlSession.getMapper(SysDeptMapper.class);
+                SysDept user = sysDeptMapper.getById(1297780912181121026L);
                 System.out.println(user);
             }
         } catch (IOException e) {
