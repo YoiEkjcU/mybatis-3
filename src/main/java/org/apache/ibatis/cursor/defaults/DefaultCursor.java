@@ -26,7 +26,7 @@ public class DefaultCursor<T> implements Cursor<T> {
     private final ResultMap resultMap;
     private final ResultSetWrapper rsw;
     private final RowBounds rowBounds;
-    private final ObjectWrapperResultHandler<T> objectWrapperResultHandler = new ObjectWrapperResultHandler<T>();
+    private final ObjectWrapperResultHandler<T> objectWrapperResultHandler = new ObjectWrapperResultHandler<>();
 
     private final CursorIterator cursorIterator = new CursorIterator();
     private boolean iteratorRetrieved;

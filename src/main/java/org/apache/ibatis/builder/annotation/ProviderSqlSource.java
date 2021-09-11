@@ -102,7 +102,7 @@ public class ProviderSqlSource implements SqlSource {
                         + (bindParameterCount == 1 ? "named argument(@Param)" : "multiple arguments") + " using a specifying parameterObject. In this case, please specify a 'java.util.Map' object.");
             }
             Class<?> parameterType = parameterObject == null ? Object.class : parameterObject.getClass();
-            return sqlSourceParser.parse(replacePlaceholder(sql), parameterType, new HashMap<String, Object>());
+            return sqlSourceParser.parse(replacePlaceholder(sql), parameterType, new HashMap<>());
         } catch (BuilderException e) {
             throw e;
         } catch (Exception e) {

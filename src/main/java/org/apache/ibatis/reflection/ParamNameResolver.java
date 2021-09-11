@@ -36,7 +36,7 @@ public class ParamNameResolver {
     public ParamNameResolver(Configuration config, Method method) {
         final Class<?>[] paramTypes = method.getParameterTypes();
         final Annotation[][] paramAnnotations = method.getParameterAnnotations();
-        final SortedMap<Integer, String> map = new TreeMap<Integer, String>();
+        final SortedMap<Integer, String> map = new TreeMap<>();
         int paramCount = paramAnnotations.length;
         // get names from @Param annotations
         for (int paramIndex = 0; paramIndex < paramCount; paramIndex++) {
@@ -100,7 +100,7 @@ public class ParamNameResolver {
         } else if (!hasParamAnnotation && paramCount == 1) {
             return args[names.firstKey()];
         } else {
-            final Map<String, Object> param = new ParamMap<Object>();
+            final Map<String, Object> param = new ParamMap<>();
             int i = 0;
             for (Map.Entry<Integer, String> entry : names.entrySet()) {
                 param.put(entry.getValue(), args[entry.getKey()]);

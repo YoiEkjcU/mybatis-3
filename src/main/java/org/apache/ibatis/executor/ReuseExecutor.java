@@ -23,7 +23,7 @@ import org.apache.ibatis.transaction.Transaction;
  */
 public class ReuseExecutor extends BaseExecutor {
 
-    private final Map<String, Statement> statementMap = new HashMap<String, Statement>();
+    private final Map<String, Statement> statementMap = new HashMap<>();
 
     public ReuseExecutor(Configuration configuration, Transaction transaction) {
         super(configuration, transaction);

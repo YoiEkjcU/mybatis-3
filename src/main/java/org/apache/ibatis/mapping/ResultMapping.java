@@ -52,8 +52,8 @@ public class ResultMapping {
         public Builder(Configuration configuration, String property) {
             resultMapping.configuration = configuration;
             resultMapping.property = property;
-            resultMapping.flags = new ArrayList<ResultFlag>();
-            resultMapping.composites = new ArrayList<ResultMapping>();
+            resultMapping.flags = new ArrayList<>();
+            resultMapping.composites = new ArrayList<>();
             resultMapping.lazy = configuration.isLazyLoadingEnabled();
         }
 

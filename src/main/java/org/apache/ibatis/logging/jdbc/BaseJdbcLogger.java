@@ -22,13 +22,13 @@ import org.apache.ibatis.reflection.ArrayUtil;
  */
 public abstract class BaseJdbcLogger {
 
-    protected static final Set<String> SET_METHODS = new HashSet<String>();
-    protected static final Set<String> EXECUTE_METHODS = new HashSet<String>();
+    protected static final Set<String> SET_METHODS = new HashSet<>();
+    protected static final Set<String> EXECUTE_METHODS = new HashSet<>();
 
-    private final Map<Object, Object> columnMap = new HashMap<Object, Object>();
+    private final Map<Object, Object> columnMap = new HashMap<>();
 
-    private final List<Object> columnNames = new ArrayList<Object>();
-    private final List<Object> columnValues = new ArrayList<Object>();
+    private final List<Object> columnNames = new ArrayList<>();
+    private final List<Object> columnValues = new ArrayList<>();
 
     protected Log statementLog;
     protected int queryStack;
@@ -88,7 +88,7 @@ public abstract class BaseJdbcLogger {
     }
 
     protected String getParameterValueString() {
-        List<Object> typeList = new ArrayList<Object>(columnValues.size());
+        List<Object> typeList = new ArrayList<>(columnValues.size());
         for (Object value : columnValues) {
             if (value == null) {
                 typeList.add("null");

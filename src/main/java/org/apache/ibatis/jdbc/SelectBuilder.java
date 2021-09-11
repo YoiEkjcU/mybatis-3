@@ -8,7 +8,7 @@ package org.apache.ibatis.jdbc;
 @Deprecated
 public class SelectBuilder {
 
-    private static final ThreadLocal<SQL> localSQL = new ThreadLocal<SQL>();
+    private static final ThreadLocal<SQL> localSQL = new ThreadLocal<>();
 
     static {
         BEGIN();

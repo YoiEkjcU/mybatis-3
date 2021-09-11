@@ -7,7 +7,7 @@ package org.apache.ibatis.jdbc;
  */
 public class SqlBuilder {
 
-    private static final ThreadLocal<SQL> localSQL = new ThreadLocal<SQL>();
+    private static final ThreadLocal<SQL> localSQL = new ThreadLocal<>();
 
     static {
         BEGIN();

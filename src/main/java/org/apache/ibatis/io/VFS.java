@@ -20,7 +20,7 @@ public abstract class VFS {
     private static final Log log = LogFactory.getLog(VFS.class);
 
     /** The list to which implementations are added by {@link #addImplClass(Class)}. */
-    public static final List<Class<? extends VFS>> USER_IMPLEMENTATIONS = new ArrayList<Class<? extends VFS>>();
+    public static final List<Class<? extends VFS>> USER_IMPLEMENTATIONS = new ArrayList<>();
 
     /** Singleton instance holder. */
     private static class VFSHolder {
@@ -28,7 +28,7 @@ public abstract class VFS {
 
         static VFS createVFS() {
             // Try the user implementations first, then the built-ins
-            List<Class<? extends VFS>> impls = new ArrayList<Class<? extends VFS>>();
+            List<Class<? extends VFS>> impls = new ArrayList<>();
             impls.addAll(USER_IMPLEMENTATIONS);
             impls.add(JBoss6VFS.class);
             impls.add(DefaultVFS.class);
@@ -173,7 +173,7 @@ public abstract class VFS {
      * @throws IOException If I/O errors occur
      */
     public List<String> list(String path) throws IOException {
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         for (URL url : getResources(path)) {
             names.addAll(list(url, path));
         }

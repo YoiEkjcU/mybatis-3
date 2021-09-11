@@ -67,7 +67,7 @@ public class UnknownTypeHandler extends BaseTypeHandler<Object> {
     private TypeHandler<?> resolveTypeHandler(ResultSet rs, String column) {
         try {
             Map<String, Integer> columnIndexLookup;
-            columnIndexLookup = new HashMap<String, Integer>();
+            columnIndexLookup = new HashMap<>();
             ResultSetMetaData rsmd = rs.getMetaData();
             int count = rsmd.getColumnCount();
             for (int i = 1; i <= count; i++) {

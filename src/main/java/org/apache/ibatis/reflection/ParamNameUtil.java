@@ -20,7 +20,7 @@ public class ParamNameUtil {
     }
 
     private static List<String> getParameterNames(Executable executable) {
-        final List<String> names = new ArrayList<String>();
+        final List<String> names = new ArrayList<>();
         final Parameter[] params = executable.getParameters();
         for (Parameter param : params) {
             names.add(param.getName());

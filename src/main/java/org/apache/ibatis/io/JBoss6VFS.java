@@ -41,7 +41,7 @@ public class JBoss6VFS extends VFS {
 
         List<VirtualFile> getChildren() throws IOException {
             List<?> objects = invoke(getChildrenRecursively, virtualFile);
-            List<VirtualFile> children = new ArrayList<VirtualFile>(objects.size());
+            List<VirtualFile> children = new ArrayList<>(objects.size());
             for (Object object : objects) {
                 children.add(new VirtualFile(object));
             }
@@ -145,7 +145,7 @@ public class JBoss6VFS extends VFS {
         }
 
         List<VirtualFile> children = directory.getChildren();
-        List<String> names = new ArrayList<String>(children.size());
+        List<String> names = new ArrayList<>(children.size());
         for (VirtualFile vf : children) {
             names.add(path + vf.getPathNameRelativeTo(directory));
         }

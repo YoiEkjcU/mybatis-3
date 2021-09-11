@@ -16,7 +16,7 @@ import ognl.ClassResolver;
  */
 public class OgnlClassResolver implements ClassResolver {
 
-    private final Map<String, Class<?>> classes = new HashMap<String, Class<?>>(101);
+    private final Map<String, Class<?>> classes = new HashMap<>(101);
 
     @SuppressWarnings("rawtypes")
     @Override

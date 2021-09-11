@@ -31,8 +31,8 @@ public class TransactionalCache implements Cache {
     public TransactionalCache(Cache delegate) {
         this.delegate = delegate;
         this.clearOnCommit = false;
-        this.entriesToAddOnCommit = new HashMap<Object, Object>();
-        this.entriesMissedInCache = new HashSet<Object>();
+        this.entriesToAddOnCommit = new HashMap<>();
+        this.entriesMissedInCache = new HashSet<>();
     }
 
     @Override

@@ -17,7 +17,7 @@ import ognl.OgnlException;
  */
 public final class OgnlCache {
 
-    private static final Map<String, Object> expressionCache = new ConcurrentHashMap<String, Object>();
+    private static final Map<String, Object> expressionCache = new ConcurrentHashMap<>();
 
     private OgnlCache() {
         // Prevent Instantiation of Static Class

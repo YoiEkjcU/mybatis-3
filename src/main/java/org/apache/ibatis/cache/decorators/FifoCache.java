@@ -19,7 +19,7 @@ public class FifoCache implements Cache {
 
     public FifoCache(Cache delegate) {
         this.delegate = delegate;
-        this.keyList = new LinkedList<Object>();
+        this.keyList = new LinkedList<>();
         this.size = 1024;
     }
 

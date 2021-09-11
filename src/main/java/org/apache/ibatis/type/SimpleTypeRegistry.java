@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class SimpleTypeRegistry {
 
-    private static final Set<Class<?>> SIMPLE_TYPE_SET = new HashSet<Class<?>>();
+    private static final Set<Class<?>> SIMPLE_TYPE_SET = new HashSet<>();
 
     static {
         SIMPLE_TYPE_SET.add(String.class);

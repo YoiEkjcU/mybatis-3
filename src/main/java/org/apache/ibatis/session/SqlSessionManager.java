@@ -22,7 +22,7 @@ public class SqlSessionManager implements SqlSessionFactory, SqlSession {
     private final SqlSessionFactory sqlSessionFactory;
     private final SqlSession sqlSessionProxy;
 
-    private final ThreadLocal<SqlSession> localSqlSession = new ThreadLocal<SqlSession>();
+    private final ThreadLocal<SqlSession> localSqlSession = new ThreadLocal<>();
 
     private SqlSessionManager(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;

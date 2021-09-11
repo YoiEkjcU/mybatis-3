@@ -29,7 +29,7 @@ public class CacheKey implements Cloneable, Serializable {
         this.hashcode = DEFAULT_HASHCODE;
         this.multiplier = DEFAULT_MULTIPLYER;
         this.count = 0;
-        this.updateList = new ArrayList<Object>();
+        this.updateList = new ArrayList<>();
     }
 
     public CacheKey(Object[] objects) {
@@ -107,7 +107,7 @@ public class CacheKey implements Cloneable, Serializable {
     @Override
     public CacheKey clone() throws CloneNotSupportedException {
         CacheKey clonedCacheKey = (CacheKey) super.clone();
-        clonedCacheKey.updateList = new ArrayList<Object>(updateList);
+        clonedCacheKey.updateList = new ArrayList<>(updateList);
         return clonedCacheKey;
     }
 }

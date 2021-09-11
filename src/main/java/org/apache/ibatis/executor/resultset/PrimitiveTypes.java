@@ -8,8 +8,8 @@ public class PrimitiveTypes {
     private final Map<Class<?>, Class<?>> wrappersToPrimitives;
 
     public PrimitiveTypes() {
-        this.primitiveToWrappers = new HashMap<Class<?>, Class<?>>();
-        this.wrappersToPrimitives = new HashMap<Class<?>, Class<?>>();
+        this.primitiveToWrappers = new HashMap<>();
+        this.wrappersToPrimitives = new HashMap<>();
 
         add(boolean.class, Boolean.class);
         add(byte.class, Byte.class);

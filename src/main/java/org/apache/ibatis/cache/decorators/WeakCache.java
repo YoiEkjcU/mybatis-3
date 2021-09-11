@@ -22,8 +22,8 @@ public class WeakCache implements Cache {
     public WeakCache(Cache delegate) {
         this.delegate = delegate;
         this.numberOfHardLinks = 256;
-        this.hardLinksToAvoidGarbageCollection = new LinkedList<Object>();
-        this.queueOfGarbageCollectedEntries = new ReferenceQueue<Object>();
+        this.hardLinksToAvoidGarbageCollection = new LinkedList<>();
+        this.queueOfGarbageCollectedEntries = new ReferenceQueue<>();
     }
 
     @Override

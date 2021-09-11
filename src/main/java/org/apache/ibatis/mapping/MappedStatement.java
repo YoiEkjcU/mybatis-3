@@ -54,8 +54,8 @@ public final class MappedStatement {
             mappedStatement.id = id;
             mappedStatement.sqlSource = sqlSource;
             mappedStatement.statementType = StatementType.PREPARED;
-            mappedStatement.parameterMap = new ParameterMap.Builder(configuration, "defaultParameterMap", null, new ArrayList<ParameterMapping>()).build();
-            mappedStatement.resultMaps = new ArrayList<ResultMap>();
+            mappedStatement.parameterMap = new ParameterMap.Builder(configuration, "defaultParameterMap", null, new ArrayList<>()).build();
+            mappedStatement.resultMaps = new ArrayList<>();
             mappedStatement.sqlCommandType = sqlCommandType;
             mappedStatement.keyGenerator = configuration.isUseGeneratedKeys() && SqlCommandType.INSERT.equals(sqlCommandType) ? Jdbc3KeyGenerator.INSTANCE : NoKeyGenerator.INSTANCE;
             String logId = id;

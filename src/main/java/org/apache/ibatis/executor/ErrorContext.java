@@ -6,7 +6,7 @@ package org.apache.ibatis.executor;
 public class ErrorContext {
 
     private static final String LINE_SEPARATOR = System.getProperty("line.separator", "\n");
-    private static final ThreadLocal<ErrorContext> LOCAL = new ThreadLocal<ErrorContext>();
+    private static final ThreadLocal<ErrorContext> LOCAL = new ThreadLocal<>();
 
     private ErrorContext stored;
     private String resource;

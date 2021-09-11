@@ -34,7 +34,7 @@ public class CacheBuilder {
 
     public CacheBuilder(String id) {
         this.id = id;
-        this.decorators = new ArrayList<Class<? extends Cache>>();
+        this.decorators = new ArrayList<>();
     }
 
     public CacheBuilder implementation(Class<? extends Cache> implementation) {

@@ -94,7 +94,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
             }
         }
         if (parameters == null) {
-            parameters = new ArrayList<Object>();
+            parameters = new ArrayList<>();
             parameters.add(parameter);
         }
         return parameters;

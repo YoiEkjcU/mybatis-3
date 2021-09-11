@@ -15,7 +15,7 @@ public class DefaultResultHandler implements ResultHandler<Object> {
     private final List<Object> list;
 
     public DefaultResultHandler() {
-        list = new ArrayList<Object>();
+        list = new ArrayList<>();
     }
 
     @SuppressWarnings("unchecked")

@@ -33,7 +33,7 @@ public class SqlSourceBuilder extends BaseBuilder {
 
     private static class ParameterMappingTokenHandler extends BaseBuilder implements TokenHandler {
 
-        private List<ParameterMapping> parameterMappings = new ArrayList<ParameterMapping>();
+        private List<ParameterMapping> parameterMappings = new ArrayList<>();
         private Class<?> parameterType;
         private MetaObject metaParameters;
 

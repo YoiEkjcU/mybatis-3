@@ -270,7 +270,7 @@ public class XNode {
     }
 
     public List<XNode> getChildren() {
-        List<XNode> children = new ArrayList<XNode>();
+        List<XNode> children = new ArrayList<>();
         NodeList nodeList = node.getChildNodes();
         if (nodeList != null) {
             for (int i = 0, n = nodeList.getLength(); i < n; i++) {

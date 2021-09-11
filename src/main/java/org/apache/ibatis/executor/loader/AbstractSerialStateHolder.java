@@ -26,7 +26,7 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final ThreadLocal<ObjectOutputStream> stream = new ThreadLocal<ObjectOutputStream>();
+    private static final ThreadLocal<ObjectOutputStream> stream = new ThreadLocal<>();
     private byte[] userBeanBytes = new byte[0];
     private Object userBean;
     private Map<String, ResultLoaderMap.LoadPair> unloadedProperties;
@@ -39,7 +39,7 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
 
     public AbstractSerialStateHolder(final Object userBean, final Map<String, ResultLoaderMap.LoadPair> unloadedProperties, final ObjectFactory objectFactory, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
         this.userBean = userBean;
-        this.unloadedProperties = new HashMap<String, ResultLoaderMap.LoadPair>(unloadedProperties);
+        this.unloadedProperties = new HashMap<>(unloadedProperties);
         this.objectFactory = objectFactory;
         this.constructorArgTypes = constructorArgTypes.toArray(new Class<?>[constructorArgTypes.size()]);
         this.constructorArgs = constructorArgs.toArray(new Object[constructorArgs.size()]);
@@ -101,7 +101,7 @@ public abstract class AbstractSerialStateHolder implements Externalizable {
             throw (ObjectStreamException) new InvalidClassException(ex.getLocalizedMessage()).initCause(ex);
         }
 
-        final Map<String, ResultLoaderMap.LoadPair> arrayProps = new HashMap<String, ResultLoaderMap.LoadPair>(this.unloadedProperties);
+        final Map<String, ResultLoaderMap.LoadPair> arrayProps = new HashMap<>(this.unloadedProperties);
         final List<Class<?>> arrayTypes = Arrays.asList(this.constructorArgTypes);
         final List<Object> arrayValues = Arrays.asList(this.constructorArgs);
 

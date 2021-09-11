@@ -106,7 +106,7 @@ public class XMLIncludeTransformer {
                 // Replace variables inside
                 String value = PropertyParser.parse(getStringAttribute(n, "value"), inheritedVariablesContext);
                 if (declaredProperties == null) {
-                    declaredProperties = new HashMap<String, String>();
+                    declaredProperties = new HashMap<>();
                 }
                 if (declaredProperties.put(name, value) != null) {
                     throw new BuilderException("Variable " + name + " defined twice in the same include definition");

@@ -32,7 +32,7 @@ import org.apache.ibatis.session.RowBounds;
  */
 public class ResultLoaderMap {
 
-    private final Map<String, LoadPair> loaderMap = new HashMap<String, LoadPair>();
+    private final Map<String, LoadPair> loaderMap = new HashMap<>();
 
     public void addLoader(String property, MetaObject metaResultObject, ResultLoader resultLoader) {
         String upperFirst = getUppercaseFirstProperty(property);
@@ -44,7 +44,7 @@ public class ResultLoaderMap {
     }
 
     public final Map<String, LoadPair> getProperties() {
-        return new HashMap<String, LoadPair>(this.loaderMap);
+        return new HashMap<>(this.loaderMap);
     }
 
     public Set<String> getPropertyNames() {
@@ -209,7 +209,7 @@ public class ResultLoaderMap {
                 }
 
                 if (!factoryMethod.isAccessible()) {
-                    configurationObject = AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
+                    configurationObject = AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
                         @Override
                         public Object run() throws Exception {
                             try {

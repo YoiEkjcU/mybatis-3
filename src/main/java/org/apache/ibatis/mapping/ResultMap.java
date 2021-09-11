@@ -70,12 +70,12 @@ public class ResultMap {
             if (resultMap.id == null) {
                 throw new IllegalArgumentException("ResultMaps must have an id");
             }
-            resultMap.mappedColumns = new HashSet<String>();
-            resultMap.mappedProperties = new HashSet<String>();
-            resultMap.idResultMappings = new ArrayList<ResultMapping>();
-            resultMap.constructorResultMappings = new ArrayList<ResultMapping>();
-            resultMap.propertyResultMappings = new ArrayList<ResultMapping>();
-            final List<String> constructorArgNames = new ArrayList<String>();
+            resultMap.mappedColumns = new HashSet<>();
+            resultMap.mappedProperties = new HashSet<>();
+            resultMap.idResultMappings = new ArrayList<>();
+            resultMap.constructorResultMappings = new ArrayList<>();
+            resultMap.propertyResultMappings = new ArrayList<>();
+            final List<String> constructorArgNames = new ArrayList<>();
             for (ResultMapping resultMapping : resultMap.resultMappings) {
                 resultMap.hasNestedQueries = resultMap.hasNestedQueries || resultMapping.getNestedQueryId() != null;
                 resultMap.hasNestedResultMaps = resultMap.hasNestedResultMaps || (resultMapping.getNestedResultMapId() != null && resultMapping.getResultSet() == null);
@@ -114,13 +114,11 @@ public class ResultMap {
                 if (actualArgNames == null) {
                     throw new BuilderException("Error in result map '" + resultMap.id + "'. Failed to find a constructor in '" + resultMap.getType().getName() + "' by arg names " + constructorArgNames + ". There might be more info in debug log.");
                 }
-                Collections.sort(resultMap.constructorResultMappings, new Comparator<ResultMapping>() {
-                    @Override
-                    public int compare(ResultMapping o1, ResultMapping o2) {
-                        int paramIdx1 = actualArgNames.indexOf(o1.getProperty());
-                        int paramIdx2 = actualArgNames.indexOf(o2.getProperty());
-                        return paramIdx1 - paramIdx2;
-                    }
+
+                Collections.sort(resultMap.constructorResultMappings, (o1, o2) -> {
+                    int paramIdx1 = actualArgNames.indexOf(o1.getProperty());
+                    int paramIdx2 = actualArgNames.indexOf(o2.getProperty());
+                    return paramIdx1 - paramIdx2;
                 });
             }
             // lock down collections
@@ -152,8 +150,7 @@ public class ResultMap {
                 Class<?> specifiedType = resultMap.constructorResultMappings.get(i).getJavaType();
                 if (!actualType.equals(specifiedType)) {
                     if (log.isDebugEnabled()) {
-                        log.debug("While building result map '" + resultMap.id + "', found a constructor with arg names " + constructorArgNames + ", but the type of '" + constructorArgNames.get(i) + "' did not match. Specified: [" + specifiedType.getName()
-                                + "] Declared: [" + actualType.getName() + "]");
+                        log.debug("While building result map '" + resultMap.id + "', found a constructor with arg names " + constructorArgNames + ", but the type of '" + constructorArgNames.get(i) + "' did not match. Specified: [" + specifiedType.getName() + "] Declared: [" + actualType.getName() + "]");
                     }
                     return false;
                 }
@@ -162,7 +159,7 @@ public class ResultMap {
         }
 
         private List<String> getArgNames(Constructor<?> constructor) {
-            List<String> paramNames = new ArrayList<String>();
+            List<String> paramNames = new ArrayList<>();
             List<String> actualParamNames = null;
             final Annotation[][] paramAnnotations = constructor.getParameterAnnotations();
             int paramCount = paramAnnotations.length;

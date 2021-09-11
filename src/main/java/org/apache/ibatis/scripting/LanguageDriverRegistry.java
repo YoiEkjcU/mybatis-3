@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class LanguageDriverRegistry {
 
-    private final Map<Class<?>, LanguageDriver> LANGUAGE_DRIVER_MAP = new HashMap<Class<?>, LanguageDriver>();
+    private final Map<Class<?>, LanguageDriver> LANGUAGE_DRIVER_MAP = new HashMap<>();
 
     private Class<?> defaultDriverClass;
 
