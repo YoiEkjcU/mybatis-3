@@ -14,7 +14,7 @@ public class SysDept implements Serializable {
     private Long deptId;
     private Long pid;
     private List<Long> pids;
-    private String simple_name;
+    private String simpleName;
     private String fullName;
     private String description;
     private Integer version;
@@ -48,12 +48,12 @@ public class SysDept implements Serializable {
         this.pids = pids;
     }
 
-    public String getSimple_name() {
-        return simple_name;
+    public String getSimpleName() {
+        return simpleName;
     }
 
-    public void setSimple_name(String simple_name) {
-        this.simple_name = simple_name;
+    public void setSimpleName(String simpleName) {
+        this.simpleName = simpleName;
     }
 
     public String getFullName() {
