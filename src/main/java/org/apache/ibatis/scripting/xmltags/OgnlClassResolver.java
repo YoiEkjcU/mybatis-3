@@ -21,7 +21,7 @@ public class OgnlClassResolver implements ClassResolver {
     @SuppressWarnings("rawtypes")
     @Override
     public Class classForName(String className, Map context) throws ClassNotFoundException {
-        Class<?> result = null;
+        Class<?> result;
         if ((result = classes.get(className)) == null) {
             try {
                 result = Resources.classForName(className);

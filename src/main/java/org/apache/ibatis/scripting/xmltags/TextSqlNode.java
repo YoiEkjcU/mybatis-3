@@ -43,8 +43,8 @@ public class TextSqlNode implements SqlNode {
 
     private static class BindingTokenParser implements TokenHandler {
 
-        private DynamicContext context;
-        private Pattern injectionFilter;
+        private final DynamicContext context;
+        private final Pattern injectionFilter;
 
         public BindingTokenParser(DynamicContext context, Pattern injectionFilter) {
             this.context = context;
@@ -90,5 +90,4 @@ public class TextSqlNode implements SqlNode {
             return null;
         }
     }
-
 }

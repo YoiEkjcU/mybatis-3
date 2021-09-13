@@ -4,7 +4,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -43,7 +42,7 @@ public class ResultMap {
     public static class Builder {
         private static final Log log = LogFactory.getLog(Builder.class);
 
-        private ResultMap resultMap = new ResultMap();
+        private final ResultMap resultMap = new ResultMap();
 
         public Builder(Configuration configuration, String id, Class<?> type, List<ResultMapping> resultMappings) {
             this(configuration, id, type, resultMappings, null);
@@ -115,7 +114,7 @@ public class ResultMap {
                     throw new BuilderException("Error in result map '" + resultMap.id + "'. Failed to find a constructor in '" + resultMap.getType().getName() + "' by arg names " + constructorArgNames + ". There might be more info in debug log.");
                 }
 
-                Collections.sort(resultMap.constructorResultMappings, (o1, o2) -> {
+                resultMap.constructorResultMappings.sort((o1, o2) -> {
                     int paramIdx1 = actualArgNames.indexOf(o1.getProperty());
                     int paramIdx2 = actualArgNames.indexOf(o2.getProperty());
                     return paramIdx1 - paramIdx2;

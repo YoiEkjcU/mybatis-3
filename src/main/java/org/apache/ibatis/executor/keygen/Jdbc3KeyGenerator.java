@@ -44,9 +44,7 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
     }
 
     public void processBatch(MappedStatement ms, Statement stmt, Collection<?> parameters) {
-        ResultSet rs = null;
-        try {
-            rs = stmt.getGeneratedKeys();
+        try (ResultSet rs = stmt.getGeneratedKeys()) {
             final Configuration configuration = ms.getConfiguration();
             final TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
             final String[] keyProperties = ms.getKeyProperties();
@@ -67,14 +65,6 @@ public class Jdbc3KeyGenerator implements KeyGenerator {
             }
         } catch (Exception e) {
             throw new ExecutorException("Error getting generated key or setting result to parameter object. Cause: " + e, e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (Exception e) {
-                    // ignore
-                }
-            }
         }
     }
 

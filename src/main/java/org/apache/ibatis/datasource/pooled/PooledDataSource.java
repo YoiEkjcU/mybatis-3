@@ -480,7 +480,7 @@ public class PooledDataSource implements DataSource {
      * @return True if the connection is still usable
      */
     protected boolean pingConnection(PooledConnection conn) {
-        boolean result = true;
+        boolean result;
 
         try {
             result = !conn.getRealConnection().isClosed();

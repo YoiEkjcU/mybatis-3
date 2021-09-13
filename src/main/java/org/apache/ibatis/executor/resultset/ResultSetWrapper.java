@@ -121,7 +121,7 @@ public class ResultSetWrapper {
         return null;
     }
 
-    private void loadMappedAndUnmappedColumnNames(ResultMap resultMap, String columnPrefix) throws SQLException {
+    private void loadMappedAndUnmappedColumnNames(ResultMap resultMap, String columnPrefix) {
         List<String> mappedColumnNames = new ArrayList<>();
         List<String> unmappedColumnNames = new ArrayList<>();
         final String upperColumnPrefix = columnPrefix == null ? null : columnPrefix.toUpperCase(Locale.ENGLISH);
@@ -138,7 +138,7 @@ public class ResultSetWrapper {
         unMappedColumnNamesMap.put(getMapKey(resultMap, columnPrefix), unmappedColumnNames);
     }
 
-    public List<String> getMappedColumnNames(ResultMap resultMap, String columnPrefix) throws SQLException {
+    public List<String> getMappedColumnNames(ResultMap resultMap, String columnPrefix) {
         List<String> mappedColumnNames = mappedColumnNamesMap.get(getMapKey(resultMap, columnPrefix));
         if (mappedColumnNames == null) {
             loadMappedAndUnmappedColumnNames(resultMap, columnPrefix);
@@ -147,7 +147,7 @@ public class ResultSetWrapper {
         return mappedColumnNames;
     }
 
-    public List<String> getUnmappedColumnNames(ResultMap resultMap, String columnPrefix) throws SQLException {
+    public List<String> getUnmappedColumnNames(ResultMap resultMap, String columnPrefix) {
         List<String> unMappedColumnNames = unMappedColumnNamesMap.get(getMapKey(resultMap, columnPrefix));
         if (unMappedColumnNames == null) {
             loadMappedAndUnmappedColumnNames(resultMap, columnPrefix);

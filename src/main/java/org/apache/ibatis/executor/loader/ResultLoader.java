@@ -63,7 +63,7 @@ public class ResultLoader {
             localExecutor = newExecutor();
         }
         try {
-            return localExecutor.<E>query(mappedStatement, parameterObject, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER, cacheKey, boundSql);
+            return localExecutor.query(mappedStatement, parameterObject, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER, cacheKey, boundSql);
         } finally {
             if (localExecutor != executor) {
                 localExecutor.close(false);

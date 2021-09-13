@@ -66,7 +66,7 @@ public class DefaultObjectFactory implements ObjectFactory, Serializable {
             StringBuilder argValues = new StringBuilder();
             if (constructorArgs != null && !constructorArgs.isEmpty()) {
                 for (Object argValue : constructorArgs) {
-                    argValues.append(String.valueOf(argValue));
+                    argValues.append(argValue);
                     argValues.append(",");
                 }
                 argValues.deleteCharAt(argValues.length() - 1); // remove trailing ,

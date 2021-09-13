@@ -117,9 +117,9 @@ public class MapperMethod {
         Object param = method.convertArgsToSqlCommandParam(args);
         if (method.hasRowBounds()) {
             RowBounds rowBounds = method.extractRowBounds(args);
-            result = sqlSession.<E>selectList(command.getName(), param, rowBounds);
+            result = sqlSession.selectList(command.getName(), param, rowBounds);
         } else {
-            result = sqlSession.<E>selectList(command.getName(), param);
+            result = sqlSession.selectList(command.getName(), param);
         }
         // issue #510 Collections & arrays support
         if (!method.getReturnType().isAssignableFrom(result.getClass())) {
@@ -137,9 +137,9 @@ public class MapperMethod {
         Object param = method.convertArgsToSqlCommandParam(args);
         if (method.hasRowBounds()) {
             RowBounds rowBounds = method.extractRowBounds(args);
-            result = sqlSession.<T>selectCursor(command.getName(), param, rowBounds);
+            result = sqlSession.selectCursor(command.getName(), param, rowBounds);
         } else {
-            result = sqlSession.<T>selectCursor(command.getName(), param);
+            result = sqlSession.selectCursor(command.getName(), param);
         }
         return result;
     }
@@ -170,9 +170,9 @@ public class MapperMethod {
         Object param = method.convertArgsToSqlCommandParam(args);
         if (method.hasRowBounds()) {
             RowBounds rowBounds = method.extractRowBounds(args);
-            result = sqlSession.<K, V>selectMap(command.getName(), param, method.getMapKey(), rowBounds);
+            result = sqlSession.selectMap(command.getName(), param, method.getMapKey(), rowBounds);
         } else {
-            result = sqlSession.<K, V>selectMap(command.getName(), param, method.getMapKey());
+            result = sqlSession.selectMap(command.getName(), param, method.getMapKey());
         }
         return result;
     }

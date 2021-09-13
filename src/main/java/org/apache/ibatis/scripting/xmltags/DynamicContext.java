@@ -63,7 +63,7 @@ public class DynamicContext {
 
         private static final long serialVersionUID = 1L;
 
-        private MetaObject parameterMetaObject;
+        private final MetaObject parameterMetaObject;
 
         public ContextMap(MetaObject parameterMetaObject) {
             this.parameterMetaObject = parameterMetaObject;
@@ -105,7 +105,7 @@ public class DynamicContext {
             return null;
         }
 
-        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @SuppressWarnings({ "unchecked" })
         @Override
         public void setProperty(Map context, Object target, Object name, Object value) throws OgnlException {
             Map<Object, Object> map = (Map<Object, Object>) target;

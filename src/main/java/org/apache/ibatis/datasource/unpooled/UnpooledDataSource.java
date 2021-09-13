@@ -24,7 +24,7 @@ public class UnpooledDataSource implements DataSource {
 
     private ClassLoader driverClassLoader;
     private Properties driverProperties;
-    private static Map<String, Driver> registeredDrivers = new ConcurrentHashMap<>();
+    private static final Map<String, Driver> registeredDrivers = new ConcurrentHashMap<>();
 
     private String driver;
     private String url;
@@ -218,7 +218,7 @@ public class UnpooledDataSource implements DataSource {
     }
 
     private static class DriverProxy implements Driver {
-        private Driver driver;
+        private final Driver driver;
 
         DriverProxy(Driver d) {
             this.driver = d;

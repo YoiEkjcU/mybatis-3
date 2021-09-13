@@ -59,7 +59,7 @@ public class ResolverUtil<T> {
      * A Test that checks to see if each class is assignable to the provided class. Note that this test will match the parent type itself if it is presented for matching.
      */
     public static class IsA implements Test {
-        private Class<?> parent;
+        private final Class<?> parent;
 
         /** Constructs an IsA test using the supplied Class as the parent class/interface. */
         public IsA(Class<?> parentType) {
@@ -82,7 +82,7 @@ public class ResolverUtil<T> {
      * A Test that checks to see if each class is annotated with a specific annotation. If it is, then the test returns true, otherwise false.
      */
     public static class AnnotatedWith implements Test {
-        private Class<? extends Annotation> annotation;
+        private final Class<? extends Annotation> annotation;
 
         /** Constructs an AnnotatedWith test for the specified annotation type. */
         public AnnotatedWith(Class<? extends Annotation> annotation) {
@@ -102,7 +102,7 @@ public class ResolverUtil<T> {
     }
 
     /** The set of matches being accumulated. */
-    private Set<Class<? extends T>> matches = new HashSet<>();
+    private final Set<Class<? extends T>> matches = new HashSet<>();
 
     /**
      * The ClassLoader to use when looking for classes. If null then the ClassLoader returned by Thread.currentThread().getContextClassLoader() will be used.

@@ -221,7 +221,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         }
     }
 
-    private void settingsElement(Properties props) throws Exception {
+    private void settingsElement(Properties props) {
         configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
         configuration.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.valueOf(props.getProperty("autoMappingUnknownColumnBehavior", "NONE")));
         configuration.setCacheEnabled(booleanValueOf(props.getProperty("cacheEnabled"), true));
@@ -313,7 +313,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         throw new BuilderException("Environment declaration requires a DataSourceFactory.");
     }
 
-    private void typeHandlerElement(XNode parent) throws Exception {
+    private void typeHandlerElement(XNode parent) {
         if (parent != null) {
             for (XNode child : parent.getChildren()) {
                 if ("package".equals(child.getName())) {
@@ -374,11 +374,10 @@ public class XMLConfigBuilder extends BaseBuilder {
     private boolean isSpecifiedEnvironment(String id) {
         if (environment == null) {
             throw new BuilderException("No environment specified.");
-        } else if (id == null) {
-            throw new BuilderException("Environment requires an id attribute.");
-        } else if (environment.equals(id)) {
-            return true;
         }
-        return false;
+        if (id == null) {
+            throw new BuilderException("Environment requires an id attribute.");
+        }
+        return environment.equals(id);
     }
 }

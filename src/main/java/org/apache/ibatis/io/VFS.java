@@ -44,10 +44,7 @@ public abstract class VFS {
                             log.debug("VFS implementation " + impl.getName() + " is not valid in this environment.");
                         }
                     }
-                } catch (InstantiationException e) {
-                    log.error("Failed to instantiate " + impl, e);
-                    return null;
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     log.error("Failed to instantiate " + impl, e);
                     return null;
                 }
@@ -128,9 +125,7 @@ public abstract class VFS {
     protected static <T> T invoke(Method method, Object object, Object... parameters) throws IOException, RuntimeException {
         try {
             return (T) method.invoke(object, parameters);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (IllegalArgumentException | IllegalAccessException e) {
             throw new RuntimeException(e);
         } catch (InvocationTargetException e) {
             if (e.getTargetException() instanceof IOException) {

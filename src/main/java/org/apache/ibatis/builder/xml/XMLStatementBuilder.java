@@ -151,9 +151,7 @@ public class XMLStatementBuilder extends BaseBuilder {
 
     private boolean databaseIdMatchesCurrent(String id, String databaseId, String requiredDatabaseId) {
         if (requiredDatabaseId != null) {
-            if (!requiredDatabaseId.equals(databaseId)) {
-                return false;
-            }
+            return requiredDatabaseId.equals(databaseId);
         } else {
             if (databaseId != null) {
                 return false;
@@ -162,9 +160,7 @@ public class XMLStatementBuilder extends BaseBuilder {
             id = builderAssistant.applyCurrentNamespace(id, false);
             if (this.configuration.hasStatement(id, false)) {
                 MappedStatement previous = this.configuration.getMappedStatement(id, false); // issue #2
-                if (previous.getDatabaseId() != null) {
-                    return false;
-                }
+                return previous.getDatabaseId() == null;
             }
         }
         return true;

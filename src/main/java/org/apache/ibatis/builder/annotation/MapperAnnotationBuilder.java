@@ -252,7 +252,7 @@ public class MapperAnnotationBuilder {
             String column = discriminator.column();
             Class<?> javaType = discriminator.javaType() == void.class ? String.class : discriminator.javaType();
             JdbcType jdbcType = discriminator.jdbcType() == JdbcType.UNDEFINED ? null : discriminator.jdbcType();
-            Class<? extends TypeHandler<?>> typeHandler = (Class<? extends TypeHandler<?>>) (discriminator.typeHandler() == UnknownTypeHandler.class ? null : discriminator.typeHandler());
+            Class<? extends TypeHandler<?>> typeHandler = discriminator.typeHandler() == UnknownTypeHandler.class ? null : discriminator.typeHandler();
             Case[] cases = discriminator.cases();
             Map<String, String> discriminatorMap = new HashMap<>();
             for (Case c : cases) {
@@ -496,7 +496,7 @@ public class MapperAnnotationBuilder {
             if (result.id()) {
                 flags.add(ResultFlag.ID);
             }
-            Class<? extends TypeHandler<?>> typeHandler = (Class<? extends TypeHandler<?>>) ((result.typeHandler() == UnknownTypeHandler.class) ? null : result.typeHandler());
+            Class<? extends TypeHandler<?>> typeHandler = (result.typeHandler() == UnknownTypeHandler.class) ? null : result.typeHandler();
             ResultMapping resultMapping = assistant.buildResultMapping(resultType, nullOrEmpty(result.property()), nullOrEmpty(result.column()), result.javaType() == void.class ? null : result.javaType(),
                     result.jdbcType() == JdbcType.UNDEFINED ? null : result.jdbcType(), hasNestedSelect(result) ? nestedSelectId(result) : null, null, null, null, typeHandler, flags, null, null, isLazy(result));
             resultMappings.add(resultMapping);
@@ -538,7 +538,7 @@ public class MapperAnnotationBuilder {
             if (arg.id()) {
                 flags.add(ResultFlag.ID);
             }
-            Class<? extends TypeHandler<?>> typeHandler = (Class<? extends TypeHandler<?>>) (arg.typeHandler() == UnknownTypeHandler.class ? null : arg.typeHandler());
+            Class<? extends TypeHandler<?>> typeHandler = arg.typeHandler() == UnknownTypeHandler.class ? null : arg.typeHandler();
             ResultMapping resultMapping = assistant.buildResultMapping(resultType, nullOrEmpty(arg.name()), nullOrEmpty(arg.column()), arg.javaType() == void.class ? null : arg.javaType(), arg.jdbcType() == JdbcType.UNDEFINED ? null : arg.jdbcType(),
                     nullOrEmpty(arg.select()), nullOrEmpty(arg.resultMap()), null, null, typeHandler, flags, null, null, false);
             resultMappings.add(resultMapping);

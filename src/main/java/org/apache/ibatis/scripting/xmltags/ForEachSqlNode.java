@@ -135,15 +135,15 @@ public class ForEachSqlNode implements SqlNode {
 
         @Override
         public void appendSql(String sql) {
-            GenericTokenParser parser = new GenericTokenParser("#{", "}", new TokenHandler() {
-                @Override
-                public String handleToken(String content) {
-                    String newContent = content.replaceFirst("^\\s*" + item + "(?![^.,:\\s])", itemizeItem(item, index));
-                    if (itemIndex != null && newContent.equals(content)) {
-                        newContent = content.replaceFirst("^\\s*" + itemIndex + "(?![^.,:\\s])", itemizeItem(itemIndex, index));
-                    }
-                    return new StringBuilder("#{").append(newContent).append("}").toString();
+            GenericTokenParser parser = new GenericTokenParser("#{", "}", content -> {
+                String newContent = content.replaceFirst("^\\s*" + item + "(?![^.,:\\s])", itemizeItem(item, index));
+                if (itemIndex != null && newContent.equals(content)) {
+                    newContent = content.replaceFirst("^\\s*" + itemIndex + "(?![^.,:\\s])", itemizeItem(itemIndex, index));
                 }
+                return new StringBuilder("#{")//
+                        .append(newContent)//
+                        .append("}")//
+                        .toString();
             });
 
             delegate.appendSql(parser.parse(sql));

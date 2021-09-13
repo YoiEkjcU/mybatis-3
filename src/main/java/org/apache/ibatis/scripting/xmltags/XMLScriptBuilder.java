@@ -49,7 +49,7 @@ public class XMLScriptBuilder extends BaseBuilder {
 
     public SqlSource parseScriptNode() {
         MixedSqlNode rootSqlNode = parseDynamicTags(context);
-        SqlSource sqlSource = null;
+        SqlSource sqlSource;
         if (isDynamic) {
             sqlSource = new DynamicSqlSource(configuration, rootSqlNode);
         } else {

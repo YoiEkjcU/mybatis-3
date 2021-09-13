@@ -232,7 +232,7 @@ public class XMLMapperBuilder extends BaseBuilder {
     }
 
     private ResultMap resultMapElement(XNode resultMapNode) throws Exception {
-        return resultMapElement(resultMapNode, Collections.<ResultMapping>emptyList());
+        return resultMapElement(resultMapNode, Collections.emptyList());
     }
 
     private ResultMap resultMapElement(XNode resultMapNode, List<ResultMapping> additionalResultMappings) throws Exception {
@@ -347,7 +347,7 @@ public class XMLMapperBuilder extends BaseBuilder {
         String javaType = context.getStringAttribute("javaType");
         String jdbcType = context.getStringAttribute("jdbcType");
         String nestedSelect = context.getStringAttribute("select");
-        String nestedResultMap = context.getStringAttribute("resultMap", processNestedResultMappings(context, Collections.<ResultMapping>emptyList()));
+        String nestedResultMap = context.getStringAttribute("resultMap", processNestedResultMappings(context, Collections.emptyList()));
         String notNullColumn = context.getStringAttribute("notNullColumn");
         String columnPrefix = context.getStringAttribute("columnPrefix");
         String typeHandler = context.getStringAttribute("typeHandler");

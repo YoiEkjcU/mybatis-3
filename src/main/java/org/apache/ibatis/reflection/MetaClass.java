@@ -111,8 +111,7 @@ public class MetaClass {
                 Field field = (Field) _field.get(invoker);
                 return TypeParameterResolver.resolveFieldType(field, reflector.getType());
             }
-        } catch (NoSuchFieldException e) {
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException ignored) {
         }
         return null;
     }
