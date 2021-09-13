@@ -209,7 +209,7 @@ public class ResultLoaderMap {
                 }
 
                 if (!factoryMethod.isAccessible()) {
-                    configurationObject = AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
+                    configurationObject = AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
                         @Override
                         public Object run() throws Exception {
                             try {
